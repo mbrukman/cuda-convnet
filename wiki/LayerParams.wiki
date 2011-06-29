@@ -88,4 +88,56 @@ channels=32
 
 A few new parameters here:
   * *poo=max* indicates that this is to be a max-pooling layer. Also supported is *pool=avg*.
-  *
+  * *inputs=conv32* indicates that this layer subsamples the layer named *conv32*.
+  * *start=0* tells the net where in the image to start the pooling. In principle, you can start anywhere you want. Setting this to a positive number will cause the net to discard some pixels at the top and at the left of the image. Setting this to a negative number will cause it to include pixels that don't exist (which is fine). *start=0* is the usual setting.
+  * *subsX=4* defines the size of the pooling region in the x (equivalently, y) dimension. Squares of size (subsX)^2^ get reduced to 1 value by this layer.
+  * *stride=2* defines the stride size between successive pooling squares. Setting this parameter smaller than subsX produces *overlapping* pools. Setting it equal to subsX gives the usual, non-overlapping pooling.
+  * *outputsX=0* allows you to control how many outputs in the x (equivalently, y) dimension this operation should have. This parameter is analogous to the *start* parameter, in that it allows you to discard some portion of the image by setting it to a value small enough to leave part of the image uncovered. Setting it to 0 instructs the net to produce as many outputs as is necessary to ensure that the whole image is covered.
+
+OK, let's add one more convolutional layer over the pooling layer:
+
+{{{
+[conv32-2]
+type=conv
+inputs=maxpool
+numFilters=32
+padding=2
+stride=1
+filterSize=5
+channels=32
+neuron=relu
+initW=0.0001
+partialSum=1
+}}}
+
+Nothing new here. Notice that this convolutional layer has 32 channels, because the *conv32* layer (and hence the *maxpool* layer) produces images with 32 channels.
+
+Now let's connect this convolutional layer and the fully-connected layer defined long ago to a softmax output:
+{{{
+[fc10]
+type=fc
+numOutputs=10
+inputs=conv32-2,fc1024
+initW=0.001
+neuron=ident
+
+[probs]
+type=softmax
+inputs=fc10
+}}}
+
+The main point of this example is to illustrate that a fully-connected layer can take multiple inputs. Here *fc10* is taking input from *conv32-2* and *fc1024*, and produces 10 outputs.
+
+The next definition is a softmax layer that, as you might expect, applies a softmax to the 10 outputs produced by the *fc10* layer.
+
+Finally, let's define an objective function for the net to optimize:
+
+{{{
+[logprob]
+type=cost.logreg
+inputs=labels,probs
+}}}
+
+The *cost.logreg* objective takes two inputs -- labels and predicted probabilities. We defined the *labels* layer early on, and the *probs* layer just above.
+
+That's it! The convolutional net is defined.
