@@ -1,0 +1,91 @@
+#summary Describes format of layer definition and parameter files.
+
+= Introduction =
+
+To define the architecture of your neural net, you must write a layer definition file. Here I will go through the format of the file and the parameters that the different layers take.
+
+
+= File format =
+
+Let's start with an example. The very first thing we'll define is a data layer:
+
+{{{
+[data]
+type=data
+dataIdx=0
+
+[labels]
+type=data
+dataIdx=1
+
+# By the way, this is a comment.
+}}}
+
+The things in square brackets are user-friendly layer names, and they can be whatever you want them to be. Here we're really defining two layers: one we're calling "data" and the other we're calling "labels". 
+
+The *type=data* line indicates that this is a data layer. Our python DataProvider (CIFARDataProvider) outputs a list of two elements: the CIFAR-10 images and the CIFAR-10 labels. 
+
+The line *dataIdx=0* indicates that the layer named *data* is mapped to the CIFAR-10 images (and the layer named *labels* is mapped to the CIFAR-10 labels).
+
+Now let's apply a convolution to this data.
+
+{{{
+[conv32]
+type=conv
+inputs=data
+channels=3
+numFilters=32
+padding=4
+stride=1
+filterSize=9
+neuron=logistic
+initW=0.00001
+partialSum=1
+}}}
+
+Again, the bracketed conv32 is the name we're choosing to give to this layer.
+
+Here's what the other parameters mean:
+  * *type=conv* defines this as a convolution layer
+  * *inputs=data* says that this layer will take as input the layer named *data* (defined above)
+  * *channels=3* tells the net that the layer named *data* produces 3-channel images (i.e. color images). Since the images are assumed to be square, that is all that you have to tell it about the data dimensionality.
+  * *numFilters=32* says that this layer will apply 32 filters to the images.
+  * *padding=4* instructs the net to implicitly pad the images with a 4-pixel border of zeros (this does not cause it to create a copy of the data or use any extra memory). Set to 0 if you don't want padding.
+  * *stride=1* indicates that the distance between successive filter applications should be 1 pixel.
+  * *filterSize=9* says that this layer will use filters of size 9x9 pixels.
+  * *neuron=logistic* defines the neuron nonlinearity. See NeuronTypes for supported types.
+  * *initW=0.00001* instructs the net to initialize the weights in this layer from a normal distribution with standard deviation 0.00001.
+  * *partialSum=1* is a very important parameter if you care about performance. Keep it at 1 for maximum performance at the expense of memory consumption. Set it to higher numbers (up to the number of outputs that your convolution produces) to gradually trade memory consumption for performance. Setting it to 0 is equivalent to setting it to the highest (i.e. slowest, but least memory-hungry) number possible. In most scenarios there should be no problem to keep this parameter at 1. To give you an idea of what effect it will have on memory consumption: the amount of extra memory used will be:
+<pre>
+  (number of weights in this layer)x(number of outputs this layer produces) / partialSum.
+</pre>
+
+For kicks, let's add a fully-connected layer over the data too:
+{{{
+[fc1024]
+type=fc
+numOutputs=1024
+inputs=data
+initW=0.001
+neuron=relu
+}}}
+
+The only parameter here that I have not already described above is *numOutputs=1024*. It does what you would expect -- it indicates that this layer should have 1024 units.
+
+Back to convolution now, let's add a max-pooling layer over our convolution layer.
+
+{{{
+[maxpool]
+type=pool
+pool=max
+inputs=conv32
+start=0
+subsX=4
+stride=2
+outputsX=0
+channels=32
+}}}
+
+A few new parameters here:
+  * *poo=max* indicates that this is to be a max-pooling layer. Also supported is *pool=avg*.
+  *
