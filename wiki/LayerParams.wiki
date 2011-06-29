@@ -56,9 +56,7 @@ Here's what the other parameters mean:
   * *neuron=logistic* defines the neuron nonlinearity. See NeuronTypes for supported types.
   * *initW=0.00001* instructs the net to initialize the weights in this layer from a normal distribution with standard deviation 0.00001.
   * *partialSum=1* is a very important parameter if you care about performance. Keep it at 1 for maximum performance at the expense of memory consumption. Set it to higher numbers (up to the number of outputs that your convolution produces) to gradually trade memory consumption for performance. Setting it to 0 is equivalent to setting it to the highest (i.e. slowest, but least memory-hungry) number possible. In most scenarios there should be no problem to keep this parameter at 1. To give you an idea of what effect it will have on memory consumption: the amount of extra memory used will be:
-<pre>
-  (number of weights in this layer)x(number of outputs this layer produces) / partialSum.
-</pre>
+  `(number of weights in this layer)x(number of outputs this layer produces) / partialSum.`
 
 For kicks, let's add a fully-connected layer over the data too:
 {{{
@@ -87,11 +85,11 @@ channels=32
 }}}
 
 A few new parameters here:
-  * *poo=max* indicates that this is to be a max-pooling layer. Also supported is *pool=avg*.
+  * *pool=max* indicates that this is to be a max-pooling layer. Also supported is *pool=avg*.
   * *inputs=conv32* indicates that this layer subsamples the layer named *conv32*.
   * *start=0* tells the net where in the image to start the pooling. In principle, you can start anywhere you want. Setting this to a positive number will cause the net to discard some pixels at the top and at the left of the image. Setting this to a negative number will cause it to include pixels that don't exist (which is fine). *start=0* is the usual setting.
-  * *subsX=4* defines the size of the pooling region in the x (equivalently, y) dimension. Squares of size (subsX)^2^ get reduced to 1 value by this layer.
-  * *stride=2* defines the stride size between successive pooling squares. Setting this parameter smaller than subsX produces *overlapping* pools. Setting it equal to subsX gives the usual, non-overlapping pooling.
+  * *subsX=4* defines the size of the pooling region in the x (equivalently, y) dimension. Squares of size (*subsX*)^2^ get reduced to 1 value by this layer.
+  * *stride=2* defines the stride size between successive pooling squares. Setting this parameter smaller than *subsX* produces _overlapping_ pools. Setting it equal to *subsX* gives the usual, non-overlapping pooling.
   * *outputsX=0* allows you to control how many outputs in the x (equivalently, y) dimension this operation should have. This parameter is analogous to the *start* parameter, in that it allows you to discard some portion of the image by setting it to a value small enough to leave part of the image uncovered. Setting it to 0 instructs the net to produce as many outputs as is necessary to ensure that the whole image is covered.
 
 OK, let's add one more convolutional layer over the pooling layer:
