@@ -1,0 +1,28 @@
+#summary Describes the types of hidden unit nonlinearity (neurons) supported by the convolutional net.
+
+= Introduction =
+
+Many of the layer types take a *neuron=x* parameter which defines the output nonlinearity of the layer. Here I will describe the supported types of neurons.
+
+= Neuron descriptions =
+
+These are the supported neuron types:
+
+  * *neuron=ident* -- the identity neuron. This computes the function 
+{{{
+f(x) = x.
+}}}
+  * *neuron=logistic* -- the logistic neuron. This computes the function
+{{{
+f(x) = 1 / (1 + e^-x)
+}}}
+  * *neuron=relu* -- the rectified linear neuron. This computes the function
+{{{
+f(x) = max(0, x)
+}}}
+  * *neuron=abs* -- the absolute value neuron. This computes the function
+{{{
+f(x) = abs(x)
+}}}
+
+Adding new types of neurons is extremely easy. See the [http://code.google.com/p/cuda-convnet/source/browse/trunk/src/neuron.cu neuron.cu] file for reference.
