@@ -6,7 +6,7 @@ This code is capable of numerically testing the gradients that it computes for c
 
 But here's how to do it. You should read the [LayerParams] and [TrainingNet] sections first so you're familiar with how to run the net.
 
-Once you've done that, define some dummy architecture in the files `layer.gc.cfg` and `layer-params.gc.cfg`. Then verify its gradients with this line:
+Once you've done that, define some dummy architecture in the files `layer.gc.cfg` and `layer-params.gc.cfg`. You can find my dummy architecture definition files [http://code.google.com/p/cuda-convnet/source/browse/trunk/layers.gc.cfg here] and [http://code.google.com/p/cuda-convnet/source/browse/trunk/layer-params.gc.cfg here]. Then verify its gradients with this line:
 
 {{{
 python convnet.py --layer-def=./layers.gc.cfg --layer-params=./layer-params.gc.cfg --data-provider=dummy-cn-192 --check-grads=1
@@ -52,7 +52,10 @@ Saving checkpoints to ConvNet__Wed_Jun_29_23_34_31_2011
 ALL 6 TESTS PASSED
 }}}
 
-Had any of the gradient tests failed, the model would have printed out the relative error between the results of the analytic computation and the numerical one. The relative error between two vectors is: `||x_1 - x_2|| / ||x_1||`.
+Had any of the gradient tests failed, the model would have printed out the relative error between the results of the analytic computation and the numerical one. The relative error between two vectors is
+{{{
+||x_1 - x_2|| / ||x_1||
+}}}
 
 In the file [http://code.google.com/p/cuda-convnet/source/browse/trunk/src/layer.cu layer.cu], there are these two lines:
 {{{
@@ -68,6 +71,6 @@ But please note that in general, numerical gradient testing is a bit of a black 
 
 Each layer type in [http://code.google.com/p/cuda-convnet/source/browse/trunk/src/layer.cu layer.cu] defines a `checkGradients` method, in which it specifies the `eps` that should be used in the equation 
 {{{
-f'(x) ~= (f(x + e) - f(x)) / e
+f'(x) ~= (f(x + eps) - f(x)) / e
 }}}
-which is used to numerically compute the gradients. My experience has been that if your gradients are computed correctly, it's possible to find a value of `e` to make the numerical computation match the analytic one. If your gradients are computed incorrectly, this is impossible.
+which is used to numerically compute the gradients. My experience has been that if your gradients are computed correctly, it's possible to find a value of `eps` to make the numerical computation match the analytic one. If your gradients are computed incorrectly, this is impossible.
