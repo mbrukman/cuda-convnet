@@ -1,4 +1,4 @@
-#summary the command-line parameters that this code takes.
+#summary the command-line arguments that this code takes.
 
 = Introduction =
 
@@ -7,7 +7,7 @@ If you type
 python convnet.py
 }}}
 
-You should get the following output, briefly describing what command-line parameters this code expects:
+You should get the following output, briefly describing what command-line arguments this code expects:
 
 {{{
 convnet.py usage:
@@ -34,9 +34,9 @@ convnet.py usage:
 
 = What they mean =
 
-You can see that most options have default values, so you don't have to set them.
+You can see that most arguments have default values, so you don't have to set them.
 
-The angle brackets following the option names tell you what kind of value each option expects.
+The angle brackets following the argument names tell you what kind of value each option expects.
 
 Now I'll describe what all of them mean.
 
