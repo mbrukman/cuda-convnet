@@ -1,8 +1,49 @@
-#summary One-sentence summary of this page.
+#summary Describes how to train a neural net with this code.
 
-= Introduction =
+= Training =
 
-Add your content here.
+Once you've [Compiling compiled] the code and created a [LayerParams layer definition file], you can actually do some training.
+
+Start by typing
+{{{
+python convnet.py
+}}}
+
+You should get the following output:
+{{{
+convnet.py usage:
+    Option                        Description                  Default 
+    [--check-grads <0/1>      ] - Check gradients and quit?    [0]     
+    [--epochs <int>           ] - Number of epochs             [50000] 
+    [-f <string>              ] - Load file                    []      
+    [--gpu <int,...>          ] - GPU override                 []      
+    [--max-filesize <int>     ] - Maximum save file size (MB)  [0]     
+    [--mini <int>             ] - Minibatch size               [128]   
+    [--num-gpus <int>         ] - Number of GPUs               [1]     
+    [--test-freq <int>        ] - Testing frequency            [50]    
+    [--test-one <0/1>         ] - Test on one batch at a time? [1]     
+    [--test-only <0/1>        ] - Test and quit?               [0]     
+    [--zip-save <0/1>         ] - Compress checkpoints?        [0]     
+     --data-path <string>       - Data path                            
+     --data-provider <string>   - Data provider                        
+     --layer-def <string>       - Layer definition file                
+     --layer-params <string>    - Layer parameter file                 
+     --save-path <string>       - Save path                            
+     --test-range <int[-int]>   - Data batch range: testing            
+     --train-range <int[-int]>  - Data batch range: training                     
+}}}
+
+Most of these are self-explanatory (or rather, they're explained by the description). The mandatory options are the ones at the bottom -- they're the ones that don't have a default value.
+
+You see that you need to provide a data path, a save (checkpointing) path, some parameters to do with which chunks to train on and which chunks to test on, and the layer definition files described [LayerParams here].
+
+So let's do an example. The data for this example will be the CIFAR-10 dataset, which you can download [http://www.cs.toronto.edu/~kriz/cifar-10-py-colmajor.tar.gz here]. If you're not familiar with the CIFAR-10, you can read about it [http://www.cs.toronto.edu/~kriz/cifar.html here].
+
+{{{
+python convnet.py --data-path=/storage2/tiny/cifar-10-batches-py-colmajor/ --save-path=/storage2/tmp --test-range=6 --train-range=1-5 --layer-cfg=./layers.cfg --layer-params=./layer-params.cfg --data-provider=cifar --test-freq=13
+}}}
+
+This will cause the net to train on data located in `/storage2/tiny/cifar-10-batches-py-colmajor/` and save checkpoints to `/storage2/tmp`. It will use batches 1-5 for training and batch 6 for testing. For every 13 training batches
 
 
 = Details =
