@@ -116,7 +116,7 @@ Layer 'fc10' weights[1]: 0.0106858 [9.76545e-05]
 
 ... which tells you the epoch & batch numbers as well as the value of all of the objectives that you're optimizing. The *cost.logreg* objective happens to return two values -- the (negative) logprob of the data under the model as well as the classification accuracy. So the second number is actually a percentage. You can see that the net here is at roughly 48% classification accuracy on the test set. This net will continue training until the epoch number exceeds that given to the *--epochs* option (default 50000).
 
-Included with the test output are measures of the magnitudes of the net's weights and weight increments (in square brackets). This output is useful for spotting learning rates that are too low (or too high), causing weights to stagnate (or blow up).
+Included with the test output are measures of the magnitudes of the net's weights and weight increments (in square brackets). Specifically, the net is printing the average absolute value of each weight matrix and each weight matrix increment. This output is useful for spotting learning rates that are too low (or too high), causing weights to stagnate (or blow up).
 
 If you want to change the learning rates you specified, you can just kill the net with Ctrl-C (or kill -9, etc.), change the learning rates in `layer-params.cfg`, and then restart the net like this:
 
@@ -124,7 +124,7 @@ If you want to change the learning rates you specified, you can just kill the ne
 python convnet.py -f /storage2/tmp/ConvNet__Wed_Jun_29_22_19_39_2011
 }}}
 
-(notice that the net printed out the location to which it was saving checkpoints).
+(notice that the net printed out the location to which it was saving checkpoints early on).
 
 == Checking the gradients ==
 
