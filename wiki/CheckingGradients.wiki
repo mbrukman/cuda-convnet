@@ -1,0 +1,73 @@
+#summary How to verify that the gradients computed by the net are correct.
+
+= Testing the gradients =
+
+This code is capable of numerically testing the gradients that it computes for correctness. You can only do this on small models, because numerically computing a gradient for each weight is computationally-intensive.
+
+But here's how to do it. You should read the [LayerParams] and [TrainingNet] sections first so you're familiar with how to run the net.
+
+Once you've done that, define some dummy architecture in the files `layer.gc.cfg` and `layer-params.gc.cfg`. Then verify its gradients with this line:
+
+{{{
+python convnet.py --layer-def=./layers.gc.cfg --layer-params=./layer-params.gc.cfg --data-provider=dummy-cn-192 --check-grads=1
+}}}
+
+Notice that we're using a dummy data provider to produce 192-dimensional input (which can be interpreted as 8x8 color images).
+
+You'll see output that (in my case) looks like this:
+
+{{{
+Initialized data layer 'data', producing 192 outputs
+Initialized data layer 'labels', producing 1 outputs
+Initialized convolutional layer 'conv32', producing 6x6 16-channel output
+Initialized convolutional layer 'conv32-2', producing 3x3 16-channel output
+Initialized fully-connected layer 'fc10', producing 10 outputs
+Initialized softmax layer 'probs', producing 10 outputs
+Initialized logistic regression cost 'logprob'
+Importing _ConvNet
+Training ConvNet
+Check gradients and quit?   : 1     
+Compress checkpoints?       : 0     [DEFAULT]
+Data batch range: testing   : 0-0   
+Data batch range: training  : 0-0   
+Data path                   :       
+Data provider               : dummy-cn-192 
+GPU override                :       [DEFAULT]
+Layer definition file       : ./layers.gc.cfg 
+Layer parameter file        : ./layer-params.gc.cfg 
+Load file                   :       [DEFAULT]
+Maximum save file size (MB) : 0     [DEFAULT]
+Minibatch size              : 128   [DEFAULT]
+Number of GPUs              : 1     [DEFAULT]
+Number of epochs            : 50000 [DEFAULT]
+Save path                   :       
+Test and quit?              : 0     [DEFAULT]
+Test on one batch at a time?: 1     [DEFAULT]
+Testing frequency           : 50    [DEFAULT]
+=========================
+Running on CUDA device(s) -2
+Current time: Wed Jun 29 23:34:31 2011
+Saving checkpoints to ConvNet__Wed_Jun_29_23_34_31_2011
+2.1...------------------------
+ALL 6 TESTS PASSED
+}}}
+
+Had any of the gradient tests failed, the model would have printed out the relative error between the results of the analytic computation and the numerical one. The relative error between two vectors is: `||x_1 - x_2|| / ||x_1||`.
+
+In the file [http://code.google.com/p/cuda-convnet/source/browse/trunk/src/layer.cu layer.cu], there are these two lines:
+{{{
+#define GC_SUPPRESS_PASSES     true
+#define GC_REL_ERR_THRESH      0.02
+}}}
+
+The first one controls whether anything should be printed for gradients that pass. The second defines what a pass is. You can see that at present, any relative error smaller than 0.02 (2%) is considered a pass.
+
+But please note that in general, numerical gradient testing is a bit of a black art. Nonlinearities in the network, especially in deep networks, make it difficult to accurately estimate the gradient numerically. A relative error > 2% does not _necessarily_ mean the analytic gradient was computed incorrectly. In fact a 2% mismatch is a very, very stringent requirement.
+
+*Note also that in order for the numerical gradient testing computation to produce accurate results, you will need to use bigger weight initializations than you normally would.*
+
+Each layer type in [http://code.google.com/p/cuda-convnet/source/browse/trunk/src/layer.cu layer.cu] defines a `checkGradients` method, in which it specifies the `eps` that should be used in the equation 
+{{{
+f'(x) ~= (f(x + e) - f(x)) / e
+}}}
+which is used to numerically compute the gradients. My experience has been that if your gradients are computed correctly, it's possible to find a value of `e` to make the numerical computation match the analytic one. If your gradients are computed incorrectly, this is impossible.
