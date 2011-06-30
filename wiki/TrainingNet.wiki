@@ -1,4 +1,4 @@
-#summary Describes how to train a neural net with this code.
+#summary How to train a neural net with this code.
 
 = Training =
 
