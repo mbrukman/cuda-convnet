@@ -195,7 +195,7 @@ And finally the *fc10* layer:
 {{{
 [fc10]
 epsW=0.0001,0.001
-epsB=0.002,0.002
+epsB=0.002
 momW=0.5,0.9
 momB=0.9
 wc=0,0
