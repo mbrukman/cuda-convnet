@@ -164,7 +164,7 @@ This specifies the learning parameters for the layer *conv32* (defined early on)
 
 Given these values, the update rule for the weights is:
 {{{
-weight_inc[i] := mom * weight_inc[i-1] - wc * epsW * weights[i-1] + epsW * weight_grads[i]
+weight_inc[i] := momW * weight_inc[i-1] - wc * epsW * weights[i-1] + epsW * weight_grads[i]
 weights[i] := weights[i-1] + weight_inc[i]
 }}}
 
