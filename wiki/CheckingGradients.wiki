@@ -52,7 +52,7 @@ Saving checkpoints to ConvNet__Wed_Jun_29_23_34_31_2011
 ALL 6 TESTS PASSED
 }}}
 
-Had any of the gradient tests failed, the model would have printed out the relative error between the results of the analytic computation and the numerical one. The relative error between two vectors is
+The model verifies the gradients of each of the weight matrices in the net. In this case there are 6 of them. Had any of the gradient tests failed, the model would have printed out the relative error between the results of the analytic computation and the numerical one. The relative error between two vectors is
 {{{
 ||x_1 - x_2|| / ||x_1||
 }}}
@@ -65,7 +65,7 @@ In the file [http://code.google.com/p/cuda-convnet/source/browse/trunk/src/layer
 
 The first one controls whether anything should be printed for gradients that pass. The second defines what a pass is. You can see that at present, any relative error smaller than 0.02 (2%) is considered a pass.
 
-But please note that in general, numerical gradient testing is a bit of a black art. Nonlinearities in the network, especially in deep networks, make it difficult to accurately estimate the gradient numerically. A relative error > 2% does not _necessarily_ mean the analytic gradient was computed incorrectly. In fact a 2% mismatch is a very, very stringent requirement.
+But please note that in general, numerical gradient testing is a bit of a black art. Nonlinearities in the network, especially in deep networks, make it difficult to accurately estimate the gradient numerically. A relative error > 2% does not _necessarily_ mean the analytic gradient was computed incorrectly. In fact a mere 2% mismatch is a _very_ good result.
 
 *Note also that in order for the numerical gradient testing computation to produce accurate results, you will need to use bigger weight initializations than you normally would.*
 
