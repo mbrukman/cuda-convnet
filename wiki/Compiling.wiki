@@ -1,0 +1,37 @@
+#summary Describes how to compile the code.
+
+= Introduction =
+
+This code is 95% C++/CUDA. So it has to be compiled. It uses a python front-end to parse arguments and save checkpoints, but all of the actual training is done in C++.
+
+= Required libraries =
+
+Here's what I hope to be a complete list of prerequisites. Please email me if I'm wrong.
+
+I'll list them by their package names in Ubuntu.
+
+  * python-dev
+  * python-numpy
+  * python-magic
+  * libblas-dev
+
+And of course you also need to install the CUDA toolkit and CUDA SDK (ideally versions 4.0 of both).
+
+= Checking out the code =
+
+You can check out the code from trunk with this line:
+
+{{{
+svn checkout http://cuda-convnet.googlecode.com/svn/trunk/ cuda-convnet-read-only
+}}}
+
+= Compiling =
+
+In the main directory, you'll find the build.sh file. Fill in the environment variables in that file (the included defaults are their proper values on *my* system, but almost certainly not on yours.
+
+Then, type
+{{{
+./build.sh
+}}}
+
+If all goes well, in a few minutes the compilation will finish successfully. Email me in case of trouble.
