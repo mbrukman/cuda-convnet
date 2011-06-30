@@ -32,12 +32,12 @@ Inside the [http://code.google.com/p/cuda-convnet/source/browse/trunk/include/da
 #define STORE_ALL_DATA_ON_GPU       true
 }}}
 
-When set to true, the batch size (10000 above) corresponds to the number of training cases that are copied to the GPU at a time. You can set this flag to `false` (and pay a very slight performance penalty) to save memory. When set to `false`, only one _minibatch_ will exist on the GPU at any given time.
+When set to `true`, the batch size (10000 above) corresponds to the number of training cases that are copied to the GPU at a time. You can set this flag to `false` (and pay a very slight performance penalty) to save memory. When set to `false`, only one _minibatch_ will exist on the GPU at any given time.
 
 Aside from that, the batch size does not have much meaning.
 
 = Internal data layout =
-Here you have some freedom. The internals of the files are left up to you; you just have to write a data provider to parse the files and return data in a format that the model will understand. See http://code.google.com/p/cuda-convnet/source/browse/trunk/convdp.py for an example.
+Here you have some freedom. The internals of the files are left up to you; you just have to write a data provider to parse the files and return the data in a format that the model will understand. See http://code.google.com/p/cuda-convnet/source/browse/trunk/convdp.py for an example.
 
 Your data provider must return a matrix with data cases in *columns*. If your images have channels (for example colors), then all the values for channel `n` must precede all the values for channel `n + 1`.
 
