@@ -10,7 +10,7 @@ These are the supported neuron types:
 
   * *neuron=ident* -- the identity neuron. This computes the function 
 {{{
-f(x) = x.
+f(x) = x
 }}}
   * *neuron=logistic* -- the logistic neuron. This computes the function
 {{{
