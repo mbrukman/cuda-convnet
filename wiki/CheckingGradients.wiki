@@ -6,15 +6,15 @@ This code is capable of numerically testing the gradients that it computes for c
 
 But here's how to do it. You should read the [LayerParams] and [TrainingNet] sections first so you're familiar with how to run the net.
 
-Once you've done that, define some dummy architecture in the files `layer.gc.cfg` and `layer-params.gc.cfg`. You can find my dummy architecture definition files [http://code.google.com/p/cuda-convnet/source/browse/trunk/layers.gc.cfg here] and [http://code.google.com/p/cuda-convnet/source/browse/trunk/layer-params.gc.cfg here]. Then verify its gradients with this line:
+*Note also that in order for the numerical gradient testing computation to produce accurate results, you will need to use bigger weight initializations than you normally would (that's the initW parameter in layers that have weights).*
+
+To begin, define some dummy architecture in the files `layer.gc.cfg` and `layer-params.gc.cfg`. You can find my dummy architecture definition files [http://code.google.com/p/cuda-convnet/source/browse/trunk/layers.gc.cfg here] and [http://code.google.com/p/cuda-convnet/source/browse/trunk/layer-params.gc.cfg here]. Then verify its gradients with this line:
 
 {{{
 python convnet.py --layer-def=./layers.gc.cfg --layer-params=./layer-params.gc.cfg --data-provider=dummy-cn-192 --check-grads=1
 }}}
 
 Notice that we're using a dummy data provider to produce 192-dimensional input, which is interpreted by the net as 8x8 3-channel images (see the *conv32* layer in layer definition file).
-
-*Note also that in order for the numerical gradient testing computation to produce accurate results, you will need to use bigger weight initializations than you normally would (that's the initW parameter in layers that have weights).*
 
 You'll see output that, in my case, looks like this:
 
