@@ -205,4 +205,4 @@ Here there is one twist: since the *fc10* layer takes two inputs, it has two wei
 
 ----
 
-Now the net is fully-defined and ready to train. See Training
+Now the net is fully-defined and ready to train. See TrainingNet for details about how to actually cause training to happen.
