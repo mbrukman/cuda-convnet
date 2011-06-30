@@ -2,7 +2,7 @@
 
 = Testing the gradients =
 
-This code is capable of numerically testing the gradients that it computes for correctness. You can only do this on small models, because numerically computing a gradient for each weight is computationally-intensive.
+This code is capable of numerically testing the gradients that it computes for correctness. You can only do this on small models, because numerically computing a gradient for each weight is highly computationally-intensive.
 
 But here's how to do it. You should read the [LayerParams] and [TrainingNet] sections first so you're familiar with how to run the net.
 
@@ -16,7 +16,7 @@ Notice that we're using a dummy data provider to produce 192-dimensional input (
 
 *Note also that in order for the numerical gradient testing computation to produce accurate results, you will need to use bigger weight initializations than you normally would (that's the initW parameter in layers that have weights).*
 
-You'll see output that (in my case) looks like this:
+You'll see output that, in my case, looks like this:
 
 {{{
 Initialized data layer 'data', producing 192 outputs
