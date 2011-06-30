@@ -1,4 +1,4 @@
-#summary Data format for the convolutional net.
+#summary Data format for the net.
 
 = Introduction =
 
