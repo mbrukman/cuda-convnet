@@ -125,3 +125,7 @@ python convnet.py -f /storage2/tmp/ConvNet__Wed_Jun_29_22_19_39_2011
 }}}
 
 (notice that the net printed out the location to which it was saving checkpoints).
+
+== Checking the gradients ==
+
+Now that you know how to run the model, you can [CheckingGradients read] about how to verify that the gradients it computes are correct.
