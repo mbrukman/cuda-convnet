@@ -33,7 +33,7 @@ convnet.py usage:
      --train-range <int[-int]>  - Data batch range: training                     
 }}}
 
-Most of these are self-explanatory (or rather, they're explained by the description). The mandatory options are the ones at the bottom -- they're the ones that don't have a default value.
+You can read about the meanings of these options [Options here].
 
 You see that you need to provide a data path, a save (checkpointing) path, some parameters to do with which chunks to train on and which chunks to test on, and the layer definition files described [LayerParams here].
 
