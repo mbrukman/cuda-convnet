@@ -7,7 +7,7 @@ To define the architecture of your neural net, you must write a layer definition
 
 = File format =
 
-Let's start with an example. The very first thing we'll define is a data layer:
+I'll do this by example. Let's make a new file called `layers.cfg`, which will define the architecture of our neural net. The very first thing we'll add to it is a data layer:
 
 {{{
 [data]
@@ -139,3 +139,66 @@ inputs=labels,probs
 The *cost.logreg* objective takes two inputs -- labels and predicted probabilities. We defined the *labels* layer early on, and the *probs* layer just above.
 
 That's it! The convolutional net is defined.
+
+----
+
+There's one problem though -- we haven't specified any learning parameters. This is done via another file, which we'll call `layer-params.cfg`. The idea is that you'll use one file to define the net's architecture, which stays fixed for the duration of training, and another file to define learning parameters, which can change while the net is training.
+
+So let's do that. I'll now go through the contents of the `layer-params.cfg` file that corresponds to the net defined above in `layers.cfg`.
+
+{{{
+[conv32]
+epsW=0.001
+epsB=0.002
+momW=0.9
+momB=0.9
+wc=0
+}}}
+
+This specifies the learning parameters for the layer *conv32* (defined early on). Here's what the parameters mean:
+  * *epsW=0.001* is the weight learning rate.
+  * *epsB=0.002* is the bias learning rate.
+  * *momW=0.9* is the weight momentum.
+  * *momB=0.9* is the bias momentum.
+  * *wc=0* is the L2 weight decay (applied to the weights only).
+
+Given these values, the update rule for the weights is:
+{{{
+weight_inc[i] := mom * weight_inc[i-1] - wc * epsW * weights[i-1] + epsW * weight_grads[i]
+weights[i] := weights[i-1] + weight_inc[i]
+}}}
+
+Now that that's out of the way, there isn't much left to describe.
+
+We add learning parameter definitions for the *fc1024* layer too:
+{{{
+[fc1024]
+momW=0.9
+momB=0.9
+epsW=0.00001
+epsB=0.00002
+wc=0
+}}}
+
+And the *conv32-2* layer:
+
+{{{
+[conv32-2]
+epsW=0.001
+epsB=0.002
+momW=0.9
+momB=0.9
+wc=0
+}}}
+
+And finally the *fc10* layer:
+{{{
+[fc10]
+epsW=0.0001,0.001
+epsB=0.002,0.002
+momW=0.5,0.9
+momB=0.9
+wc=0,0
+}}}
+
+Here there is one twist: since the *fc10* layer takes two inputs, it has two weight matrices. So we have to define learning parameters for each matrix. We do this by writing them as a comma-delimited list of values. The order of the values is the same as the order of the *inputs=* line in the *fc10* layer definition above.
