@@ -12,7 +12,7 @@ Once you've done that, define some dummy architecture in the files `layer.gc.cfg
 python convnet.py --layer-def=./layers.gc.cfg --layer-params=./layer-params.gc.cfg --data-provider=dummy-cn-192 --check-grads=1
 }}}
 
-Notice that we're using a dummy data provider to produce 192-dimensional input (which can be interpreted as 8x8 color images).
+Notice that we're using a dummy data provider to produce 192-dimensional input, which is interpreted by the net as 8x8 3-channel images (see the *conv32* layer in layer definition file).
 
 *Note also that in order for the numerical gradient testing computation to produce accurate results, you will need to use bigger weight initializations than you normally would (that's the initW parameter in layers that have weights).*
 
@@ -67,7 +67,7 @@ In the file [http://code.google.com/p/cuda-convnet/source/browse/trunk/src/layer
 
 The first one controls whether anything should be printed for gradients that pass. The second defines what a pass is. You can see that at present, any relative error smaller than 0.02 (2%) is considered a pass.
 
-But please note that in general, numerical gradient testing is a bit of a black art. Nonlinearities in the network, especially in deep networks, make it difficult to accurately estimate the gradient numerically. A relative error > 2% does not _necessarily_ mean the analytic gradient was computed incorrectly. In fact a mere 2% mismatch is a _very_ good result.
+But please note that in general, numerical gradient testing is a bit of a black art. Nonlinearities in the network, especially in deep networks, make it difficult to accurately estimate the gradient numerically. A relative error greater than 2% does not _necessarily_ mean that the analytic gradient was computed incorrectly. In fact a mere 2% mismatch is a _very_ good result.
 
 Each layer type in [http://code.google.com/p/cuda-convnet/source/browse/trunk/src/layer.cu layer.cu] defines a `checkGradients` method, in which it specifies the `eps` that should be used in the equation 
 <pre>
