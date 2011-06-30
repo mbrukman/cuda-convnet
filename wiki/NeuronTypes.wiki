@@ -1,4 +1,4 @@
-#summary Describes the types of neurons (hidden unit nonlinearities) supported by the net.
+#summary The types of neurons (hidden unit nonlinearities) supported by the net.
 
 = Introduction =
 
