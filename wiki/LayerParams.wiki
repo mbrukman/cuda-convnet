@@ -128,7 +128,7 @@ The main point of this example is to illustrate that a fully-connected layer can
 
 The next definition is a softmax layer that, as you might expect, applies a softmax to the 10 outputs produced by the *fc10* layer.
 
-Finally, let's define an objective function for the net to optimize:
+Finally, let's define an objective function for the net to optimize. You can define and simultaneously optimize multiple cost functions, but we'll stick to one here.
 
 {{{
 [logprob]
@@ -136,7 +136,7 @@ type=cost.logreg
 inputs=labels,probs
 }}}
 
-The *cost.logreg* objective takes two inputs -- labels and predicted probabilities. We defined the *labels* layer early on, and the *probs* layer just above. You can define and simultaneously optimize multiple cost functions, but we'll stick to one here.
+The *cost.logreg* objective takes two inputs -- labels and predicted probabilities. We defined the *labels* layer early on, and the *probs* layer just above.
 
 That's it! The convolutional net's architecture is defined.
 
