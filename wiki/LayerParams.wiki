@@ -54,7 +54,7 @@ Here's what the other parameters mean:
   * *stride=1* indicates that the distance between successive filter applications should be 1 pixel.
   * *filterSize=9* says that this layer will use filters of size 9x9 pixels.
   * *neuron=logistic* defines the neuron nonlinearity. See NeuronTypes for supported types.
-  * *initW=0.00001* instructs the net to initialize the weights in this layer from a normal distribution with standard deviation 0.00001.
+  * *initW=0.00001* instructs the net to initialize the weights in this layer from a normal distribution with standard deviation 0.00001. The biases are always initialized at zero.
   * *partialSum=1* is a very important parameter if you care about performance. Keep it at 1 for maximum performance at the expense of memory consumption. Set it to higher numbers (up to the number of outputs that your convolution produces) to gradually trade memory consumption for performance. Setting it to 0 is equivalent to setting it to the highest (i.e. slowest, but least memory-hungry) number possible. In most scenarios there should be no problem to keep this parameter at 1. To give you an idea of what effect it will have on memory consumption: the amount of extra memory used will be:
   `(number of weights in this layer)x(number of outputs this layer produces) / partialSum.`
 
@@ -167,6 +167,8 @@ Given these values, the update rule for the weights is:
 weight_inc[i] := mom * weight_inc[i-1] - wc * epsW * weights[i-1] + epsW * weight_grads[i]
 weights[i] := weights[i-1] + weight_inc[i]
 }}}
+
+The update rule for biases is the same except that there is no bias weight decay.
 
 Now that that's out of the way, there isn't much left to describe.
 
