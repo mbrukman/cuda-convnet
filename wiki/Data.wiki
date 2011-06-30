@@ -41,7 +41,7 @@ Here you have some freedom. The internals of the files are left up to you; you j
 
 Your data provider must return a matrix with data cases in *columns*. If your images have channels (for example colors), then all the values for channel `n` must precede all the values for channel `n + 1`.
 
-Also make sure that your data provider returns matrices that consist of *single-precision floats*.
+Also make sure that your data provider returns matrices that consist of *single-precision floats*, and that the number of cases it returns is a multiple of the [Options minibatch size]. This means that you might have to add some padding cases (as the [http://code.google.com/p/cuda-convnet/source/browse/trunk/convdp.py provided data provider] does).
 
 Aside from that, there isn't much to trip over.
 
