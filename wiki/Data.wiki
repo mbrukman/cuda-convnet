@@ -1,0 +1,45 @@
+#summary Data format for the convolutional net.
+
+= Introduction =
+
+The net expects data to be stored as python pickled objects. You can find some example data here: http://www.cs.toronto.edu/~kriz/cifar-10-py-colmajor.tar.gz.
+
+
+= Data files =
+
+The data must be broken down into batches (see example above). For example, the dta above is broken down into 6 batches of 10000 cases:
+
+{{{
+ls -al /storage2/tiny/cifar-10-py-colmajor
+total 181892
+drwxr-xr-x  2 spoon spoon     4096 2011-06-26 13:19 .
+drwxr-xr-x 34 spoon spoon     4096 2011-06-29 21:40 ..
+-rw-r--r--  1 spoon spoon    12583 2011-06-26 13:21 batches.meta
+-rw-r--r--  1 spoon spoon 31035679 2011-06-26 13:20 data_batch_1
+-rw-r--r--  1 spoon spoon 31035295 2011-06-26 13:20 data_batch_2
+-rw-r--r--  1 spoon spoon 31035974 2011-06-26 13:20 data_batch_3
+-rw-r--r--  1 spoon spoon 31035671 2011-06-26 13:20 data_batch_4
+-rw-r--r--  1 spoon spoon 31035598 2011-06-26 13:20 data_batch_5
+-rw-r--r--  1 spoon spoon 31035501 2011-06-26 13:20 data_batch_6
+}}}
+
+Ideally, your test/validation data should be in a separate file from the other files. Here batch 6 is the test set.
+
+Inside the [http://code.google.com/p/cuda-convnet/source/browse/trunk/include/data.cuh data.cuh] file, there's this line:
+{{{
+// Set to true for slight speed boost, higher memory consumption
+#define STORE_ALL_DATA_ON_GPU       true
+}}}
+
+When set to true, the batch size (10000 above) corresponds to the number of training cases that are copied to the GPU at a time. You can set this flag to false (and pay a very slight performance penalty) to save memory. When set to false, only one _minibatch_ will exist on the GPU at any given time.
+
+Aside from that, the batch size does not have much meaning.
+
+= Internal data layout =
+Here you have some freedom. The internals of the files is left up to you; you just have to write a data provider to parse them and return data in a format that the model will understand. See http://code.google.com/p/cuda-convnet/source/browse/trunk/convdp.py for an example.
+
+Your data provider must return a matrix with data cases in *columns*. If your images have channels (for example colors), then all the values for channel `n` must precede all the values for channel `n + 1`.
+
+Also make sure that your data provider returns matrices that consist of *single-precision floats*.
+
+Aside from that, there isn't much to trip over.
