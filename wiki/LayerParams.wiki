@@ -128,7 +128,7 @@ The main point of this example is to illustrate that a fully-connected layer can
 
 The next definition is a softmax layer that, as you might expect, applies a softmax to the 10 outputs produced by the *fc10* layer.
 
-Finally, let's define an objective function for the net to optimize. You can define and simultaneously optimize multiple cost functions, but we'll stick to one here.
+Finally, let's define an objective function for the net to optimize. You can define and simultaneously optimize multiple objectives, but we'll stick to one here.
 
 {{{
 [logprob]
