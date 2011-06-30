@@ -129,7 +129,7 @@ If you want to change the learning parameters you specified, you can just kill t
 python convnet.py -f /storage2/tmp/ConvNet__Wed_Jun_29_22_19_39_2011
 }}}
 
-The net will resume from the last test output. If you want to resume from an earlier output, pass a specific checkpoint file inside `/storage2/tmp/ConvNet__Wed_Jun_29_22_19_39_2011` to the *-f* parameter. The checkpoint files are numbered by their epoch and batch numbers.
+The net will resume from the last checkpoint. If you want to resume from an earlier checkpoint, pass a specific checkpoint file inside `/storage2/tmp/ConvNet__Wed_Jun_29_22_19_39_2011` to the *-f* parameter. The checkpoint files are numbered by their epoch and batch numbers.
 
 == Checking the gradients ==
 
