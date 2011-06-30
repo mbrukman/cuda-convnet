@@ -2,12 +2,13 @@
 
 = Introduction =
 
-The net expects data to be stored as python pickled objects. You can find some example data here: http://www.cs.toronto.edu/~kriz/cifar-10-py-colmajor.tar.gz.
-
+This code is capable of training on images of any size, and with any number of channels (colors, if you like). Currently there's a restriction that the images must be square. Email me if that's a big deal for you and I can get rid of it.
 
 = Data files =
 
-The data must be broken down into batches (see example above). For example, the data above is broken down into 6 batches of 10000 cases:
+The net expects data to be stored as python pickled objects. You can find some example data here: http://www.cs.toronto.edu/~kriz/cifar-10-py-colmajor.tar.gz.
+
+The data must be broken down into batches. For example, the data above is broken down into 6 batches of 10000 cases:
 
 {{{
 ls -al /storage2/tiny/cifar-10-py-colmajor
