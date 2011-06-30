@@ -23,7 +23,7 @@ dataIdx=1
 
 The things in square brackets are user-friendly layer names, and they can be whatever you want them to be. Here we're really defining two layers: one we're calling "data" and the other we're calling "labels". 
 
-The *type=data* line indicates that this is a data layer. Our python DataProvider (CIFARDataProvider) outputs a list of two elements: the CIFAR-10 images and the CIFAR-10 labels. 
+The *type=data* line indicates that this is a data layer. Our python [Data data provider] outputs a list of two elements: the CIFAR-10 images and the CIFAR-10 labels. 
 
 The line *dataIdx=0* indicates that the layer named *data* is mapped to the CIFAR-10 images (and the layer named *labels* is mapped to the CIFAR-10 labels).
 
