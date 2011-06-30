@@ -212,6 +212,7 @@ coeff=1
 }}}
 
 ... a scalar coefficient of the objective function. This provides an easy way to tweak the "global" learning rate of the network.
-----
+
+== Training the net == 
 
 Now the net is fully-defined and ready to train. See TrainingNet for details about how to actually cause training to happen.
