@@ -1,4 +1,4 @@
-#summary Describes format of layer definition and parameter files.
+#summary How to specify a neural net architecture.
 
 = Introduction =
 
