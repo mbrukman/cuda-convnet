@@ -94,9 +94,6 @@ A few new parameters here:
 ||stride=2 ||defines the stride size between successive pooling squares. Setting this parameter smaller than *subsX* produces _overlapping_ pools. Setting it equal to *subsX* gives the usual, non-overlapping pooling. ||
 ||outputsX=0 ||allows you to control how many outputs in the x (equivalently, y) dimension this operation should have. This parameter is analogous to the *start* parameter, in that it allows you to discard some portion of the image by setting it to a value small enough to leave part of the image uncovered. Setting it to 0 instructs the net to produce as many outputs as is necessary to ensure that the whole image is covered. ||
 
-
-
-
 OK, let's add one more convolutional layer over the pooling layer:
 
 {{{
