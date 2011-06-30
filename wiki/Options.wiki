@@ -41,7 +41,7 @@ The angle brackets following the argument names tell you what kind of value each
 Now I'll describe what all of them mean.
 
 First the optional arguments:
-|| *Option* || *Meaning* ||
+|| *Argument* || *Meaning* ||
 || --check-grads || [CheckingGradients Check the gradients] ||
 || --epochs || How many epochs to train on? An epoch is one pass through the training data. ||
 || -f || Load checkpoint from given path. All other parameters become optional. ||
@@ -56,7 +56,7 @@ First the optional arguments:
 
 Now the mandatory ones:
 
-|| *Option* || *Meaning* ||
+|| *Argument* || *Meaning* ||
 || --data-path || Specify a path where the net's [Data data provider] can find its data. ||
 || --data-provider || Specify a [Data data provider] to use to parse the data. ||
 || --layer-def || Specify a [LayerParams layer definition] file. ||
