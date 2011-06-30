@@ -1,4 +1,4 @@
-#summary Describes how to compile the code.
+#summary How to compile the code.
 
 = Introduction =
 
