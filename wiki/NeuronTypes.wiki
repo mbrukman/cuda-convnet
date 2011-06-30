@@ -1,4 +1,4 @@
-#summary Describes the types of hidden unit nonlinearity (neurons) supported by the convolutional net.
+#summary Describes the types of neurons (hidden unit nonlinearities) supported by the net.
 
 = Introduction =
 
