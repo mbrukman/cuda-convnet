@@ -202,3 +202,7 @@ wc=0,0
 }}}
 
 Here there is one twist: since the *fc10* layer takes two inputs, it has two weight matrices. So we have to define learning parameters for each matrix. We do this by writing them as a comma-delimited list of values. The order of the values is the same as the order of the *inputs=* line in the *fc10* layer definition above.
+
+----
+
+Now the net is fully-defined and ready to train. See Training
