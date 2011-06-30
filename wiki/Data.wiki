@@ -37,10 +37,15 @@ When set to `true`, the batch size (10000 above) corresponds to the number of tr
 Aside from that, the batch size does not have much meaning.
 
 = Internal data layout =
-Here you have some freedom. The internals of the files are left up to you; you just have to write a data provider to parse the files and return the data in a format that the model will understand. See http://code.google.com/p/cuda-convnet/source/browse/trunk/convdp.py for an example.
+Here you have some freedom. The internals of the files are left up to you; you just have to write a data provider (a python class) to parse the files and return the data in a format that the model will understand. See http://code.google.com/p/cuda-convnet/source/browse/trunk/convdp.py for an example.
 
 Your data provider must return a matrix with data cases in *columns*. If your images have channels (for example colors), then all the values for channel `n` must precede all the values for channel `n + 1`.
 
 Also make sure that your data provider returns matrices that consist of *single-precision floats*.
 
 Aside from that, there isn't much to trip over.
+
+= Included data providers =
+This code ships with two data providers. One is used to parse the CIFAR-10 dataset (see TrainingNet). The other is used to generate dummy data for gradient-testing computations (see CheckingGradients).
+
+Once you've written a new data provider to parse your data, you can register it at the bottom of the [http://code.google.com/p/cuda-convnet/source/browse/trunk/convnet.py convnet.py] file with the `DataProvider.register_data_provider` function, as shown there.
