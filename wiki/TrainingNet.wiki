@@ -2,7 +2,7 @@
 
 = Training =
 
-Once you've [Compiling compiled] the code and created a [LayerParams layer definition file], you can actually do some training.
+Once you've [Compiling compiled] the code, created a [LayerParams layer definition file], and found some [Data data] to train on, you can actually do some training.
 
 Start by typing
 {{{
@@ -85,6 +85,7 @@ Test on one batch at a time?: 1     [DEFAULT]
 
 And finally, this:
 {{{
+Saving checkpoints to /storage2/tmp/ConvNet__Wed_Jun_29_22_19_39_2011
 1.1... logprob:  1.855810, 0.351600 (2.076 sec)
 1.2... logprob:  1.707988, 0.400900 (2.074 sec)
 1.3... logprob:  1.596725, 0.430600 (2.075 sec)
@@ -113,6 +114,14 @@ Layer 'fc10' weights[1]: 0.0106858 [9.76545e-05]
 4.2... logprob:  1.237664, 0.575200 (2.077 sec)
 }}}
 
-... which tells you the epoch & batch numbers as well as the value of all of the objectives that you're optimizing. The *cost.logreg* objective happens to return two values -- the (negative) logprob of the data under the model as well as the classification accuracy. So the second number is actually a percentage. You can see that the net here is at roughly 48% classification accuracy.
+... which tells you the epoch & batch numbers as well as the value of all of the objectives that you're optimizing. The *cost.logreg* objective happens to return two values -- the (negative) logprob of the data under the model as well as the classification accuracy. So the second number is actually a percentage. You can see that the net here is at roughly 48% classification accuracy. This net will continue training until the epoch number exceeds that given to the *--epochs* option (default 50000).
 
-Included with the test output are measures of the magnitudes of the net's weights and weight increments [[in square brackets]]. This output is useful for spotting learning rates that are too low (or  high), causing weights not to learn (or blow up).
+Included with the test output are measures of the magnitudes of the net's weights and weight increments (in square brackets). This output is useful for spotting learning rates that are too low (or too high), causing weights to stagnate (or blow up).
+
+If you want to change the learning rates you specified, you can just kill the net with Ctrl-C (or kill -9, etc.), change the learning rates in `layer-params.cfg`, and then restart the net like this:
+
+{{{
+python convnet.py -f /storage2/tmp/ConvNet__Wed_Jun_29_22_19_39_2011
+}}}
+
+(notice that the net printed out the location to which it was saving checkpoints).
