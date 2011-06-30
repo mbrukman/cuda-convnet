@@ -48,8 +48,8 @@ Again, the bracketed conv32 is the name we're choosing to give to this layer.
 Here's what the other parameters mean:
   * *type=conv* defines this as a convolution layer
   * *inputs=data* says that this layer will take as input the layer named *data* (defined above)
-  * *channels=3* tells the net that the layer named *data* produces 3-channel images (i.e. color images). Since the images are assumed to be square, that is all that you have to tell it about the data dimensionality.
-  * *numFilters=32* says that this layer will apply 32 filters to the images.
+  * *channels=3* tells the net that the layer named *data* produces 3-channel images (i.e. color images). Since the images are assumed to be square, that is all that you have to tell it about the data dimensionality. This value must be either 1, 2, 3, or a multiple of 4.
+  * *numFilters=32* says that this layer will apply 32 filters to the images. This number must be a multiple of 16. The convolution will be most efficient if it is a multiple of 32.
   * *padding=4* instructs the net to implicitly pad the images with a 4-pixel border of zeros (this does not cause it to create a copy of the data or use any extra memory). Set to 0 if you don't want padding.
   * *stride=1* indicates that the distance between successive filter applications should be 1 pixel.
   * *filterSize=9* says that this layer will use filters of size 9x9 pixels.
