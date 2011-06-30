@@ -138,7 +138,7 @@ inputs=labels,probs
 
 The *cost.logreg* objective takes two inputs -- labels and predicted probabilities. We defined the *labels* layer early on, and the *probs* layer just above.
 
-That's it! The convolutional net is defined.
+That's it! The convolutional net's architecture is defined.
 
 ----
 
