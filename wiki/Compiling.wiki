@@ -1,9 +1,5 @@
 #summary How to compile the code.
 
-= Introduction =
-
-This code is 95% C++/CUDA. So it has to be compiled. It uses a python front-end to parse arguments and save checkpoints, but all of the actual training is done in C++.
-
 = Required libraries =
 
 Here's what I hope to be a complete list of prerequisites. Please email me if I'm wrong.
