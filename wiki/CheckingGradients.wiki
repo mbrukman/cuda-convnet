@@ -74,6 +74,6 @@ But please note that in general, numerical gradient testing is a bit of a black 
 
 Each layer type in [http://code.google.com/p/cuda-convnet/source/browse/trunk/src/layer.cu layer.cu] defines a `checkGradients` method, in which it specifies the `eps` that should be used in the equation 
 <pre>
-f'(x) ~= (f(x + eps) - f(x)) / e
+f'(x) ~= (f(x + eps) - f(x)) / eps
 </pre>
 which is used to numerically compute the gradients. My experience has been that if your gradients are computed correctly, it's possible to find a value of `eps` to make the numerical computation match the analytic one. If your gradients are computed incorrectly, this is impossible.
