@@ -39,7 +39,7 @@ Aside from that, the batch size does not have much meaning.
 = Internal data layout =
 Here you have some freedom. The internals of the files are left up to you; you just have to write a data provider (a python class) to parse the files and return the data in a format that the model will understand. See http://code.google.com/p/cuda-convnet/source/browse/trunk/convdp.py for an example.
 
-Your data provider must return a C-ordered matrix of dimensions `(data dimensionality)x(data cases)`. If your images have channels (for example colors), then all the values for channel `n` must precede all the values for channel `n + 1`.
+Your data provider must return a C-ordered matrix of dimensions `(data dimensionality)x(data cases)`. If your images have channels (for example, the 3 color channels in the CIFAR-10), then all the values for channel `n` must precede all the values for channel `n + 1`.
 
 Also make sure that your data provider returns matrices that consist of *single-precision floats*, and that the number of cases it returns is a multiple of the [Options minibatch size]. This means that you might have to add some padding cases (as the [http://code.google.com/p/cuda-convnet/source/browse/trunk/convdp.py provided data provider] does).
 
