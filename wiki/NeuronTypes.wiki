@@ -2,7 +2,7 @@
 
 = Introduction =
 
-Many of the layer types take a *neuron=x* parameter which defines the output nonlinearity of the layer. Here I will describe the supported types of neurons.
+Many of the layer types take a *neuron=x* parameter which defines the output nonlinearity of neurons in the layer. Here I will describe the supported types of neurons.
 
 = Neuron descriptions =
 
