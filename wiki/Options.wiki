@@ -48,7 +48,7 @@ First the optional arguments:
 || --gpu || Set GPU index to run on (default is to grab fastest GPU available). ||
 || --max-filesize || Maximum amount of disk space occupied by all checkpoints. Set to 0 to only store last checkpoint. ||
 || --mini || Minibatch size. The minibatch size is the number of training cases over which a gradient is averaged to produce a weight update. This value must be a multiple of 128. ||
-|| --num-gpus || Ignore this. ||
+|| --num-gpus || Ignore this. This code does not support training one model on multiple GPUs. ||
 || --test-freq || Compute the test error and save checkpoint to disk every *this many* training batches. ||
 || --test-one || If multiple testing batches are given, test on only one at a time. ||
 || --test-only || Compute the test error and quit. To be used in combination with the *-f* option. ||
