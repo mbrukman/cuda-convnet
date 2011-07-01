@@ -63,4 +63,4 @@ Now the mandatory ones:
 || --layer-params || Specify a [LayerParams layer parameter] file. ||
 || --save-path || Specify a checkpointing path. ||
 || --test-range || Specify which data [Data batches] the net should use to compute the test error. ||
-|| --train-range || Specify which data [Data batches] the net should use to compute the training error. ||
+|| --train-range || Specify which data [Data batches] the net should use for training. ||
