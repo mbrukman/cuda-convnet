@@ -8,7 +8,7 @@ But here's how to do it. You should read the [LayerParams] and [TrainingNet] sec
 
 *Note also that in order for the numerical gradient testing computation to produce accurate results, you will need to use bigger weight initializations than you normally would (that's the initW parameter in layers that have weights).*
 
-To begin, define some dummy architecture in the files `layer.gc.cfg` and `layer-params.gc.cfg`. You can find my dummy architecture definition files [http://code.google.com/p/cuda-convnet/source/browse/trunk/layers.gc.cfg here] and [http://code.google.com/p/cuda-convnet/source/browse/trunk/layer-params.gc.cfg here]. Then verify its gradients with this line:
+To begin, define some dummy architecture in the files `layer.gc.cfg` and `layer-params.gc.cfg`. You can find my dummy architecture definition files [http://cuda-convnet.googlecode.com/files/layers.gc.cfg here] and [http://cuda-convnet.googlecode.com/files/layer-params.gc.cfg here]. Then verify its gradients with this line:
 
 {{{
 python convnet.py --layer-def=./layers.gc.cfg --layer-params=./layer-params.gc.cfg --data-provider=dummy-cn-192 --check-grads=1
