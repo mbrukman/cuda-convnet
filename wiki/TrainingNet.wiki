@@ -59,7 +59,7 @@ Initialized softmax layer 'probs', producing 10 outputs
 Initialized logistic regression cost 'logprob'
 }}}
 
-This just tells you the dimensions of all the layers inside your net. Good to know.
+This just tells you the dimensions of all the layers inside your net. Since we never _explicitly_ defined how many outputs each convolutional/pooling layer has, this is good to know.
 
 Then this:
 {{{
@@ -82,7 +82,7 @@ Test and quit?              : 0     [DEFAULT]
 Test on one batch at a time?: 1     [DEFAULT]
 }}}
 
-... a printout of the parameters with which the net was run.
+... a printout of the command-line arguments with which the net was run.
 
 And finally, it starts training, and produces output like this:
 {{{
