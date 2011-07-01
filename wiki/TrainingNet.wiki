@@ -39,6 +39,7 @@ You see that you need to provide a data path, a save (checkpointing) path, some 
 
 So let's do an example. The data for this example will be the CIFAR-10 dataset, which you can download [http://www.cs.toronto.edu/~kriz/cifar-10-py-colmajor.tar.gz here]. If you're not familiar with the CIFAR-10, you can read about it [http://www.cs.toronto.edu/~kriz/cifar.html here].
 
+Try this line, replacing the paths with ones that make sense on your system:
 {{{
 python convnet.py --data-path=/storage2/tiny/cifar-10-batches-py-colmajor/ --save-path=/storage2/tmp --test-range=6 --train-range=1-5 --layer-def=./layers.cfg --layer-params=./layer-params.cfg --data-provider=cifar --test-freq=13
 }}}
