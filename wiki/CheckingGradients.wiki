@@ -26,7 +26,9 @@ Initialized convolutional layer 'conv32-2', producing 3x3 16-channel output
 Initialized fully-connected layer 'fc10', producing 10 outputs
 Initialized softmax layer 'probs', producing 10 outputs
 Initialized logistic regression cost 'logprob'
-Importing _ConvNet
+=========================
+Importing _ConvNet C++ module
+=========================
 Training ConvNet
 Check gradients and quit?   : 1     
 Compress checkpoints?       : 0     [DEFAULT]
@@ -48,8 +50,9 @@ Test on one batch at a time?: 1     [DEFAULT]
 Testing frequency           : 50    [DEFAULT]
 =========================
 Running on CUDA device(s) -2
-Current time: Wed Jun 29 23:34:31 2011
-Saving checkpoints to ConvNet__Wed_Jun_29_23_34_31_2011
+Current time: Thu Jun 30 20:38:02 2011
+Saving checkpoints to ConvNet__Thu_Jun_30_20_38_02_2011
+=========================
 2.1...------------------------
 ALL 6 TESTS PASSED
 }}}
