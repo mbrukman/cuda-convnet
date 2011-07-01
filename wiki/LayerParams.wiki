@@ -7,6 +7,8 @@ To define the architecture of your neural net, you must write a layer definition
 
 = File format =
 
+== Layer definition file ==
+
 I'll do this by example. Let's make a new file called `layers.cfg`, which will define the architecture of our neural net. The very first thing we'll add to it is a data layer:
 
 {{{
@@ -142,7 +144,7 @@ The *cost.logreg* objective takes two inputs -- labels and predicted probabiliti
 
 That's it! The convolutional net's architecture is defined.
 
-----
+== Layer parameter file ==
 
 There's one problem though -- we haven't specified any learning parameters. This is done via another file, which we'll call `layer-params.cfg`. The idea is that you'll use one file to define the net's architecture, which stays fixed for the duration of training, and another file to define learning parameters, which can change while the net is training.
 
