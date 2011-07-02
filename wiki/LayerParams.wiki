@@ -60,7 +60,6 @@ Here's what the other parameters mean:
 ||initW=0.00001 || instructs the net to initialize the weights in this layer from a normal distribution with mean zero and standard deviation 0.00001. The biases are always initialized at zero.||
 ||partialSum=1 || this is a very important parameter if you care about performance. Keep it at 1 for maximum performance at the expense of memory consumption. Set it to higher numbers (up to the number of outputs that your convolution produces) to gradually trade memory consumption for performance. Setting it to 0 is equivalent to setting it to the highest (i.e. slowest, but least memory-hungry) number possible. In most scenarios there should be no problem to keep this parameter at 1. To give you an idea of what effect it will have on memory consumption: the amount of extra memory used will be: `(number of weights in this layer)x(number of outputs this layer produces) / partialSum.`||
 
-
 For kicks, let's add a fully-connected layer over the data too:
 {{{
 [fc1024]
@@ -71,7 +70,7 @@ initW=0.001
 neuron=relu
 }}}
 
-The only parameter here that I have not already described above is *numOutputs=1024*. It does what you would expect -- it indicates that this layer should have 1024 units.
+The only parameter here that we have not yet seen is *numOutputs=1024*. It does what you would expect -- it indicates that this layer should have 1024 units.
 
 Back to convolution now, let's add a max-pooling layer over our convolution layer.
 
