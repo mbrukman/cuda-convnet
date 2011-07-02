@@ -88,37 +88,37 @@ And finally, it starts training, and produces output like this:
 {{{
 Saving checkpoints to /storage2/tmp/ConvNet__Wed_Jun_29_22_19_39_2011
 =========================
-1.1... logprob:  1.855810, 0.351600 (2.076 sec)
-1.2... logprob:  1.707988, 0.400900 (2.074 sec)
-1.3... logprob:  1.596725, 0.430600 (2.075 sec)
-1.4... logprob:  1.615512, 0.433200 (2.088 sec)
-1.5... logprob:  1.586030, 0.445700 (2.070 sec)
-2.1... logprob:  1.476403, 0.484000 (2.068 sec)
-2.2... logprob:  1.481897, 0.489100 (2.067 sec)
-2.3... logprob:  1.418266, 0.499000 (2.071 sec)
-2.4... logprob:  1.451721, 0.496400 (2.073 sec)
-2.5... logprob:  1.428627, 0.506000 (2.085 sec)
-3.1... logprob:  1.344407, 0.536500 (2.079 sec)
-3.2... logprob:  1.354455, 0.534300 (2.079 sec)
-3.3... logprob:  1.298950, 0.543500 
+1.1... logprob:  1.858268, 0.646900 (2.068 sec)
+1.2... logprob:  1.708081, 0.595500 (2.064 sec)
+1.3... logprob:  1.599059, 0.568600 (2.066 sec)
+1.4... logprob:  1.616192, 0.564000 (2.077 sec)
+1.5... logprob:  1.588626, 0.554000 (2.064 sec)
+2.1... logprob:  1.475589, 0.513100 (2.066 sec)
+2.2... logprob:  1.487473, 0.519700 (2.061 sec)
+2.3... logprob:  1.421058, 0.501400 (2.069 sec)
+2.4... logprob:  1.455423, 0.504700 (2.068 sec)
+2.5... logprob:  1.426358, 0.494900 (2.069 sec)
+3.1... logprob:  1.343813, 0.467100 (2.069 sec)
+3.2... logprob:  1.354268, 0.469400 (2.070 sec)
+3.3... logprob:  1.297426, 0.455300 
 ======================Test output======================
-logprob:  1.469446, 0.483700 
+logprob:  1.461566, 0.509800 
 ------------------------------------------------------- 
-Layer 'conv32' weights: 0.00063366 [7.23739e-06] 
-Layer 'fc1024' weights[0]: 0.000800179 [8.9135e-07] 
-Layer 'conv32-2' weights: 0.000622746 [1.23764e-06] 
-Layer 'fc10' weights[0]: 0.000803252 [8.5456e-07]
-Layer 'fc10' weights[1]: 0.0106858 [9.76545e-05] 
+Layer 'conv32' weights: 0.000839411 [3.26064e-05] 
+Layer 'fc1024' weights[0]: 0.0008 [9.73049e-07] 
+Layer 'conv32-2' weights: 0.000701983 [1.1155e-06] 
+Layer 'fc10' weights[0]: 0.000806908 [1.17704e-06]
+Layer 'fc10' weights[1]: 0.0107289 [9.96676e-05] 
 -------------------------------------------------------
-Saved checkpoint to /storage2/tmp/ConvNet__Wed_Jun_29_22_19_39_2011
-======================================================= (3.952 sec)
-3.4... logprob:  1.328003, 0.540000 (2.077 sec)
-3.5... logprob:  1.307329, 0.547200 (2.076 sec)
-4.1... logprob:  1.232344, 0.577200 (2.078 sec)
-4.2... logprob:  1.237664, 0.575200 (2.077 sec)
+Saved checkpoint to /storage2/tmp/ConvNet__Sat_Jul__2_14_16_01_2011
+======================================================= (3.992 sec)
+3.4... logprob:  1.330210, 0.462500 (2.071 sec)
+3.5... logprob:  1.302977, 0.451500 (2.070 sec)
+4.1... logprob:  1.233434, 0.431100 (2.070 sec)
+4.2... logprob:  1.239093, 0.425300 (2.070 sec)
 }}}
 
-... which tells you the epoch and batch numbers as well as the values of all of the objectives that you're optimizing. The *cost.logreg* objective happens to return two values -- the average (negative) logprob of the data under the model as well as the classification accuracy. So the second number is actually a percentage. You can see that the net here is at roughly 48% classification accuracy on the test set. This net will continue training until the epoch number exceeds that given to the *--epochs* option (default 50000).
+... which tells you the epoch and batch numbers as well as the values of all of the objectives that you're optimizing. The *cost.logreg* objective happens to return two values -- the average (negative) logprob of the data under the model as well as the classification error rate. So the second number is actually a percentage. You can see that the net here is at roughly 51% classification error on the test set. This net will continue training until the epoch number exceeds that given to the *--epochs* [Options argument] (default 50000).
 
 Every time the net prints a test output, it also saves a checkpoint to the path printed. The number of checkpoints that it maintains is controlled by the *--max-filesize* parameter. See [Options] for more on this parameter.
 
