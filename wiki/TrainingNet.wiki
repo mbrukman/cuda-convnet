@@ -118,7 +118,7 @@ Saved checkpoint to /storage2/tmp/ConvNet__Sat_Jul__2_14_16_01_2011
 4.2... logprob:  1.239093, 0.425300 (2.070 sec)
 }}}
 
-... which tells you the epoch and batch numbers as well as the values of all of the objectives that you're optimizing. The *cost.logreg* objective happens to return two values -- the average (negative) log probability of the data under the model as well as the classification error rate. So the second number is actually an error fraction. You can see that the net here is at roughly 51% classification error on the test set. This net will continue training until the epoch number exceeds that given to the *--epochs* [Options argument] (default 50000).
+... which tells you the epoch and batch numbers as well as the values of all of the objectives that you're optimizing. The *cost.logreg* objective happens to return two values -- the average negative log probability of the data under the model (that's the first number) as well as the classification error rate (the second number). You can see that the net here is at roughly 51% classification error on the test set. This net will continue training until the epoch number exceeds that given to the *--epochs* [Options argument] (default 50000).
 
 Every time the net prints a test output, it also saves a checkpoint to the path printed. The number of checkpoints that it maintains is controlled by the *--max-filesize* parameter. See [Options] for more on this parameter.
 
