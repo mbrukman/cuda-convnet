@@ -28,13 +28,14 @@ Ideally, your test/validation data should be in a separate file from the other f
 
 Inside the [http://code.google.com/p/cuda-convnet/source/browse/trunk/include/data.cuh data.cuh] file, there's this line:
 {{{
-// Set to true for slight speed boost, higher memory consumption
-#define STORE_ALL_DATA_ON_GPU       true
+/*
+ * Store entire data matrix on GPU if its size does not exceed this many MB.
+ * Otherwise store only one minibatch at a time.
+ */ 
+#define MAX_DATA_ON_GPU             200 
 }}}
 
-When set to `true`, the batch size (10000 above) corresponds to the number of training cases that are copied to the GPU at a time. You can set this flag to `false` (and pay a very slight performance penalty) to save memory. When set to `false`, only one _minibatch_ will exist on the GPU at any given time.
-
-Aside from that, the batch size does not have much meaning.
+So, if your batch size isn't too big, it will correspond to the amount of data copied to the GPU at a time. Otherwise only one minibatch will be copied at a time, and the batch size will not have much meaning at all.
 
 = Internal data layout =
 Here you have some freedom. The internals of the files are left up to you; you just have to write a data provider (a python class) to parse the files and return the data in a format that the model will understand. See http://code.google.com/p/cuda-convnet/source/browse/trunk/convdp.py for an example.
