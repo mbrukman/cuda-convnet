@@ -32,13 +32,11 @@ convnet.py usage:
      --train-range <int[-int]>  - Data batch range: training       
 }}}
 
-= What they mean =
-
 You can see that most arguments have default values, so you don't have to provide them.
 
 The angle brackets following the argument names tell you what kind of value each argument expects.
 
-Now I'll describe what all of them mean.
+= What they mean =
 
 First the optional arguments:
 || *Argument* || *Meaning* ||
