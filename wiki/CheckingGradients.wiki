@@ -62,7 +62,7 @@ The model verifies the gradients of each of the weight matrices in the net. In t
 ||x_1 - x_2|| / ||x_1||
 }}}
 
-In the file [http://code.google.com/p/cuda-convnet/source/browse/trunk/src/layer.cu layer.cu], there are these two lines:
+In the file [http://code.google.com/p/cuda-convnet/source/browse/trunk/include/util.cuh util.cuh], there are these two lines:
 {{{
 #define GC_SUPPRESS_PASSES     true
 #define GC_REL_ERR_THRESH      0.02
