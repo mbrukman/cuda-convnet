@@ -9,7 +9,9 @@ To define the architecture of your neural net, you must write a layer definition
 
 == Layer definition file ==
 
-I'll do this by example. Let's make a new file called `layers.cfg`, which will define the architecture of our neural net. The very first thing we'll add to it is a data layer:
+I'll do this by example. In this example I'll cover all the layer types that this code supports.
+
+Let's make a new file called `layers.cfg`, which will define the architecture of our neural net. The very first thing we'll add to it is a data layer:
 
 {{{
 [data]
