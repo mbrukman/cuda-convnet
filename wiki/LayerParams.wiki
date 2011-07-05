@@ -43,6 +43,7 @@ filterSize=9
 neuron=logistic
 initW=0.00001
 partialSum=1
+sharedBiases=true
 }}}
 
 Again, the bracketed conv32 is the name we're choosing to give to this layer.
@@ -59,6 +60,7 @@ Here's what the other parameters mean:
 ||neuron=logistic || defines the neuron nonlinearity. See NeuronTypes for supported types.||
 ||initW=0.00001 || instructs the net to initialize the weights in this layer from a normal distribution with mean zero and standard deviation 0.00001. The biases are always initialized at zero.||
 ||partialSum=1 || this is a very important parameter if you care about performance. Keep it at 1 for maximum performance at the expense of memory consumption. Set it to higher numbers (up to the number of outputs that your convolution produces) to gradually trade memory consumption for performance. Setting it to 0 is equivalent to setting it to the highest (i.e. slowest, but least memory-hungry) number possible. In most scenarios there should be no problem to keep this parameter at 1. To give you an idea of what effect it will have on memory consumption: the amount of extra memory used will be: `(number of weights in this layer)x(number of outputs this layer produces) / partialSum.`||
+||sharedBiases=true || indicates that the biases of every filter in this layer should be shared among all applications of that filter (which is how convnets are usually trained). Setting this to false will untie the biases, so there will be a separate bias for every location at which the filter is applied. ||
 
 For kicks, let's add a fully-connected layer over the data too:
 {{{
@@ -109,6 +111,7 @@ channels=32
 neuron=relu
 initW=0.0001
 partialSum=1
+sharedBiases=false
 }}}
 
 Nothing new here. Notice that this convolutional layer has 32 channels, because the *conv32* layer (and hence the *maxpool* layer) produces images with 32 channels. Therefore each filter in this layer will have 5x5x32 weights.
