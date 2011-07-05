@@ -44,7 +44,7 @@ First the optional arguments:
 || *Argument* || *Meaning* ||
 || --check-grads || [CheckingGradients Check the gradients] ||
 || --epochs || How many epochs to train for. An epoch is one pass through the training data. ||
-|| -f || Load checkpoint from given path. All other parameters become optional when this is given. ||
+|| -f || Load checkpoint from given path. All other arguments become optional when this is given. ||
 || --gpu || Set GPU index to run on (default is to grab fastest GPU available). ||
 || --max-filesize || Maximum amount of disk space occupied by all checkpoints. Set to 0 to only store last checkpoint. ||
 || --mini || Minibatch size. The minibatch size is the number of training cases over which a gradient is averaged to produce a weight update. This value must be a multiple of 128. ||
