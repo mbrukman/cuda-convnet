@@ -43,21 +43,21 @@ Now I'll describe what all of them mean.
 First the optional arguments:
 || *Argument* || *Meaning* ||
 || --check-grads || [CheckingGradients Check the gradients] ||
-|| --epochs || How many epochs to train on? An epoch is one pass through the training data. ||
-|| -f || Load checkpoint from given path. All other parameters become optional. ||
+|| --epochs || How many epochs to train for. An epoch is one pass through the training data. ||
+|| -f || Load checkpoint from given path. All other parameters become optional when this is given. ||
 || --gpu || Set GPU index to run on (default is to grab fastest GPU available). ||
 || --max-filesize || Maximum amount of disk space occupied by all checkpoints. Set to 0 to only store last checkpoint. ||
 || --mini || Minibatch size. The minibatch size is the number of training cases over which a gradient is averaged to produce a weight update. This value must be a multiple of 128. ||
 || --num-gpus || Ignore this. This code does not support training one model on multiple GPUs. ||
-|| --test-freq || Compute the test error and save checkpoint to disk every *this many* training batches. ||
+|| --test-freq || The test error computation / checkpoint saving frequency, in units of training batches. Every *this many* training batches,  the net will compute the test error and save a checkpoint.||
 || --test-one || If multiple testing batches are given, test on only one at a time. ||
 || --test-only || Compute the test error and quit. To be used in combination with the *-f* option. ||
-|| --zip-save || Compress checkpoint files? This makes checkpointing slower and may have almost no effect on the file size. So the default is off. ||
+|| --zip-save || Compress checkpoint files. This makes checkpointing slower and may have almost no effect on the file size. So the default is off. ||
 
 Now the mandatory ones:
 
 || *Argument* || *Meaning* ||
-|| --data-path || Specify a path where the net's [Data data provider] can find its data. ||
+|| --data-path || Specify the path where the net's [Data data provider] can find its data. ||
 || --data-provider || Specify a [Data data provider] to use to parse the data. ||
 || --layer-def || Specify a [LayerParams layer definition] file. ||
 || --layer-params || Specify a [LayerParams layer parameter] file. ||
