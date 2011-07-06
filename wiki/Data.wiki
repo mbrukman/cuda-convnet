@@ -26,7 +26,7 @@ drwxr-xr-x 34 spoon spoon     4096 2011-06-29 21:40 ..
 
 Ideally, your test/validation data should be in a separate file from the other files. Here batch 6 is the test set.
 
-Inside the [http://code.google.com/p/cuda-convnet/source/browse/trunk/include/data.cuh data.cuh] file, there's this line:
+Inside the [http://code.google.com/p/cuda-convnet/source/browse/trunk/include/util.cuh util.cuh] file, there's this line:
 {{{
 /*
  * Store entire data matrix on GPU if its size does not exceed this many MB.
