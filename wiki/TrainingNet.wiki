@@ -13,24 +13,27 @@ You should get the following output:
 {{{
 convnet.py usage:
     Option                        Description                  Default 
-    [--check-grads <0/1>      ] - Check gradients and quit?    [0]     
-    [--epochs <int>           ] - Number of epochs             [50000] 
-    [-f <string>              ] - Load file                    []      
-    [--gpu <int,...>          ] - GPU override                 []      
-    [--max-filesize <int>     ] - Maximum save file size (MB)  [0]     
-    [--mini <int>             ] - Minibatch size               [128]   
-    [--num-gpus <int>         ] - Number of GPUs               [1]     
-    [--test-freq <int>        ] - Testing frequency            [50]    
-    [--test-one <0/1>         ] - Test on one batch at a time? [1]     
-    [--test-only <0/1>        ] - Test and quit?               [0]     
-    [--zip-save <0/1>         ] - Compress checkpoints?        [0]     
-     --data-path <string>       - Data path                            
-     --data-provider <string>   - Data provider                        
-     --layer-def <string>       - Layer definition file                
-     --layer-params <string>    - Layer parameter file                 
-     --save-path <string>       - Save path                            
-     --test-range <int[-int]>   - Data batch range: testing            
-     --train-range <int[-int]>  - Data batch range: training                     
+    [--check-grads <0/1>      ] - Check gradients and quit?             [0]     
+    [--crop-border <int>      ] - Cropped DP: crop border size          [4]     
+    [--epochs <int>           ] - Number of epochs                      [50000] 
+    [-f <string>              ] - Load file                             []      
+    [--gpu <int,...>          ] - GPU override                          []      
+    [--logreg-name <string>   ] - Cropped DP: logreg layer name         []      
+    [--max-filesize <int>     ] - Maximum save file size (MB)           [0]     
+    [--mini <int>             ] - Minibatch size                        [128]   
+    [--multiview-test <0/1>   ] - Cropped DP: test on multiple patches? [0]     
+    [--num-gpus <int>         ] - Number of GPUs                        [1]     
+    [--test-freq <int>        ] - Testing frequency                     [50]    
+    [--test-one <0/1>         ] - Test on one batch at a time?          [1]     
+    [--test-only <0/1>        ] - Test and quit?                        [0]     
+    [--zip-save <0/1>         ] - Compress checkpoints?                 [0]     
+     --data-path <string>       - Data path                                     
+     --data-provider <string>   - Data provider                                 
+     --layer-def <string>       - Layer definition file                         
+     --layer-params <string>    - Layer parameter file                          
+     --save-path <string>       - Save path                                     
+     --test-range <int[-int]>   - Data batch range: testing                     
+     --train-range <int[-int]>  - Data batch range: training                   
 }}}
 
 You can read about the meanings of these options [Options here].
