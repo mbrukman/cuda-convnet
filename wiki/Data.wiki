@@ -47,6 +47,9 @@ Also make sure that your data provider returns matrices that consist of *single-
 Aside from that, there isn't much to trip over.
 
 = Included data providers =
-This code ships with two data providers. One is used to parse the CIFAR-10 dataset (see TrainingNet). The other is used to generate dummy data for gradient-testing computations (see CheckingGradients).
+This code ships with three data providers. You can find them all in [http://code.google.com/p/cuda-convnet/source/browse/trunk/convdp.py convdp.py].
+  * `CIFARDataProvider` is used to parse the CIFAR-10 dataset (see TrainingNet).
+  * `CroppedCifarDataProvider` is used to parse and crop the CIFAR-10 dataset. This is useful if you want to train on translations of the CIFAR-10 images. See [TrainingNet] for details.
+  * `DummyConvNetDataProvider` is used to generate dummy data for gradient-testing computations (see CheckingGradients).
 
 Once you've written a new data provider to parse your data, you can register it at the bottom of the [http://code.google.com/p/cuda-convnet/source/browse/trunk/convnet.py convnet.py] file with the `DataProvider.register_data_provider` function, as shown there.
