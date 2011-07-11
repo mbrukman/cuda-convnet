@@ -119,7 +119,7 @@ scale=0.0000125
 || sizeX=11 || the _N_ variable in the above formula, this defines the size of the local regions used for contrast normalization. Squares of (*sizeX*)^2^ are used to normalize each pixel. The squares are centered at the pixel. ||
 || scale=0.0000125 || the _alpha_ variable in the above formula, this weights the contrast normalization term. Setting this to zero obviously makes this layer's output equal to its input -- i.e., you get no contrast normalization.||
 
-OK, let's add one more convolutional layer over the pooling layer:
+OK, let's add one more convolutional layer over the contrast normalization layer:
 
 {{{
 [conv32-2]
