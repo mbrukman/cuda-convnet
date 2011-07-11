@@ -103,7 +103,7 @@ Now let's add a local contrast normalization layer over the pooling layer. This 
 
 <wiki:gadget url="http://mathml-gadget.googlecode.com/svn/trunk/mathml-gadget.xml" border="0" up_content="f(x_i) = 1 / (1 + \alpha/N^2 sum_j x_j^2)" height="75"/>
 
-for _x,,j,,_ in a local neighbourhood of _x,,i,,_ of size _N_ x _N_. Here's how this layer is specified:
+for _x,,j,,_ in a local neighbourhood of _x,,i,,_ of size _N_ x _N_. The output dimensionality of this layer is of course always equal to the input dimensionality. Here's how this layer is specified:
 
 {{{
 [cnorm1]
