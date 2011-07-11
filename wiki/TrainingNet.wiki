@@ -118,7 +118,7 @@ Layer 'conv32-2' weights: 6.535836e-04 [6.687451e-07]
 Layer 'fc10' weights[0]: 8.045786e-04 [7.745636e-07]
 Layer 'fc10' weights[1]: 1.067317e-02 [1.005070e-04] 
 -------------------------------------------------------
-Saved checkpoint to /storage2/tmp/ConvNet__Sat_Jul__2_14_16_01_2011
+Saved checkpoint to /storage2/tmp/ConvNet__Wed_Jun_29_22_19_39_2011
 ======================================================= (3.992 sec)
 3.4... logprob:  1.331711, 0.462800 (2.115 sec)
 3.5... logprob:  1.326100, 0.459300 (2.111 sec)
