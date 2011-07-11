@@ -67,23 +67,27 @@ This just tells you the dimensions of all the layers inside your net. Since we n
 
 Then this:
 {{{
-Check gradients and quit?   : 0     [DEFAULT]
-Compress checkpoints?       : 0     [DEFAULT]
-Data batch range: testing   : 6-6   
-Data batch range: training  : 1-5   
-Data path                   : /storage2/tiny/cifar-10-batches-py-colmajor/ 
-Data provider               : cifar 
-GPU override                :       [DEFAULT]
-Layer definition file       : ./layers.cfg 
-Layer parameter file        : ./layer-params.cfg 
-Load file                   :       [DEFAULT]
-Maximum save file size (MB) : 0     [DEFAULT]
-Minibatch size              : 128   [DEFAULT]
-Number of GPUs              : 1     [DEFAULT]
-Number of epochs            : 50000 [DEFAULT]
-Save path                   : /storage2/tmp 
-Test and quit?              : 0     [DEFAULT]
-Test on one batch at a time?: 1     [DEFAULT]
+Check gradients and quit?            : 0   [DEFAULT]
+Compress checkpoints?                : 0   [DEFAULT]
+Cropped DP: crop border size         : 4   [DEFAULT]
+Cropped DP: logreg layer name        :     [DEFAULT]
+Cropped DP: test on multiple patches?: 0   [DEFAULT]
+Data batch range: testing            : 6-6 
+Data batch range: training           : 1-5 
+Data path                            : /storage2/tiny/cifar-10-batches-py-colmajor/ 
+Data provider                        : cifar 
+GPU override                         :     [DEFAULT]
+Layer definition file                : ./example-layers/layers-example.cfg 
+Layer parameter file                 : ./example-layers/layer-params-example.cfg 
+Load file                            :     [DEFAULT]
+Maximum save file size (MB)          : 0   [DEFAULT]
+Minibatch size                       : 128 [DEFAULT]
+Number of GPUs                       : 1   [DEFAULT]
+Number of epochs                     : 300 
+Save path                            : /storage2/tmp 
+Test and quit?                       : 0   [DEFAULT]
+Test on one batch at a time?         : 1   [DEFAULT]
+Testing frequency                    : 13  
 }}}
 
 ... a printout of the command-line arguments with which the net was run.
