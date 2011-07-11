@@ -56,6 +56,7 @@ Initialized data layer 'labels', producing 1 outputs
 Initialized convolutional layer 'conv32', producing 32x32 32-channel output
 Initialized fully-connected layer 'fc1024', producing 1024 outputs
 Initialized max-pooling layer 'maxpool', producing 15x15 32-channel output
+Initialized contrast-normalization layer 'cnorm1', producing 15x15 32-channel output
 Initialized convolutional layer 'conv32-2', producing 15x15 32-channel output
 Initialized fully-connected layer 'fc10', producing 10 outputs
 Initialized softmax layer 'probs', producing 10 outputs
@@ -91,37 +92,37 @@ And finally, it starts training, and produces output like this:
 {{{
 Saving checkpoints to /storage2/tmp/ConvNet__Wed_Jun_29_22_19_39_2011
 =========================
-1.1... logprob:  1.858268, 0.646900 (2.068 sec)
-1.2... logprob:  1.708081, 0.595500 (2.064 sec)
-1.3... logprob:  1.599059, 0.568600 (2.066 sec)
-1.4... logprob:  1.616192, 0.564000 (2.077 sec)
-1.5... logprob:  1.588626, 0.554000 (2.064 sec)
-2.1... logprob:  1.475589, 0.513100 (2.066 sec)
-2.2... logprob:  1.487473, 0.519700 (2.061 sec)
-2.3... logprob:  1.421058, 0.501400 (2.069 sec)
-2.4... logprob:  1.455423, 0.504700 (2.068 sec)
-2.5... logprob:  1.426358, 0.494900 (2.069 sec)
-3.1... logprob:  1.343813, 0.467100 (2.069 sec)
-3.2... logprob:  1.354268, 0.469400 (2.070 sec)
-3.3... logprob:  1.297426, 0.455300 
+1.1... logprob:  1.861931, 0.652700 (2.131 sec)
+1.2... logprob:  1.709634, 0.597900 (2.111 sec)
+1.3... logprob:  1.604382, 0.567600 (2.119 sec)
+1.4... logprob:  1.613155, 0.565700 (2.118 sec)
+1.5... logprob:  1.586591, 0.553700 (2.111 sec)
+2.1... logprob:  1.477137, 0.515700 (2.108 sec)
+2.2... logprob:  1.488417, 0.516400 (2.108 sec)
+2.3... logprob:  1.426488, 0.500800 (2.119 sec)
+2.4... logprob:  1.450616, 0.503900 (2.109 sec)
+2.5... logprob:  1.426924, 0.496600 (2.118 sec)
+3.1... logprob:  1.347166, 0.467000 (2.117 sec)
+3.2... logprob:  1.359413, 0.467600 (2.132 sec)
+3.3... logprob:  1.304500, 0.453600
 ======================Test output======================
-logprob:  1.461566, 0.509800 
+logprob:  1.462587, 0.514000 
 ------------------------------------------------------- 
-Layer 'conv32' weights: 5.862458e-04 [6.826280e-06] 
-Layer 'fc1024' weights[0]: 7.998271e-04 [9.157367e-07] 
-Layer 'conv32-2' weights: 3.883718e-04 [6.527478e-07] 
-Layer 'fc10' weights[0]: 8.027115e-04 [3.833112e-07]
-Layer 'fc10' weights[1]: 1.069558e-02 [9.805032e-05] 
+Layer 'conv32' weights: 7.525693e-04 [8.000028e-06] 
+Layer 'fc1024' weights[0]: 8.003611e-04 [8.956434e-07] 
+Layer 'conv32-2' weights: 6.535836e-04 [6.687451e-07] 
+Layer 'fc10' weights[0]: 8.045786e-04 [7.745636e-07]
+Layer 'fc10' weights[1]: 1.067317e-02 [1.005070e-04] 
 -------------------------------------------------------
 Saved checkpoint to /storage2/tmp/ConvNet__Sat_Jul__2_14_16_01_2011
 ======================================================= (3.992 sec)
-3.4... logprob:  1.330210, 0.462500 (2.071 sec)
-3.5... logprob:  1.302977, 0.451500 (2.070 sec)
-4.1... logprob:  1.233434, 0.431100 (2.070 sec)
-4.2... logprob:  1.239093, 0.425300 (2.070 sec)
+3.4... logprob:  1.331711, 0.462800 (2.115 sec)
+3.5... logprob:  1.326100, 0.459300 (2.111 sec)
+4.1... logprob:  1.260406, 0.437500 (2.108 sec)
+4.2... logprob:  1.275028, 0.435800 (2.109 sec)
 }}}
 
-... which tells you the epoch and batch numbers as well as the values of all of the objectives that you're optimizing. The *cost.logreg* objective happens to return two values -- the average negative log probability of the data under the model (that's the first number) as well as the classification error rate (the second number). You can see that the net here is at roughly 51% classification error on the test set. This net will continue training until the epoch number exceeds that given to the *--epochs* [Options argument] (default 50000).
+... which tells you the epoch and batch numbers as well as the values of all of the objectives that you're optimizing. The *cost.logreg* objective happens to return two values -- the average negative log probability of the data under the model (that's the first number) as well as the classification error rate (the second number). You can see that the net here is at 51.4% classification error on the test set. This net will continue training until the epoch number exceeds that given to the *--epochs* [Options argument] (default 50000).
 
 Every time the net prints a test output, it also saves a checkpoint to the path printed. The number of checkpoints that it maintains is controlled by the *--max-filesize* parameter. See [Options] for more on this parameter.
 
