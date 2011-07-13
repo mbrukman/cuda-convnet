@@ -95,9 +95,9 @@ A few new parameters here:
 ||pool=max ||indicates that this is to be a max-pooling layer. Also supported is *pool=avg* for average-pooling. ||
 ||inputs=conv32 ||indicates that this layer subsamples the layer named *conv32*.||
 ||start=0 ||tells the net where in the image to start the pooling. In principle, you can start anywhere you want. Setting this to a positive number will cause the net to discard some pixels at the top and at the left of the image. Setting this to a negative number will cause it to include pixels that don't exist (which is fine). *start=0* is the usual setting. ||
-||sizeX=4 ||defines the size of the pooling region in the x (equivalently, y) dimension. Squares of size (*sizeX*)^2^ get reduced to 1 value by this layer. There are no restrictions on the value of this parameter. It's fine for a pooling square to fall off the boundary of the image.  ||
+||sizeX=4 ||defines the size of the pooling region in the x (equivalently, y) dimension. Squares of size (*sizeX*)^2^ get reduced to one value by this layer. There are no restrictions on the value of this parameter. It's fine for a pooling square to fall off the boundary of the image.  ||
 ||stride=2 ||defines the stride size between successive pooling squares. Setting this parameter smaller than *sizeX* produces _overlapping_ pools. Setting it equal to *sizeX* gives the usual, non-overlapping pools. Values greater than *sizeX* are not allowed. ||
-||outputsX=0 ||allows you to control how many outputs in the x (equivalently, y) dimension this operation will produce. This parameter is analogous to the *start* parameter, in that it allows you to discard some portion of the image by setting it to a value small enough to leave part of the image uncovered. Setting it to 0 instructs the net to produce as many outputs as is necessary to ensure that the whole image is covered. ||
+||outputsX=0 ||allows you to control how many outputs in the x (equivalently, y) dimension this operation will produce. This parameter is analogous to the *start* parameter, in that it allows you to discard some portion of the image by setting it to a value small enough to leave part of the image uncovered. Setting it to zero instructs the net to produce as many outputs as is necessary to ensure that the whole image is covered. ||
 
 Now let's add a local contrast normalization layer over the pooling layer. This layer will compute the function
 
@@ -117,7 +117,7 @@ scale=0.0000125
 || *Parameter* || *Meaning* ||
 || channels=32 || indicates that this layer takes 32-channel input because that's what the *maxpool* layer produces. The number of "channels" here just serves to define the shape of the input and has no actual bearing on the output (unlike in convolutional layers, which sum over channels). ||
 || sizeX=11 || the _N_ variable in the above formula, this defines the size of the local regions used for contrast normalization. Squares of (*sizeX*)^2^ are used to normalize each pixel. The squares are centered at the pixel. ||
-|| scale=0.0000125 || the _alpha_ variable in the above formula, this weights the contrast normalization term. Setting this to zero obviously makes this layer's output equal to its input -- i.e., you get no contrast normalization.||
+|| scale=0.0000125 || the _alpha_ variable in the above formula, this weights the contrast normalization term. Setting this to zero makes this layer's output equal to its input -- i.e., you get no contrast normalization.||
 
 OK, let's add one more convolutional layer over the contrast normalization layer:
 
