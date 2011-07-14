@@ -9,7 +9,7 @@ I'll list them by their package names in Ubuntu.
   * python-dev
   * python-numpy
   * python-magic
-  * libatlas-dev
+  * libatlas-base-dev
 
 And of course you also need to install the CUDA toolkit and CUDA SDK (ideally versions 4.0 of both).
 
