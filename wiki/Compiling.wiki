@@ -23,7 +23,7 @@ svn checkout http://cuda-convnet.googlecode.com/svn/trunk/ cuda-convnet-read-onl
 
 = Compiling =
 
-In the main directory, you'll find the `build.sh` file. Fill in the environment variables in that file (the included defaults are their proper values on *my* system, but almost certainly not on yours).
+In the main directory, you'll find the [http://code.google.com/p/cuda-convnet/source/browse/trunk/build.sh build.sh] file. Fill in the environment variables in that file (the included defaults are their proper values on *my* system, but almost certainly not on yours).
 
 Then, type
 {{{
