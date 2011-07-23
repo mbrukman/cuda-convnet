@@ -99,15 +99,17 @@ A few new parameters here:
 ||stride=2 ||defines the stride size between successive pooling squares. Setting this parameter smaller than *sizeX* produces _overlapping_ pools. Setting it equal to *sizeX* gives the usual, non-overlapping pools. Values greater than *sizeX* are not allowed. ||
 ||outputsX=0 ||allows you to control how many outputs in the x (equivalently, y) dimension this operation will produce. This parameter is analogous to the *start* parameter, in that it allows you to discard some portion of the image by setting it to a value small enough to leave part of the image uncovered. Setting it to zero instructs the net to produce as many outputs as is necessary to ensure that the whole image is covered. ||
 
-Now let's add a local contrast normalization layer over the pooling layer. This layer will compute the function
+Now let's add a local response normalization layer over the pooling layer. This layer will compute the function
 
 <wiki:gadget url="http://mathml-gadget.googlecode.com/svn/trunk/mathml-gadget.xml" border="0" up_content="f(x_i) = x_i / (1 + \alpha/N^2 sum_j x_j^2)" height="75"/>
 
-for _x,,j,,_ in a local neighbourhood of _x,,i,,_ of size _N_ x _N_. The output dimensionality of this layer is of course always equal to the input dimensionality. Here's how this layer is specified:
+for _x,,j,,_ in a local neighborhood of _x,,i,,_ of size _N_ x _N_. The output dimensionality of this layer is of course always equal to the input dimensionality. This type of layer turns out to be useful when using neurons with unbounded activations (e.g. rectified linear units), because it permits the detection of high-frequency features with a big neuron response, but damps large, nearby clumps of neurons if all of their responses are large. 
+
+Here's how this layer is specified:
 
 {{{
-[cnorm1]
-type=cnorm
+[rnorm1]
+type=rnorm
 inputs=maxpool
 channels=32
 sizeX=5
@@ -116,15 +118,15 @@ scale=0.0000125
 
 || *Parameter* || *Meaning* ||
 || channels=32 || indicates that this layer takes 32-channel input because that's what the *maxpool* layer produces. The number of "channels" here just serves to define the shape of the input and has no actual bearing on the output (unlike in convolutional layers, which sum over channels). ||
-|| sizeX=11 || the _N_ variable in the above formula, this defines the size of the local regions used for contrast normalization. Squares of (*sizeX*)^2^ are used to normalize each pixel. The squares are centered at the pixel. ||
-|| scale=0.0000125 || the _alpha_ variable in the above formula, this weights the contrast normalization term. Setting this to zero makes this layer's output equal to its input -- i.e., you get no contrast normalization.||
+|| sizeX=11 || the _N_ variable in the above formula, this defines the size of the local regions used for response normalization. Squares of (*sizeX*)^2^ are used to normalize each pixel. The squares are centered at the pixel. ||
+|| scale=0.0000125 || the _alpha_ variable in the above formula, this weights the response normalization term. Setting this to zero makes this layer's output equal to its input -- i.e., you get no response normalization.||
 
-OK, let's add one more convolutional layer over the contrast normalization layer:
+OK, let's add one more convolutional layer over the response normalization layer:
 
 {{{
 [conv32-2]
 type=conv
-inputs=cnorm1
+inputs=rnorm1
 numFilters=32
 padding=2
 stride=1
@@ -136,7 +138,7 @@ partialSum=1
 sharedBiases=false
 }}}
 
-Nothing new here. Notice that this convolutional layer has 32 channels, because the *conv32* layer (and hence the *maxpool* layer, and hence the *cnorm1* layer) produces images with 32 channels. Therefore each filter in this layer will have 5x5x32 weights.
+Nothing new here. Notice that this convolutional layer has 32 channels, because the *conv32* layer (and hence the *maxpool* layer, and hence the *rnorm1* layer) produces images with 32 channels. Therefore each filter in this layer will have 5x5x32 weights.
 
 Now let's connect this convolutional layer and the fully-connected layer defined long ago to a softmax output:
 {{{
