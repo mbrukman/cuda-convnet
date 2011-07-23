@@ -56,7 +56,7 @@ Initialized data layer 'labels', producing 1 outputs
 Initialized convolutional layer 'conv32', producing 32x32 32-channel output
 Initialized fully-connected layer 'fc1024', producing 1024 outputs
 Initialized max-pooling layer 'maxpool', producing 15x15 32-channel output
-Initialized contrast-normalization layer 'cnorm1', producing 15x15 32-channel output
+Initialized response-normalization layer 'cnorm1', producing 15x15 32-channel output
 Initialized convolutional layer 'conv32-2', producing 15x15 32-channel output
 Initialized fully-connected layer 'fc10', producing 10 outputs
 Initialized softmax layer 'probs', producing 10 outputs
