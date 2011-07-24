@@ -121,7 +121,7 @@ pow=0.75
 || channels=32 || indicates that this layer takes 32-channel input because that's what the *maxpool* layer produces. The number of "channels" here just serves to define the shape of the input and has no actual bearing on the output (unlike in convolutional layers, which sum over channels). ||
 || sizeX=11 || the _N_ variable in the above formula, this defines the size of the local regions used for response normalization. Squares of (*sizeX*)^2^ are used to normalize each pixel. The squares are centered at the pixel. ||
 || scale=0.0000125 || the _alpha_ variable in the above formula, this weights the response normalization term. Setting this to zero makes this layer's output equal to its input -- i.e., you get no response normalization.||
-|| pow=0.75 || the _beta_ variable in the above formula.||
+|| pow=0.75 || the _beta_ variable in the above formula. Setting this to zero likewise makes this layer's output equal to its input. ||
 
 OK, let's add one more convolutional layer over the response normalization layer:
 
