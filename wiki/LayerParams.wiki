@@ -105,7 +105,7 @@ Now let's add a local response normalization layer over the pooling layer. This 
 
 for _x,,j,,_ in a local neighborhood of _x,,i,,_ of size _N_ x _N_. The output dimensionality of this layer is of course always equal to the input dimensionality. 
 
-This type of layer turns out to be useful when using neurons with unbounded activations (e.g. rectified linear units), because it permits the detection of high-frequency features with a big neuron response, while damping the responses that are uniformly large in a local neighborhood. It is a type of regularizer that encourages "competition" for big activities among nearby groups of neurons. 
+This type of layer turns out to be useful when using neurons with unbounded activations (e.g. rectified linear units), because it permits the detection of high-frequency features with a big neuron response, while damping responses that are uniformly large in a local neighborhood. It is a type of regularizer that encourages "competition" for big activities among nearby groups of neurons. 
 
 Here's how this layer is specified:
 
