@@ -162,7 +162,7 @@ partialSum=1
 sharedBiases=false
 }}}
 
-Nothing new here. Notice that this convolutional layer has 32 channels, because the *conv32* layer (and hence the *maxpool* layer, and hence the *rnorm1* layer) produces images with 32 channels. Therefore each filter in this layer will have 5x5x32 weights.
+Nothing new here. Notice that this convolutional layer has 32 channels, because the *conv32* layer (and hence the *maxpool* layer, and hence the *rnorm1* layer, and hence the *cnorm1* layer) produces images with 32 channels. Therefore each filter in this layer will have 5x5x32 weights.
 
 Now let's connect this convolutional layer and the fully-connected layer defined long ago to a softmax output:
 {{{
