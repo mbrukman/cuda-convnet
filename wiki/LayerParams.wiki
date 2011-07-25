@@ -196,7 +196,7 @@ That's it! The convolutional net's architecture is defined.
 
 == Layer parameter file ==
 
-There's one problem though -- we haven't specified any learning parameters. This is done via another file, which we'll call `layer-params.cfg`. The idea is that you'll use one file to define the net's architecture, which stays fixed for the duration of training, and another file to define learning parameters, which can change while the net is training.
+There's one problem though -- we haven't specified any learning parameters. This is done via another file, which we'll call `layer-params.cfg`. The idea is that you'll use one file to define the net's architecture, which stays fixed for the duration of training, and another file to define learning parameters, which you can change while the net is training.
 
 So let's do that. I'll now go through the contents of the `layer-params.cfg` file that corresponds to the net defined above in `layers.cfg`.
 
