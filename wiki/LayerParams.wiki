@@ -9,9 +9,9 @@ To define the architecture of your neural net, you must write a layer definition
 
 == Layer definition file ==
 
-I'll do this by example. In this example I'll cover all the layer types that this code supports.
+I'll do this by example. In this example I'll cover all the layer types that this net supports.
 
-Let's make a new file called `layers.cfg`, which will define the architecture of our neural net. The very first thing we'll add to it is a data layer:
+Let's make a new file called `layers.cfg`, which will define the architecture of our neural net. The first thing we'll add to it is a data layer:
 
 {{{
 [data]
@@ -27,9 +27,9 @@ dataIdx=1
 
 The things in square brackets are user-friendly layer names, and they can be whatever you want them to be. Here we're really defining two layers: one we're calling *data* and the other we're calling *labels*. 
 
-The *type=data* line indicates that this is a data layer. Our python [Data data provider] outputs a list of two elements: the CIFAR-10 images and the CIFAR-10 labels. 
+The *type=data* line indicates that this is a data layer.
 
-The line *dataIdx=0* indicates that the layer named *data* is mapped to the CIFAR-10 images (and the layer named *labels* is mapped to the CIFAR-10 labels).
+Our python [Data data provider] outputs a list of two elements: the CIFAR-10 images and the CIFAR-10 labels. The line *dataIdx=0* indicates that the layer named *data* is mapped to the CIFAR-10 images, and similarly the line *dataIdx=1* indicates that the layer named *labels* is mapped to the CIFAR-10 labels.
 
 Now let's apply a convolution to this data.
 
@@ -62,9 +62,9 @@ Here's what the other parameters mean:
 ||neuron=logistic || defines the neuron nonlinearity. See NeuronTypes for supported types.||
 ||initW=0.00001 || instructs the net to initialize the weights in this layer from a normal distribution with mean zero and standard deviation 0.00001. The biases are always initialized at zero.||
 ||partialSum=1 || this is a parameter that affects the performance of the weight gradient computation. It's a bit hard to predict what value will result in the best performance (it's problem-specific), but it's worth trying a few. Valid values are ones that divide the total number of outputs in this convolutional layer. This parameter also has an impact on memory consumption. The amount of extra memory used will be: `(number of weights in this layer)x(number of outputs this layer produces) / partialSum.` Since one of the defining features of convolutional nets is their small number of weights, this shouldn't be a big deal. ||
-||sharedBiases=true || indicates that the biases of every filter in this layer should be shared amongst all applications of that filter (which is how convnets are usually trained). Setting this to false will untie the biases, so there will be a separate bias for every location at which the filter is applied. ||
+||sharedBiases=true || indicates that the biases of every filter in this layer should be shared amongst all applications of that filter (which is how convnets are usually trained). Setting this to false will untie the biases, yielding a separate bias for every location at which the filter is applied. ||
 
-For kicks, let's add a fully-connected layer over the data too:
+Now we'll add a fully-connected layer over the data too:
 {{{
 [fc1024]
 type=fc
