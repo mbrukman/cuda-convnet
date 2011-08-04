@@ -170,7 +170,7 @@ Now let's connect this convolutional layer and the fully-connected layer defined
 type=fc
 numOutputs=10
 inputs=conv32-2,fc1024
-initW=0.001,0.001
+initW=0.0001,0.0001
 neuron=ident
 
 [probs]
