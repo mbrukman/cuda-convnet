@@ -54,7 +54,7 @@ Current time: Thu Jun 30 20:38:02 2011
 Saving checkpoints to ConvNet__Thu_Jun_30_20_38_02_2011
 =========================
 2.1...------------------------
-ALL 6 TESTS PASSED
+ALL 7 TESTS PASSED
 }}}
 
 The model verifies the gradients of each of the weight matrices in the net. In this case there are 6 of them. Had any of the gradient tests failed, the model would have printed out the relative error between the results of the analytic computation and the numerical one. The relative error between two vectors is
