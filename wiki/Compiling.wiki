@@ -26,7 +26,7 @@ In the main directory, you'll find the [http://code.google.com/p/cuda-convnet/so
 
 Then, type
 {{{
-./build.sh
+sh build.sh
 }}}
 
 If all goes well, in a few minutes the compilation will finish successfully. [mailto:akrizhevsky@gmail.com Email me] in case of trouble.
