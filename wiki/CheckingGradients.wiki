@@ -51,7 +51,7 @@ Testing frequency           : 50    [DEFAULT]
 =========================
 Running on CUDA device(s) -2
 Current time: Thu Jun 30 20:38:02 2011
-Saving checkpoints to ConvNet__Thu_Jun_30_20_38_02_2011
+Saving checkpoints to ConvNet__2011-06-30_20.38.02
 =========================
 2.1...------------------------
 ALL 7 TESTS PASSED
