@@ -22,9 +22,14 @@ As mentioned above, the [http://code.google.com/p/cuda-convnet/source/browse/tru
 
   You should see output that looks something like this:
 
-  (img link)
+  http://cuda-convnet.googlecode.com/svn/wiki/images/cost-function.png
 
   which plots the training and test error over time.
 
   # *Viewing learned filters*
-  To view the filters that 
+  To view the filters that the net learned, call the script like this:
+  
+  {{{
+  }}}
+  
+  The parameter to -l is the name of the layer whose filters we wish to view. Note that you're not likely to get very sens
