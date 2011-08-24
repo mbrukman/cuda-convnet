@@ -30,6 +30,11 @@ As mentioned above, the [http://code.google.com/p/cuda-convnet/source/browse/tru
   To view the filters that the net learned, call the script like this:
   
   {{{
+  python shownet.py -f /storage2/tmp/ConvNet__2011-08-24_16.49.31 -l conv1
   }}}
   
-  The parameter to -l is the name of the layer whose filters we wish to view. Note that you're not likely to get very sens
+  The parameter to -l is the name of the layer whose filters we wish to view, defined in the layer configuration file (see LayerParams). Note that you're not likely to get such pretty filters in higher layers. So this visualization is mostly useful only for looking at data-connected layers.
+
+  You should see output that looks something like this:
+
+  http://cuda-convnet.googlecode.com/svn/wiki/images/filters.png
