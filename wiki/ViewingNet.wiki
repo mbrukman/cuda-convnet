@@ -40,14 +40,39 @@ http://cuda-convnet.googlecode.com/svn/wiki/images/filters.png
 
 Note that you're not likely to get such pretty filters in higher layers. So this visualization is mostly useful only for looking at data-connected layers.
 
-If you want to view the color channels separately, you can add the *-o* option
+You'll notice that the script has interpreted the 3 channels in the conv1 layer as RGB color channels. It will only do this for layers that have 3 channels. If this assumption is incorrect, and your 3 channels correspond to something other than RGB colors, you can instruct the script not to combine them with the *-o* option. It will then plot the color channels separately.
+
+An example:
 
 {{{
 python shownet.py -f /storage2/tmp/ConvNet__2011-08-24_16.49.31 -l conv1 -o
 }}}
 
-to get output that looks like this:
+will produce output that looks like this:
 
 http://cuda-convnet.googlecode.com/svn/wiki/images/filters-separated.png
 
-Finally, there are two more ways to modify the output of 
+Here the 3 channels of each filter are plotted side-by-side in grayscale.
+
+===Viewing learned filters in fully-connected layers===
+There are two meta-parameters that the *-l* parameter takes, which are only useful for viewing fully-connected filters. Again I will demonstrate their use by example.
+  
+Running the script like this:
+
+{{{
+python shownet.py -f /storage2/tmp/ConvNet__2011-08-24_17.56.48 -l fc64 -i 0 -c 3
+}}}
+
+produces output that looks like this:
+
+http://cuda-convnet.googlecode.com/svn/wiki/images/filters-fc.png
+
+Here the layer name fc64 specified to the *-l* option is a fully-connected layer, so 
+
+They are:
+|| *Parameter* || *Meaning* ||
+|| *-c 3* || Specifies the number of channels that the filters have. This has to be given because a fully-connected layer looks upon its input as completely flat. It is not aware of channels or image dimensions, etc. ||
+|| *-i 0* || Specifies the input index for which to plot filters. Remember that fully-connected layers can take multiple inputs, so this parameter removes that ambiguity. ||
+
+=Epilogue=
+The script described here is very basic. It performs few error checks, and hence will produce stack traces if something goes wrong. But maybe that will make it clearer how to modify the script to fit your needs.
