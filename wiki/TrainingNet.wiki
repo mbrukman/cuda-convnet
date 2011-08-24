@@ -157,6 +157,6 @@ Notice that the only difference between this run line and the one above is that 
 
 After training is done, you can kill the net and re-run it with the *--test-only=1* and *--multiview-test=1* arguments to compute the test error as averaged over 9 regions of the original images.
 
-== Checking the gradients ==
+== Looking inside the net ==
 
-Now that you know how to run the model, you can [CheckingGradients read] about how to verify that the gradients it computes are correct.
+Now that you know how to train the net, you can [ViewingNet read] about how to plot the cost function value and look at the filters that your net has learned.
