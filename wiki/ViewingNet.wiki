@@ -2,7 +2,7 @@
 
 = Introduction =
 
-Included with this code is a very basic script called [http://code.google.com/p/cuda-convnet/source/browse/trunk/shownet.py shownet.py]. Given a saved checkpoint as input, it has two functions: to plot the training/test error over time and to draw the first-layer filters that the neural net learned.
+Included with this code is a very basic script called [http://code.google.com/p/cuda-convnet/source/browse/trunk/shownet.py shownet.py]. It has two functions: to plot the training/test error and to draw the filters that the neural net learned.
 
 This script requires the [http://matplotlib.sourceforge.net/ matplotlib] python library (package name `python-matplotlib` in Ubuntu and Fedora).
 
