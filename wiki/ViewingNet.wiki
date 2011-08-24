@@ -40,7 +40,7 @@ http://cuda-convnet.googlecode.com/svn/wiki/images/filters.png
 
 Note that you're not likely to get such pretty filters in higher layers. So this visualization is mostly useful only for looking at data-connected layers.
 
-You'll notice that the script has interpreted the 3 channels in the conv1 layer as RGB color channels. It will only do this for layers that have 3 channels. If this assumption is incorrect, and your 3 channels correspond to something other than RGB colors, you can instruct the script not to combine them with the *-o* option. It will then plot the color channels separately.
+You'll notice that the script has interpreted the 3 channels in the conv1 layer as RGB color channels. It will only do this for layers that have 3 channels. If the RGP assumption is incorrect (i.e. your 3 channels correspond to something other than RGB colors), you can use the *-o* option to instruct the script not to combine the channels. It will then plot the channels separately.
 
 An example:
 
