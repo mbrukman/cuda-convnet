@@ -10,31 +10,44 @@ This script requires the [http://matplotlib.sourceforge.net/ matplotlib] python 
 
 As mentioned above, the [http://code.google.com/p/cuda-convnet/source/browse/trunk/shownet.py shownet.py] has two functions, which I will demonstrate by example.
 
+==Plotting the cost function==
+To plot the evolution of the value of some cost function over time, call the script like this:
 
-  # *Plotting the cost function*
-  To plot the evolution of the value of some cost function over time, call the script like this:
+{{{
+python shownet.py -f /storage2/tmp/ConvNet__2011-08-24_16.49.31 -e logprob
+}}}
 
-  {{{
-  python shownet.py -f /storage2/tmp/ConvNet__2011-08-24_16.49.31 -e logprob
-  }}}
+The parameter to *-f* is the checkpoint location (which is printed out repeatedly by `convnet.py` during training); the parameter to *-e* is the name that we gave to the cost function in the layer configuration file (see LayerParams).
 
-  The parameter to -f is the checkpoint location (which is printed out repeatedly by `convnet.py` during training); the parameter to -e is the name that we gave to the cost function in the layer configuration file (see LayerParams).
+You should see output that looks something like this:
 
-  You should see output that looks something like this:
+http://cuda-convnet.googlecode.com/svn/wiki/images/cost-function.png
 
-  http://cuda-convnet.googlecode.com/svn/wiki/images/cost-function.png
+which plots the training and test error over time.
 
-  which plots the training and test error over time.
-
-  # *Viewing learned filters*
-  To view the filters that the net learned, call the script like this:
+==Viewing learned filters==
+To view the filters that the net learned, call the script like this:
   
-  {{{
-  python shownet.py -f /storage2/tmp/ConvNet__2011-08-24_16.49.31 -l conv1
-  }}}
+{{{
+python shownet.py -f /storage2/tmp/ConvNet__2011-08-24_16.49.31 -l conv1
+}}}
   
-  The parameter to -l is the name of the layer whose filters we wish to view, defined in the layer configuration file (see LayerParams). Note that you're not likely to get such pretty filters in higher layers. So this visualization is mostly useful only for looking at data-connected layers.
+The parameter to *-l* is the name of the layer whose filters we wish to view, defined in the layer configuration file (see LayerParams).
 
-  You should see output that looks something like this:
+You should see output that looks something like this:
 
-  http://cuda-convnet.googlecode.com/svn/wiki/images/filters.png
+http://cuda-convnet.googlecode.com/svn/wiki/images/filters.png
+
+Note that you're not likely to get such pretty filters in higher layers. So this visualization is mostly useful only for looking at data-connected layers.
+
+If you want to view the color channels separately, you can add the *-o* option
+
+{{{
+python shownet.py -f /storage2/tmp/ConvNet__2011-08-24_16.49.31 -l conv1 -o
+}}}
+
+to get output that looks like this:
+
+http://cuda-convnet.googlecode.com/svn/wiki/images/filters-separated.png
+
+Finally, there are two more ways to modify the output of 
