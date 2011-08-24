@@ -11,17 +11,20 @@ This script requires the [http://matplotlib.sourceforge.net/ matplotlib] python 
 As mentioned above, the [http://code.google.com/p/cuda-convnet/source/browse/trunk/shownet.py shownet.py] has two functions, which I will demonstrate by example.
 
 
-  # *Plotting error values*
-  To view the evolution of some cost function value over time, call the script like this:
+  # *Plotting the cost function*
+  To plot the evolution of the value of some cost function over time, call the script like this:
 
-{{{
-python shownet.py -f /storage2/tmp/ConvNet__2011-08-24_16.49.31 -e logprob
-}}}
+  {{{
+  python shownet.py -f /storage2/tmp/ConvNet__2011-08-24_16.49.31 -e logprob
+  }}}
 
-The parameter to -f is the checkpoint location (which is printed out repeatedly by `convnet.py` during training); the parameter to -e is the name that we gave to the cost function in the layer configuration file (see LayerParams).
+  The parameter to -f is the checkpoint location (which is printed out repeatedly by `convnet.py` during training); the parameter to -e is the name that we gave to the cost function in the layer configuration file (see LayerParams).
 
-You should see output that looks something like this:
+  You should see output that looks something like this:
 
-(img link)
+  (img link)
 
-which plots the training and test error over time.
+  which plots the training and test error over time.
+
+  # *Viewing learned filters*
+  To view the filters that 
