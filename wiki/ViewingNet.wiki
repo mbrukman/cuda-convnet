@@ -1,0 +1,27 @@
+#summary How to look inside the checkpoints saved by the net.
+
+= Introduction =
+
+Included with this code is a very basic script called [http://code.google.com/p/cuda-convnet/source/browse/trunk/shownet.py shownet.py]. Given a saved checkpoint as input, it has two functions: to plot the training/test error over time and to draw the first-layer filters that the neural net learned.
+
+This script requires the [http://matplotlib.sourceforge.net/ matplotlib] python library (package name `python-matplotlib` in Ubuntu and Fedora).
+
+= Details =
+
+As mentioned above, the [http://code.google.com/p/cuda-convnet/source/browse/trunk/shownet.py shownet.py] has two functions, which I will demonstrate by example.
+
+
+  # *Plotting error values*
+  To view the evolution of some cost function value over time, call the script like this:
+
+{{{
+python shownet.py -f /storage2/tmp/ConvNet__2011-08-24_16.49.31 -e logprob
+}}}
+
+The parameter to -f is the checkpoint location (which is printed out repeatedly by `convnet.py` during training); the parameter to -e is the name that we gave to the cost function in the layer configuration file (see LayerParams).
+
+You should see output that looks something like this:
+
+(img link)
+
+which plots the training and test error over time.
