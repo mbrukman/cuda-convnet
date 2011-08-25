@@ -14,6 +14,8 @@ To define the architecture of your neural net, you must write a layer definition
 
 I'll do this by example. In this example I'll cover all the layer types that this net supports.
 
+===Data layer===
+
 Let's make a new file called `layers.cfg`, which will define the architecture of our neural net. The first thing we'll add to it is a data layer:
 
 {{{
@@ -33,6 +35,8 @@ The things in square brackets are user-friendly layer names, and they can be wha
 The *type=data* line indicates that this is a data layer.
 
 Our python [Data data provider] outputs a list of two elements: the CIFAR-10 images and the CIFAR-10 labels. The line *dataIdx=0* indicates that the layer named *data* is mapped to the CIFAR-10 images, and similarly the line *dataIdx=1* indicates that the layer named *labels* is mapped to the CIFAR-10 labels.
+
+===Convolution layer===
 
 Now let's apply a convolution to this data.
 
@@ -66,6 +70,8 @@ Here's what the other parameters mean:
 ||initW=0.00001 || instructs the net to initialize the weights in this layer from a normal distribution with mean zero and standard deviation 0.00001. The biases are always initialized at zero.||
 ||partialSum=1 || this is a parameter that affects the performance of the weight gradient computation. It's a bit hard to predict what value will result in the best performance (it's problem-specific), but it's worth trying a few. Valid values are ones that divide the total number of outputs in this convolutional layer. This parameter also has an impact on memory consumption. The amount of extra memory used will be: `(number of weights in this layer)x(number of outputs this layer produces) / partialSum.` Since one of the defining features of convolutional nets is their small number of weights, this shouldn't be a big deal. ||
 ||sharedBiases=true || indicates that the biases of every filter in this layer should be shared amongst all applications of that filter (which is how convnets are usually trained). Setting this to false will untie the biases, yielding a separate bias for every location at which the filter is applied. ||
+
+===Fully-connected layer===
 
 Now we'll add a fully-connected layer over the data too:
 {{{
@@ -102,6 +108,8 @@ A few new parameters here:
 ||stride=2 ||defines the stride size between successive pooling squares. Setting this parameter smaller than *sizeX* produces _overlapping_ pools. Setting it equal to *sizeX* gives the usual, non-overlapping pools. Values greater than *sizeX* are not allowed. ||
 ||outputsX=0 ||allows you to control how many outputs in the x (equivalently, y) dimension this operation will produce. This parameter is analogous to the *start* parameter, in that it allows you to discard some portion of the image by setting it to a value small enough to leave part of the image uncovered. Setting it to zero instructs the net to produce as many outputs as is necessary to ensure that the whole image is covered. ||
 
+===Local response normalization layer===
+
 Now let's add a local response normalization layer over the pooling layer. This layer will compute the function
 
 <wiki:gadget url="http://mathml-gadget.googlecode.com/svn/trunk/mathml-gadget.xml" border="0" up_content="f(x_i) = x_i / (1 + alpha/N^2 sum_j x_j^2)^beta" height="75"/>
@@ -127,6 +135,8 @@ pow=0.75
 || sizeX=11 || the _N_ variable in the above formula, this defines the size of the local regions used for response normalization. Squares of (*sizeX*)^2^ are used to normalize each pixel. The squares are centered at the pixel. ||
 || scale=0.0000125 || the _alpha_ variable in the above formula, this weights the response normalization term. Setting this to zero makes this layer's output equal to its input -- i.e., you get no response normalization.||
 || pow=0.75 || the _beta_ variable in the above formula. Setting this to zero likewise makes this layer's output equal to its input. ||
+
+===Local contrast normalization layer===
 
 Now let's add a local *contrast* normalization layer over the response normalization layer. This layer will compute the function
 
@@ -167,6 +177,8 @@ sharedBiases=false
 
 Nothing new here. Notice that this convolutional layer has 32 channels, because the *conv32* layer (and hence the *maxpool* layer, and hence the *rnorm1* layer, and hence the *cnorm1* layer) produces images with 32 channels. Therefore each filter in this layer will have 5x5x32 weights.
 
+===Fully-connected layer with multiple inputs; softmax layer===
+
 Now let's connect this convolutional layer and the fully-connected layer defined long ago to a softmax output:
 {{{
 [fc10]
@@ -187,6 +199,8 @@ The *probs* definition is a softmax layer that, as you might expect, applies a s
 
 Finally, let's define an objective function for the net to optimize. You can define and simultaneously optimize multiple objectives, but we'll stick to one here.
 
+===Logistic regression cost layer===
+
 {{{
 [logprob]
 type=cost.logreg
@@ -202,6 +216,8 @@ That's it! The convolutional net's architecture is defined.
 There's one problem though -- we haven't specified any learning parameters. This is done via another file, which we'll call `layer-params.cfg`. The idea is that you'll use one file to define the net's architecture, which stays fixed for the duration of training, and another file to define learning parameters, which you can change while the net is training.
 
 So let's do that. I'll now go through the contents of the `layer-params.cfg` file that corresponds to the net defined above in `layers.cfg`.
+
+===Convolutional layer parameters===
 
 {{{
 [conv32]
@@ -229,6 +245,8 @@ weights[i] := weights[i-1] + weight_inc[i]
 The update rule for biases is the same except that there is no bias weight decay.
 
 Now that that's out of the way, there isn't much left to describe.
+
+===Fully-connected layer parameters===
 
 We add learning parameter definitions for the *fc1024* layer too:
 {{{
@@ -262,6 +280,8 @@ wc=0,0
 }}}
 
 Here there is one twist: since the *fc10* layer takes two inputs, it has two weight matrices. So just like with the *initW* parameter, we have to provide *fc10* with a list of learning rates, momenta, and weight decays. We do this by writing them as a comma-delimited list of values.
+
+===Logistic regression cost layer parameters===
 
 Finally, the *logprob* layer takes one parameter:
 {{{
