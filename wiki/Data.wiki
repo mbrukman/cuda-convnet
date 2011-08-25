@@ -6,7 +6,7 @@ This code is capable of training on images of any size, and with any number of c
 
 = Data files =
 
-The net expects data to be stored as python pickled objects. You can find some example data here: http://www.cs.toronto.edu/~kriz/cifar-10-py-colmajor.tar.gz.
+The net expects data to be stored as python pickled objects. You can find some example data here: http://www.cs.toronto.edu/~kriz/cifar-10-py-colmajor.tar.gz. This is the CIFAR-10 dataset.
 
 The data must be broken down into batches. For example, the data above is broken down into 6 batches of 10000 cases:
 
