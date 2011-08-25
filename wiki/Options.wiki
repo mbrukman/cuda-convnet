@@ -61,10 +61,10 @@ First the optional arguments:
 Now the mandatory ones:
 
 || *Argument* || *Meaning* ||
-|| --data-path || Specify the path where the net's [Data data provider] can find its data. ||
-|| --data-provider || Specify a [Data data provider] to use to parse the data. ||
-|| --layer-def || Specify a [LayerParams layer definition] file. ||
-|| --layer-params || Specify a [LayerParams layer parameter] file. ||
-|| --save-path || Specify a checkpointing path. ||
-|| --test-range || Specify which data [Data batches] the net should use to compute the test error. ||
-|| --train-range || Specify which data [Data batches] the net should use for training. ||
+|| --data-path || The path where the net's [Data data provider] can find its data. ||
+|| --data-provider || The [Data data provider] to use to parse the data. ||
+|| --layer-def || The [LayerParams#Layer_definition_file layer definition] file. ||
+|| --layer-params || The [LayerParams#Layer_parameter_file layer parameter] file. ||
+|| --save-path || The checkpointing path. ||
+|| --test-range || The data [Data batches] that the net should use to compute the test error. ||
+|| --train-range || The data [Data batches] that the net should use for training. ||
