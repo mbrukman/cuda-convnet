@@ -1,5 +1,8 @@
 #summary How to specify a neural net architecture.
 
+<h1>Table of Contents</h1>
+<wiki:toc max_depth="3" />
+
 = Introduction =
 
 To define the architecture of your neural net, you must write a layer definition file. Here I will go through the format of the file and the parameters that the different layers take.
