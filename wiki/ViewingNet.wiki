@@ -1,5 +1,7 @@
 #summary How to look inside the checkpoints saved by the net.
 
+#sidebar TableOfContents
+
 = Introduction =
 
 Included with this code is a very basic script called [http://code.google.com/p/cuda-convnet/source/browse/trunk/shownet.py shownet.py]. It has two functions: to plot the training/test error and to draw the filters that the neural net learned.
