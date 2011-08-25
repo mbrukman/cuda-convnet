@@ -1,5 +1,8 @@
 #summary How to train a neural net with this code.
 
+<h1>Table of Contents</h1>
+<wiki:toc max_depth="3" />
+
 = Training =
 
 Once you've [Compiling compiled] the code, created a [LayerParams layer definition file], and found some [Data data] to train on, you can actually do some training.
