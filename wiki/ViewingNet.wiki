@@ -20,7 +20,7 @@ To plot the evolution of the value of some cost function over time, call the scr
 python shownet.py -f /storage2/tmp/ConvNet__2011-08-24_16.49.31 -e logprob
 }}}
 
-The parameter to `-f` is the checkpoint location (which is printed out repeatedly by `convnet.py` during training); the parameter to `-e` is the name that we gave to the cost function in the layer configuration file (see LayerParams).
+The parameter to `-f` is the checkpoint location (which is printed out repeatedly by `convnet.py` during training); the parameter to `-e` is the name that we gave to the cost function in the layer configuration file (see [LayerParams#Logistic_regression_cost_layer]).
 
 You should see output that looks something like this:
 
@@ -35,7 +35,7 @@ To view the filters that the net learned, call the script like this:
 python shownet.py -f /storage2/tmp/ConvNet__2011-08-24_16.49.31 -l conv1
 }}}
   
-The parameter to `-l` is the name of the layer whose filters we wish to view, defined in the layer configuration file (see LayerParams).
+The parameter to `-l` is the name of the layer whose filters we wish to view, defined in the layer configuration file (see [LayerParams#Convolution_layer]).
 
 You should see output that looks something like this:
 
