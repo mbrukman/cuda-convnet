@@ -8,7 +8,10 @@ For starters, you need a modern 64-bit Linux system. Here's what I hope to be a 
 || Python development libraries/headers || python-dev || python-devel || 
 || Numpy || python-numpy || numpy ||
 || Python libmagic bindings || python-magic || python-magic ||
+|| Matplotlib || python-matplotlib || python-matplotlib ||
 || ATLAS development libraries/headers || libatlas-base-dev || atlas-devel ||
+
+Implicit in this list are all the packages on which the above packages depend (for example, python-magic depends on libmagic, etc.).
 
 And of course you also need to install the CUDA toolkit and CUDA SDK (ideally versions 4.0 of both).
 
