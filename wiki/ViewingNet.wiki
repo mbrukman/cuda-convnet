@@ -70,11 +70,11 @@ produces output that looks like this:
 
 http://cuda-convnet.googlecode.com/svn/wiki/images/filters-fc.png
 
-Here the layer name fc64 given to the `-l` option is a fully-connected layer. The two extra parameters are described below.
+Here the layer name fc64 given to the `-l` option refers to a fully-connected layer. The two extra parameters are described below.
 
 || *Parameter* || *Meaning* ||
 || `-c 3` || Specifies the number of channels that the filters have. This has to be given because a fully-connected layer looks upon its input as completely flat. It is not aware of channels or image dimensions, etc. ||
 || `-i 0` || Specifies the input index for which to plot filters. Remember that fully-connected layers can take multiple inputs, so this parameter removes that ambiguity. ||
 
 =Epilogue=
-The script described here is very basic. It performs few error checks, and hence will produce stack traces if something goes wrong. But maybe that will make it clearer how to modify the script to fit your needs.
+The script described here is very basic. It performs few error checks, and hence will produce stack traces if something goes wrong. But maybe that will make it clearer how to modify it to fit your needs.
