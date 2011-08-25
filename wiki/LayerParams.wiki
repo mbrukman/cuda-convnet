@@ -85,6 +85,8 @@ neuron=relu
 
 The only parameter here that we have not yet seen is *numOutputs=1024*. It does what you would expect -- it indicates that this layer should have 1024 units.
 
+===Local pooling layer===
+
 Back to convolution now, let's add a local max-pooling layer over our convolution layer.
 
 {{{
