@@ -32,7 +32,7 @@ which plots the training and test error over time.
 To view the filters that the net learned, call the script like this:
   
 {{{
-python shownet.py -f /storage2/tmp/ConvNet__2011-08-24_16.49.31 -l conv1
+python shownet.py -f /storage2/tmp/ConvNet__2011-08-24_16.49.31 -l conv32
 }}}
   
 The parameter to `-l` is the name of the layer whose filters we wish to view, defined in the layer configuration file (see [LayerParams#Convolution_layer]).
@@ -48,7 +48,7 @@ You'll notice that the script has interpreted the 3 channels in the conv1 layer 
 An example:
 
 {{{
-python shownet.py -f /storage2/tmp/ConvNet__2011-08-24_16.49.31 -l conv1 -o
+python shownet.py -f /storage2/tmp/ConvNet__2011-08-24_16.49.31 -l conv32 -o
 }}}
 
 will produce output that looks like this:
