@@ -1,6 +1,6 @@
 #summary How to look inside the checkpoints saved by the net.
 
-<wiki:toc max_depth="1" />
+<wiki:toc max_depth="3" />
 
 = Introduction =
 
