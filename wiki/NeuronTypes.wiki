@@ -1,10 +1,8 @@
-#summary The types of neurons (hidden unit nonlinearities) supported by the net.
+#summary The types of neurons (hidden unit non-linearities) supported by the net.
 
-= Introduction =
+= Neuron types =
 
-Many of the layer types take a *neuron=x* parameter which defines the output nonlinearity of neurons in the layer. Here I will describe the supported types of neurons.
-
-= Neuron descriptions =
+Some of the [LayerParams layer types] take a *neuron=x* parameter which defines the output non-linearity of neurons in the layer. 
 
 These are the supported neuron types:
 
@@ -25,4 +23,4 @@ f(x) = max(0, x)
 f(x) = abs(x)
 }}}
 
-Adding new types of neurons is extremely easy. See the [http://code.google.com/p/cuda-convnet/source/browse/trunk/src/neuron.cu neuron.cu] file for reference.
+Adding new types of neurons is *extremely* easy. See the [http://code.google.com/p/cuda-convnet/source/browse/trunk/src/neuron.cu neuron.cu] file for reference.
