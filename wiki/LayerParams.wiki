@@ -217,9 +217,11 @@ That's it! The convolutional net's architecture is defined.
 
 == Layer parameter file ==
 
-There's one problem though -- we haven't specified any learning parameters. This is done via another file, which we'll call `layer-params.cfg`. The idea is that you'll use one file to define the net's architecture, which stays fixed for the duration of training, and another file to define learning parameters, which you can change while the net is training.
+There's one problem though -- we haven't specified any learning parameters (learning rates, etc.). This is done via another file, which we'll call `layer-params.cfg`. The idea is that you'll use one file to define the net's architecture, which stays fixed for the duration of training, and another file to define learning parameters, which you can change while the net is training.
 
 So let's do that. I'll now go through the contents of the `layer-params.cfg` file that corresponds to the net defined above in `layers.cfg`.
+
+Not all layer types have learning parameters. But the ones mentioned below do.
 
 ===Convolutional layer parameters===
 
@@ -232,13 +234,13 @@ momB=0.9
 wc=0
 }}}
 
-This specifies the learning parameters for the layer *conv32* (defined early on). Here's what the parameters mean:
+This specifies the learning parameters for the layer *conv32*. Here's what the parameters mean:
 || *Parameter* || *Meaning* ||
 ||epsW=0.001 ||the weight learning rate. ||
 ||epsB=0.002 ||the bias learning rate. ||
 ||momW=0.9||the weight momentum. ||
 ||momB=0.9||the bias momentum. ||
-||wc=0 || the L2 weight decay (applied to the weights only).||
+||wc=0 || the L2 weight decay (applied to the weights but not the biases).||
 
 Given these values, the update rule for the weights is:
 {{{
@@ -293,7 +295,7 @@ Finally, the *logprob* layer takes one parameter:
 coeff=1
 }}}
 
-... a scalar coefficient of the objective function. This provides an easy way to tweak the "global" learning rate of the network.
+... a scalar coefficient of the objective function. This provides an easy way to tweak the "global" learning rate of the network. Note, however, that tweaking this parameter is not equivalent to tweaking the *epsW* parameter of every layer in the net if you use weight decay. That's because tweaking *coeff* will leave the effective weight decay coefficient (`epsW*wc`) unchanged. But tweaking *epsW* will of course cause a change in `epsW*wc`.
 
 = Training the net =
 
