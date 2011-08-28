@@ -6,21 +6,9 @@ Some of the [LayerParams layer types] take a *neuron=x* parameter, which defines
 
 These are the supported neuron types:
 
-  * *neuron=ident* -- the identity neuron. This computes the function 
-{{{
-f(x) = x
-}}}
-  * *neuron=logistic* -- the logistic neuron. This computes the function
-{{{
-f(x) = 1 / (1 + e^-x)
-}}}
-  * *neuron=relu* -- the rectified linear neuron. This computes the function
-{{{
-f(x) = max(0, x)
-}}}
-  * *neuron=abs* -- the absolute value neuron. This computes the function
-{{{
-f(x) = abs(x)
-}}}
+  * *neuron=ident* -- the identity neuron. This computes the function <wiki:gadget url="http://mathml-gadget.googlecode.com/svn/trunk/mathml-gadget.xml" border="0" up_content="f(x) = x" height="60"/>
+  * *neuron=logistic* -- the logistic neuron. This computes the function <wiki:gadget url="http://mathml-gadget.googlecode.com/svn/trunk/mathml-gadget.xml" border="0" up_content="f\(x\) = 1/(1 + e^-x)" height="60"/>
+  * *neuron=relu* -- the rectified linear neuron. This computes the function <wiki:gadget url="http://mathml-gadget.googlecode.com/svn/trunk/mathml-gadget.xml" border="0" up_content="f\(x\) = max(0, x)" height="60"/>
+  * *neuron=abs* -- the absolute value neuron. This computes the function <wiki:gadget url="http://mathml-gadget.googlecode.com/svn/trunk/mathml-gadget.xml" border="0" up_content="f\(x\) = max(-x, x)" height="60"/>
 
 Adding new types of neurons is *extremely* easy. See the [http://code.google.com/p/cuda-convnet/source/browse/trunk/src/neuron.cu neuron.cu] file for reference.
