@@ -11,7 +11,7 @@ You should get the following output, briefly describing the command-line argumen
 
 {{{
 convnet.py usage:
-    Option                        Description                  Default 
+    Option                        Description                           Default 
     [--check-grads <0/1>      ] - Check gradients and quit?             [0]     
     [--crop-border <int>      ] - Cropped DP: crop border size          [4]     
     [--epochs <int>           ] - Number of epochs                      [50000] 
