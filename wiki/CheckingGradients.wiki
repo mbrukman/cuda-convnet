@@ -2,7 +2,7 @@
 
 = Testing the gradients =
 
-This code is capable of numerically testing the gradients that it computes for correctness (it uses finite differences to do so). You can only do this on small models, because numerically computing a gradient for each weight is highly computationally-intensive.
+This code is capable of using a finite-difference calculation to numerically test the gradients that it computes for training. It can only do this on small models, because numerically computing a gradient for each weight is highly computationally-intensive.
 
 But here's how to do it. You should read the [LayerParams] and [TrainingNet] sections first so you're familiar with how to run the net.
 
