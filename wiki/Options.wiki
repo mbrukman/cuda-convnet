@@ -65,6 +65,6 @@ Now the mandatory ones:
 || --data-provider || The [Data data provider] to use to parse the data. ||
 || --layer-def || The [LayerParams#Layer_definition_file layer definition] file. ||
 || --layer-params || The [LayerParams#Layer_parameter_file layer parameter] file. ||
-|| --save-path || The checkpointing path. ||
+|| --save-path || The path to which the net should save checkpoints. ||
 || --test-range || The data [Data batches] that the net should use to compute the test error. ||
 || --train-range || The data [Data batches] that the net should use for training. ||
