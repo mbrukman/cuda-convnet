@@ -2,7 +2,7 @@
 
 = Testing the gradients =
 
-This code is capable of numerically testing the gradients that it computes for correctness. You can only do this on small models, because numerically computing a gradient for each weight is highly computationally-intensive.
+This code is capable of numerically testing the gradients that it computes for correctness (it uses finite differences to do so). You can only do this on small models, because numerically computing a gradient for each weight is highly computationally-intensive.
 
 But here's how to do it. You should read the [LayerParams] and [TrainingNet] sections first so you're familiar with how to run the net.
 
@@ -57,10 +57,9 @@ Saving checkpoints to ConvNet__2011-06-30_20.38.02
 ALL 7 TESTS PASSED
 }}}
 
-The model verifies the gradients of each of the weight matrices in the net. In this case there are 6 of them. Had any of the gradient tests failed, the model would have printed out the relative error between the results of the analytic computation and the numerical one. The relative error between two vectors is
-{{{
-||x_1 - x_2|| / ||x_1||
-}}}
+The model verifies the gradients of each of the weight matrices in the net. In this case there are 7 of them. Had any of the gradient tests failed, the model would have printed out the relative error between the results of the analytic computation and the numerical one. The relative error between two vectors is
+
+<wiki:gadget url="http://mathml-gadget.googlecode.com/svn/trunk/mathml-gadget.xml" border="0" up_content="||x_1 - x_2|| / ||x_1||" height="60"/>
 
 In the file [http://code.google.com/p/cuda-convnet/source/browse/trunk/include/util.cuh util.cuh], there are these two lines:
 {{{
@@ -72,8 +71,7 @@ The first one controls whether anything should be printed for gradients that pas
 
 But please note that in general, numerical gradient testing is a bit of a black art. Nonlinearities in the network, especially in deep networks, make it difficult to accurately estimate the gradient numerically. A relative error greater than 2% does not _necessarily_ mean that the analytic gradient was computed incorrectly. In fact a mere 2% mismatch is a _very_ good result.
 
-Each layer type in [http://code.google.com/p/cuda-convnet/source/browse/trunk/src/layer.cu layer.cu] defines a `checkGradients` method, in which it specifies the `eps` that should be used in the equation 
-<pre>
-f'(x) ~= (f(x + eps) - f(x)) / eps
-</pre>
-which is used to numerically compute the gradients. My experience has been that if your gradients are computed correctly, it's possible to find a value of `eps` to make the numerical computation match the analytic one. If your gradients are computed incorrectly, this is impossible.
+Each layer type in [http://code.google.com/p/cuda-convnet/source/browse/trunk/src/layer.cu layer.cu] defines a `checkGradients` method, in which it specifies the _epsilon_ that should be used in the equation 
+<wiki:gadget url="http://mathml-gadget.googlecode.com/svn/trunk/mathml-gadget.xml" border="0" up_content="f'(x) ~= (f(x + \epsilon) - f(x)) / \epsilon" height="60"/>
+
+which is used to numerically compute the gradients. My experience has been that if your gradients are computed correctly, it's possible to find a value of _epsilon_ to make the numerical computation match the analytic one to a high degree of accuracy. If your gradients are computed incorrectly, this is impossible.
