@@ -69,7 +69,7 @@ In the file [http://code.google.com/p/cuda-convnet/source/browse/trunk/include/u
 
 The first one controls whether anything should be printed for gradients that pass. The second defines what a pass is. You can see that at present, any relative error smaller than 0.02 (2%) is considered a pass.
 
-But please note that in general, numerical gradient testing is a bit of a black art. Nonlinearities in the network, especially in deep networks, make it difficult to accurately estimate the gradient numerically. A relative error greater than 2% does not _necessarily_ mean that the analytic gradient was computed incorrectly. In fact a mere 2% mismatch is a _very_ good result.
+But please note that in general, numerical gradient testing is a bit of a black art. Nonlinearities in the network, especially in deep networks, make it difficult to accurately estimate the gradient with finite differences. A relative error greater than 2% does not _necessarily_ mean that the analytic gradient was computed incorrectly. In fact a mere 2% mismatch is a very good result.
 
 Each layer type in [http://code.google.com/p/cuda-convnet/source/browse/trunk/src/layer.cu layer.cu] defines a `checkGradients` method, in which it specifies the _epsilon_ that should be used in the equation 
 <wiki:gadget url="http://mathml-gadget.googlecode.com/svn/trunk/mathml-gadget.xml" border="0" up_content="f'(x) ~= (f(x + \epsilon) - f(x)) / \epsilon" height="60"/>
