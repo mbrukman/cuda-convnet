@@ -66,10 +66,12 @@ Here's what the other parameters mean:
 ||padding=4 || instructs the net to implicitly pad the images with a 4-pixel border of zeros (this does not cause it to create a copy of the data or use any extra memory). Set to 0 if you don't want padding.||
 ||stride=1 ||indicates that the distance between successive filter applications should be 1 pixel. ||
 ||filterSize=9 ||says that this layer will use filters of size 9x9 pixels (with 3 channels). ||
-||neuron=logistic || defines the neuron nonlinearity. See NeuronTypes for supported types.||
+||neuron=logistic || defines the neuron non-linearity. See NeuronTypes for supported types.||
 ||initW=0.00001 || instructs the net to initialize the weights in this layer from a normal distribution with mean zero and standard deviation 0.00001. The biases are always initialized at zero.||
-||partialSum=1 || this is a parameter that affects the performance of the weight gradient computation. It's a bit hard to predict what value will result in the best performance (it's problem-specific), but it's worth trying a few. Valid values are ones that divide the total number of outputs in this convolutional layer. This parameter also has an impact on memory consumption. The amount of extra memory used will be: `(number of weights in this layer)x(number of outputs this layer produces) / partialSum.` Since one of the defining features of convolutional nets is their small number of weights, this shouldn't be a big deal. ||
 ||sharedBiases=true || indicates that the biases of every filter in this layer should be shared amongst all applications of that filter (which is how convnets are usually trained). Setting this to false will untie the biases, yielding a separate bias for every location at which the filter is applied. ||
+||partialSum=1 || this is a parameter that affects the performance of the weight gradient computation. It's a bit hard to predict what value will result in the best performance (it's problem-specific), but it's worth trying a few. Valid values are ones that divide the total number of outputs in this convolutional layer. This parameter also has an impact on memory consumption. The amount of extra memory used will be: `(number of weights in this layer)x(number of outputs this layer produces) / partialSum.` My belief is that since one of the defining features of convolutional nets is their small number of weights, this shouldn't be a big deal. ||
+
+This convolutional layer will produce as many outputs as necessary to cover the entire image plus the specified zero-padding around it.
 
 ===Fully-connected layer===
 
@@ -83,7 +85,7 @@ initW=0.001
 neuron=relu
 }}}
 
-The only parameter here that we have not yet seen is *numOutputs=1024*. It does what you would expect -- it indicates that this layer should have 1024 units.
+The only parameter here that we have not yet seen is *numOutputs=1024*. It does what you would expect -- it indicates that this layer should have 1024 neurons.
 
 ===Local pooling layer===
 
@@ -118,7 +120,7 @@ Now let's add a local response normalization layer over the pooling layer. This 
 
 for _x,,j,,_ in a local neighborhood of _x,,i,,_ of size _N_ x _N_. The output dimensionality of this layer is of course always equal to the input dimensionality. 
 
-This type of layer turns out to be useful when using neurons with unbounded activations (e.g. rectified linear units), because it permits the detection of high-frequency features with a big neuron response, while damping responses that are uniformly large in a local neighborhood. It is a type of regularizer that encourages "competition" for big activities among nearby groups of neurons. 
+This type of layer turns out to be useful when using neurons with unbounded activations (e.g. rectified linear neurons), because it permits the detection of high-frequency features with a big neuron response, while damping responses that are uniformly large in a local neighborhood. It is a type of regularizer that encourages "competition" for big activities among nearby groups of neurons. 
 
 Here's how this layer is specified:
 
