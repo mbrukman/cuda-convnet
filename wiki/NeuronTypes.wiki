@@ -1,8 +1,8 @@
-#summary The types of neurons (hidden unit non-linearities) supported by the net.
+#summary The types of neurons (hidden unit nonlinearities) supported by the net.
 
 = Neuron types =
 
-Some of the [LayerParams layer types] take a *neuron=x* parameter which defines the output non-linearity of neurons in the layer. 
+Some of the [LayerParams layer types] take a *neuron=x* parameter, which defines the output nonlinearity of neurons in the layer. 
 
 These are the supported neuron types:
 
