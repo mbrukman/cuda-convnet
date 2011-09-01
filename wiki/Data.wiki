@@ -38,7 +38,7 @@ Inside the [http://code.google.com/p/cuda-convnet/source/browse/trunk/include/ut
 So, if your batch size isn't too big, it will correspond to the amount of data copied to the GPU at a time. Otherwise only one minibatch will be copied at a time, and the batch size will not have much meaning at all.
 
 = Internal data layout =
-Here you have some freedom. The internals of the files are left up to you; you just have to write a data provider (a python class) to parse the files and return the data in a format that the model will understand. See [http://code.google.com/p/cuda-convnet/source/browse/trunk/convdp.py convdp.py] for some examples.
+Here you have some freedom. The internals of the files are left up to you; you just have to write a data provider (a python class) to parse the files and return the data in a format that the model will understand. See [http://code.google.com/p/cuda-convnet/source/browse/trunk/convdata.py convdata.py] for some examples.
 
 Your data provider must return a C-ordered matrix of dimensions `(data dimensionality)x(data cases)`. If your images have channels (for example, the 3 color channels in the CIFAR-10), then all the values for channel `n` must precede all the values for channel `n + 1`.
 
@@ -47,7 +47,7 @@ Also make sure that your data provider returns matrices that consist of *single-
 Aside from that, there isn't much to trip over.
 
 = Included data providers =
-This code ships with three data providers. You can find them all in [http://code.google.com/p/cuda-convnet/source/browse/trunk/convdp.py convdp.py].
+This code ships with three data providers. You can find them all in [http://code.google.com/p/cuda-convnet/source/browse/trunk/convdata.py convdata.py].
   * `CIFARDataProvider` is used to parse the CIFAR-10 dataset. See TrainingNet for details.
   * `CroppedCifarDataProvider` is used to parse and crop the CIFAR-10 dataset. This is useful if you want to train on translations of the CIFAR-10 images. See [TrainingNet#Training_on_image_translations] for details.
   * `DummyConvNetDataProvider` is used to generate dummy data for gradient-testing computations. See CheckingGradients for details.
