@@ -44,7 +44,7 @@ Assuming you're going to use the logistic regression objective built into the co
   * The data matrix must be C-ordered, with dimensions `(data dimensionality)x(number of cases)`. If your images have channels (for example, the 3 color channels in the CIFAR-10), then all the values for channel `n` must precede all the values for channel `n + 1`.
   * The labels vector must have dimensionality `1x(number of cases)`.
   * Both the data matrix and the labels vector must consist of *single-precision floats*.
-  * The labels must range from 0 (inclusive) to `(number of classes)` - 1 (inclusive).
+  * The labels must start at 0 and range until the number of classes minus one.
 
 Aside from that, there isn't much to trip over.
 
