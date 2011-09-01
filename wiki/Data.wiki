@@ -45,6 +45,7 @@ Assuming you're going to use the logistic regression objective built into the co
   * The labels vector must have dimensionality `1x(number of cases)`.
   * Both the data matrix and the labels vector must consist of *single-precision floats*.
   * The labels must start at 0 and range until the number of classes minus one.
+  * The data provider must define a function `get_num_classes` which simply returns the number of classes in your dataset. The `CIFARDataProvider` inherits this function from `LabeledDataProvider` defined in [http://code.google.com/p/cuda-convnet/source/browse/trunk/data.py data.py].
 
 Aside from that, there isn't much to trip over.
 
