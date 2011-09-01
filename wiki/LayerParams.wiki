@@ -199,7 +199,7 @@ inputs=fc10
 
 The main point of this example is to illustrate that a fully-connected layer can take multiple inputs. Here *fc10* is taking input from *conv32-2* and *fc1024*, and produces 10 outputs. Notice that because *fc10* takes two inputs, it has two weight matrices, and therefore the *initW* parameter must be a comma-delimited list of floats. Their order corresponds to the order given to the *inputs* parameter.
 
-The *probs* definition is a softmax layer that, as you might expect, applies a softmax to the 10 outputs produced by the *fc10* layer.
+The *probs* definition is a softmax layer that, as you might expect, applies a softmax to the 10 outputs produced by the *fc10* layer. The reason that *fc10* produces 10 outputs is that there are 10 classes in the CIFAR-10 dataset. 
 
 Finally, let's define an objective function for the net to optimize. You can define and simultaneously optimize multiple objectives, but we'll stick to one here.
 
