@@ -2,7 +2,7 @@
 
 = Introduction =
 
-This code is capable of training on images of any (square) size, and with any number of channels (colors, if you like). Currently there's a restriction that the images must be square.
+This code is capable of training on images of any (square) size, and with any number of channels (colors, if you like).
 
 = Data files =
 
