@@ -201,9 +201,9 @@ The main point of this example is to illustrate that a fully-connected layer can
 
 The *probs* definition is a softmax layer that, as you might expect, applies a softmax to the 10 outputs produced by the *fc10* layer. The reason that *fc10* produces 10 outputs is that there are 10 classes in the CIFAR-10 dataset, so *it is important to match the size of this layer to the number of classes in your dataset*.
 
-Finally, let's define an objective function for the net to optimize. You can define and simultaneously optimize multiple objectives, but we'll stick to one here.
-
 ===Logistic regression cost layer===
+
+Finally, let's define an objective function for the net to optimize. You can define and simultaneously optimize multiple objectives, but we'll stick to one here. The objective is the (multinomial) [http://en.wikipedia.org/wiki/Multinomial_logistic_regression logistic regression] objective.
 
 {{{
 [logprob]
