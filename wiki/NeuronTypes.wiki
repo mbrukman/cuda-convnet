@@ -2,14 +2,14 @@
 
 = Neuron types =
 
-Some of the [LayerParams layer types] take a *neuron=x* parameter, which defines the output nonlinearity of neurons in the layer. 
+Some of the [LayerParams layer types] take a `neuron=x` parameter, which defines the output nonlinearity of neurons in the layer. 
 
 These are the supported neuron types:
 
-  * *neuron=logistic* -- the logistic neuron. This computes the function <wiki:gadget url="http://mathml-gadget.googlecode.com/svn/trunk/mathml-gadget.xml" border="0" up_content="f\(x\) = 1/(1 + e^-x)" height="60"/>
-  * *neuron=tanh[a,b]* -- the hyperbolic tangent neuron. This computes the function <wiki:gadget url="http://mathml-gadget.googlecode.com/svn/trunk/mathml-gadget.xml" border="0" up_content="f\(x\) = a*tanh(b*x)" height="60"/>
-  * *neuron=relu* -- the rectified linear neuron. This computes the function <wiki:gadget url="http://mathml-gadget.googlecode.com/svn/trunk/mathml-gadget.xml" border="0" up_content="f\(x\) = max(0, x)" height="60"/>
-  * *neuron=abs* -- the absolute value neuron. This computes the function <wiki:gadget url="http://mathml-gadget.googlecode.com/svn/trunk/mathml-gadget.xml" border="0" up_content="f\(x\) = max(-x, x)" height="60"/>
-  * *neuron=ident* -- the identity neuron. This computes the function <wiki:gadget url="http://mathml-gadget.googlecode.com/svn/trunk/mathml-gadget.xml" border="0" up_content="f(x) = x" height="60"/>
+  * `neuron=logistic` -- the logistic neuron. This computes the function <wiki:gadget url="http://mathml-gadget.googlecode.com/svn/trunk/mathml-gadget.xml" border="0" up_content="f\(x\) = 1/(1 + e^-x)" height="60"/>
+  * `neuron=tanh[a,b]` -- the hyperbolic tangent neuron. This computes the function <wiki:gadget url="http://mathml-gadget.googlecode.com/svn/trunk/mathml-gadget.xml" border="0" up_content="f\(x\) = a*tanh(b*x)" height="60"/>
+  * `neuron=relu` -- the rectified linear neuron. This computes the function <wiki:gadget url="http://mathml-gadget.googlecode.com/svn/trunk/mathml-gadget.xml" border="0" up_content="f\(x\) = max(0, x)" height="60"/>
+  * `neuron=abs` -- the absolute value neuron. This computes the function <wiki:gadget url="http://mathml-gadget.googlecode.com/svn/trunk/mathml-gadget.xml" border="0" up_content="f\(x\) = max(-x, x)" height="60"/>
+  * `neuron=ident` -- the identity neuron. This computes the function <wiki:gadget url="http://mathml-gadget.googlecode.com/svn/trunk/mathml-gadget.xml" border="0" up_content="f(x) = x" height="60"/>
 
 Adding new types of neurons is *extremely* easy. See [http://code.google.com/p/cuda-convnet/source/browse/trunk/src/neuron.cu neuron.cu] and [http://code.google.com/p/cuda-convnet/source/browse/trunk/include/neuron.cuh neuron.cuh] for reference.
