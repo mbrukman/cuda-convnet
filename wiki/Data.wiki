@@ -41,7 +41,7 @@ So, if your batch size isn't too big, it will correspond to the amount of data c
 Here you have some freedom. The internals of the files are left up to you; you just have to write a data provider (a python class) to parse the files and return the data in a format that the model will understand. See [http://code.google.com/p/cuda-convnet/source/browse/trunk/convdata.py convdata.py] for some examples.
 
 Assuming you're going to use the logistic regression objective built into the code rather than write your own, there are a few constraints on what the data provider's `get_next_batch` function must return. Keeping in mind the example of `CIFARDataProvider` in [http://code.google.com/p/cuda-convnet/source/browse/trunk/convdata.py convdata.py], you can see that the `get_next_batch` function returns the data matrix and the labels vector. These are the constraints:
-  * The data matrix must be C-ordered, with dimensions `(data dimensionality)x(number of cases)`. If your images have channels (for example, the 3 color channels in the CIFAR-10), then all the values for channel `n` must precede all the values for channel `n + 1`.
+  * The data matrix must be C-ordered (this is the default for numpy arrays), with dimensions `(data dimensionality)x(number of cases)`. If your images have channels (for example, the 3 color channels in the CIFAR-10), then all the values for channel `n` must precede all the values for channel `n + 1`.
   * The labels vector must have dimensionality `1x(number of cases)`.
   * Both the data matrix and the labels vector must consist of *single-precision floats*.
   * The labels must start at 0 and range until the number of classes minus one.
