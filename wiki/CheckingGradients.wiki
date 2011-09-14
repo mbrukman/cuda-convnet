@@ -11,7 +11,7 @@ But here's how to do it. You should read the [LayerParams] and [TrainingNet] sec
 Once you've checked out the code, you can find some dummy architecture definition files in the `example-layers/` subdirectory. You can verify the gradients computed for that dummy architecture with this line:
 
 {{{
-python convnet.py --layer-def=./example-layers/layers.gc.cfg --layer-params=./example-layers/layer-params.gc.cfg --data-provider=dummy-cn-192 --check-grads=1 --mini=16
+python convnet.py --layer-def=./example-layers/layers.gc.cfg --layer-params=./example-layers/layer-params.gc.cfg --data-provider=dummy-cn-192 --check-grads=1
 }}}
 
 Notice that we're using a dummy data provider to produce 192-dimensional input, which is interpreted by the net as 8x8 3-channel images (see the *conv32* layer in layer definition file).
