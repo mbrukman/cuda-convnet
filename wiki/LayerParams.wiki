@@ -58,20 +58,22 @@ sharedBiases=true
 Again, the bracketed *conv32* is the name we're choosing to give to this layer.
 
 Here's what the other parameters mean:
-|| *Parameter* || *Meaning* ||
-||type=conv||defines this as a convolution layer||
-||inputs=data ||says that this layer will take as input the layer named *data* (defined above) ||
-||channels=3 || tells the net that the layer named *data* produces 3-channel images (i.e. color images). Since the images are assumed to be square, that is all that you have to tell it about the data dimensionality. This value must be either 1, 2, 3, or a multiple of 4.||
-|| numFilters=32|| says that this layer will apply 32 filters to the images. This number must be a multiple of 16. *The convolution will be most efficient if it is a multiple of 32.*||
-||padding=4 || instructs the net to implicitly pad the images with a 4-pixel border of zeros (this does not cause it to create a copy of the data or use any extra memory). Set to 0 if you don't want padding.||
-||stride=1 ||indicates that the distance between successive filter applications should be 1 pixel. ||
-||filterSize=9 ||says that this layer will use filters of size 9x9 pixels (with 3 channels). ||
-||neuron=logistic || defines the neuron non-linearity. See NeuronTypes for supported types.||
-||initW=0.00001 || instructs the net to initialize the weights in this layer from a normal distribution with mean zero and standard deviation 0.00001. The biases are always initialized at zero.||
-||sharedBiases=true || indicates that the biases of every filter in this layer should be shared amongst all applications of that filter (which is how convnets are usually trained). Setting this to false will untie the biases, yielding a separate bias for every location at which the filter is applied. ||
-||partialSum=1 || this is a parameter that affects the performance of the weight gradient computation. It's a bit hard to predict what value will result in the best performance (it's problem-specific), but it's worth trying a few. Valid values are ones that divide the total number of outputs in this convolutional layer. This parameter also has an impact on memory consumption. The amount of extra memory used will be: `(number of weights in this layer)x(number of outputs this layer produces) / partialSum.` My belief is that since one of the defining features of convolutional nets is their small number of weights, this shouldn't be a big deal. ||
+|| *Parameter* || *Default value* || *Meaning* ||
+||`type=conv`||`--`||defines this as a convolution layer||
+||`inputs=data` ||`--`||says that this layer will take as input the layer named *data* (defined above) ||
+||`channels=3` ||`--`|| tells the net that the layer named *data* produces 3-channel images (i.e. color images). Since the images are assumed to be square, that is all that you have to tell it about the data dimensionality. This value must be either 1, 2, 3, or a multiple of 4.||
+|| `numFilters=32`||`--`|| says that this layer will apply 32 filters to the images. This number must be a multiple of 16. *The convolution will be most efficient if it is a multiple of 32.*||
+||`padding=4` ||`0`|| instructs the net to implicitly pad the images with a 4-pixel border of zeros (this does not cause it to create a copy of the data or use any extra memory). Set to 0 if you don't want padding.||
+||`stride=1` ||`1`||indicates that the distance between successive filter applications should be 1 pixel. ||
+||`filterSize=9` ||`--`||says that this layer will use filters of size 9x9 pixels (with 3 channels). ||
+||`neuron=logistic` ||`--`|| defines the neuron non-linearity. See NeuronTypes for supported types.||
+||`initW=0.00001` ||`--`|| instructs the net to initialize the weights in this layer from a normal distribution with mean zero and standard deviation 0.00001. The biases are always initialized at zero.||
+||`sharedBiases=true` ||true|| indicates that the biases of every filter in this layer should be shared amongst all applications of that filter (which is how convnets are usually trained). Setting this to false will untie the biases, yielding a separate bias for every location at which the filter is applied. ||
+||`partialSum=1` ||`--`|| this is a parameter that affects the performance of the weight gradient computation. It's a bit hard to predict what value will result in the best performance (it's problem-specific), but it's worth trying a few. Valid values are ones that divide the total number of outputs in this convolutional layer. This parameter also has an impact on memory consumption. The amount of extra memory used will be: `(number of weights in this layer)x(number of outputs this layer produces) / partialSum.` My belief is that since one of the defining features of convolutional nets is their small number of weights, this shouldn't be a big deal. ||
 
 This convolutional layer will produce as many outputs _N_ as necessary to cover the entire image plus the specified zero-padding around it. The filters will sum over all input channels. So the total dimensionality of the output of this layer will be 32 x _N_ x _N_ (since there are 32 filters).
+
+The parameters with default values may be omitted from the configuration file.
 
 ===Fully-connected layer===
 
@@ -104,13 +106,13 @@ channels=32
 }}}
 
 A few new parameters here:
-|| *Parameter* || *Meaning* ||
-||pool=max ||indicates that this is to be a max-pooling layer. Also supported is *pool=avg* for average-pooling. ||
-||inputs=conv32 ||indicates that this layer subsamples the layer named *conv32*.||
-||start=0 ||tells the net where in the image to start the pooling. In principle, you can start anywhere you want. Setting this to a positive number will cause the net to discard some pixels at the top and at the left of the image. Setting this to a negative number will cause it to include pixels that don't exist (which is fine). *start=0* is the usual setting. ||
-||sizeX=4 ||defines the size of the pooling region in the x (equivalently, y) dimension. Squares of size (*sizeX*)^2^ get reduced to one value by this layer. There are no restrictions on the value of this parameter. It's fine for a pooling square to fall off the boundary of the image.  ||
-||stride=2 ||defines the stride size between successive pooling squares. Setting this parameter smaller than *sizeX* produces _overlapping_ pools. Setting it equal to *sizeX* gives the usual, non-overlapping pools. Values greater than *sizeX* are not allowed. ||
-||outputsX=0 ||allows you to control how many outputs in the x (equivalently, y) dimension this operation will produce. This parameter is analogous to the *start* parameter, in that it allows you to discard some portion of the image by setting it to a value small enough to leave part of the image uncovered. Setting it to zero instructs the net to produce as many outputs as is necessary to ensure that the whole image is covered. ||
+|| *Parameter* || *Default value* || *Meaning* ||
+||`pool=max` ||`--`||indicates that this is to be a max-pooling layer. Also supported is *pool=avg* for average-pooling. ||
+||`inputs=conv32` ||`--`||indicates that this layer subsamples the layer named *conv32*.||
+||`start=0` ||`0`||tells the net where in the image to start the pooling. In principle, you can start anywhere you want. Setting this to a positive number will cause the net to discard some pixels at the top and at the left of the image. Setting this to a negative number will cause it to include pixels that don't exist (which is fine). *start=0* is the usual setting. ||
+||`sizeX=4` ||`--`||defines the size of the pooling region in the x (equivalently, y) dimension. Squares of size (*sizeX*)^2^ get reduced to one value by this layer. There are no restrictions on the value of this parameter. It's fine for a pooling square to fall off the boundary of the image.  ||
+||`stride=2` ||`--`||defines the stride size between successive pooling squares. Setting this parameter smaller than *sizeX* produces _overlapping_ pools. Setting it equal to *sizeX* gives the usual, non-overlapping pools. Values greater than *sizeX* are not allowed. ||
+||`outputsX=0` ||`0`||allows you to control how many outputs in the x (equivalently, y) dimension this operation will produce. This parameter is analogous to the *start* parameter, in that it allows you to discard some portion of the image by setting it to a value small enough to leave part of the image uncovered. Setting it to zero instructs the net to produce as many outputs as is necessary to ensure that the whole image is covered. ||
 
 ===Local response normalization layer===
 
