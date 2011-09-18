@@ -164,7 +164,7 @@ pow=0.5
 
 The meanings of all of these parameters are the same as in the response normalization layer described above.
 
-=== Sparse convolutional layer ===
+=== Sparse convolution layer ===
 
 Now let's define a convolutional layer in which each filter only looks at _some_ of the input channels.
 
