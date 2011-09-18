@@ -45,7 +45,7 @@ Now let's apply a convolution to this data.
 type=conv
 inputs=data
 channels=3
-numFilters=32
+filters=32
 padding=4
 stride=1
 filterSize=9
@@ -62,7 +62,7 @@ Here's what the other parameters mean:
 ||`type=conv`||`--`||defines this as a convolution layer||
 ||`inputs=data` ||`--`||says that this layer will take as input the layer named *data* (defined above) ||
 ||`channels=3` ||`--`|| tells the net that the layer named *data* produces 3-channel images (i.e. color images). Since the images are assumed to be square, that is all that you have to tell it about the data dimensionality. This value must be either 1, 2, 3, or a multiple of 4.||
-|| `numFilters=32`||`--`|| says that this layer will apply 32 filters to the images. This number must be a multiple of 16. *The convolution will be most efficient if it is a multiple of 32.*||
+|| `filters=32`||`--`|| says that this layer will apply 32 filters to the images. This number must be a multiple of 16. *The convolution will be most efficient if it is a multiple of 32.*||
 ||`padding=4` ||`0`|| instructs the net to implicitly pad the images with a 4-pixel border of zeros (this does not cause it to create a copy of the data or use any extra memory). Set to 0 if you don't want padding.||
 ||`stride=1` ||`1`||indicates that the distance between successive filter applications should be 1 pixel. ||
 ||`filterSize=9` ||`--`||says that this layer will use filters of size 9x9 pixels (with 3 channels). ||
@@ -81,13 +81,13 @@ Now we'll add a fully-connected layer over the data too:
 {{{
 [fc1024]
 type=fc
-numOutputs=1024
+outputs=1024
 inputs=data
 initW=0.001
 neuron=relu
 }}}
 
-The only parameter here that we have not yet seen is *numOutputs=1024*. It does what you would expect -- it indicates that this layer should have 1024 neurons.
+The only parameter here that we have not yet seen is *outputs=1024*. It does what you would expect -- it indicates that this layer should have 1024 neurons.
 
 ===Local pooling layer===
 
@@ -174,7 +174,7 @@ type=conv
 inputs=cnorm1
 groups=4
 channels=32
-numFilters=32
+filters=32
 padding=2
 stride=1
 filterSize=5
@@ -184,7 +184,7 @@ partialSum=1
 sharedBiases=false
 }}}
 
-The primary novelty here is the *groups=4* parameter. Together with the *numFilters=32* parameter, they state that this convolutional layer is to have 4 groups of 32 filters. Each filter will connect to (i.e. sum over) 8 input channels (a quarter of the total number of input channels).
+The primary novelty here is the *groups=4* parameter. Together with the *filters=32* parameter, they state that this convolutional layer is to have 4 groups of 32 filters. Each filter will connect to (i.e. sum over) 8 input channels (a quarter of the total number of input channels).
 
 The following diagram depicts the kind of operation that this layer will perform (note however that the diagram depicts two filters per group rather than 32).
 
@@ -196,7 +196,7 @@ Now let's connect this convolutional layer and the fully-connected layer defined
 {{{
 [fc10]
 type=fc
-numOutputs=10
+outputs=10
 inputs=conv32-2,fc1024
 initW=0.0001,0.0001
 neuron=ident
