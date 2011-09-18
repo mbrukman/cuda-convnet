@@ -186,7 +186,7 @@ sharedBiases=false
 
 The primary novelty here is the *groups=4* parameter. Together with the *numFilters=32* line, they indicate that this convolutional layer is to have 4 groups of 32 filters. Each filter sum over 8 input channels (a quarter of the total number of input channels).
 
-The following diagram depicts the operation that this layer will perform:
+The following diagram depicts the kind of operation that this layer will perform (note however that the diagram depicts two filters per group rather than 32).
 
 http://cuda-convnet.googlecode.com/svn/wiki/images/conv-diagram.png
 
