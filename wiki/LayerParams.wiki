@@ -188,7 +188,7 @@ The primary novelty here is the *groups=4* parameter. Together with the *numFilt
 
 The following diagram depicts the operation that this layer will perform:
 
-http://cuda-convnet.googlecode.com/svn/wiki/images/conv-diag.png
+http://cuda-convnet.googlecode.com/svn/wiki/images/conv-diagram.png
 
 ===Fully-connected layer with multiple inputs; softmax layer===
 
