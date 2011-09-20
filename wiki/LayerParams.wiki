@@ -71,7 +71,7 @@ Here's what the other parameters mean:
 ||`sharedBiases=true` ||`true`|| indicates that the biases of every filter in this layer should be shared amongst all applications of that filter (which is how convnets are usually trained). Setting this to false will untie the biases, yielding a separate bias for every location at which the filter is applied. ||
 ||`partialSum=1` ||`--`|| this is a parameter that affects the performance of the weight gradient computation. It's a bit hard to predict what value will result in the best performance (it's problem-specific), but it's worth trying a few. Valid values are ones that divide the total number of outputs in this convolutional layer. This parameter also has an impact on memory consumption. The amount of extra memory used will be: `(number of weights in this layer)x(number of outputs this layer produces) / partialSum.` My belief is that since one of the defining features of convolutional nets is their small number of weights, this shouldn't be a big deal. ||
 
-This convolutional layer will produce as many outputs _N_ as necessary to cover the entire image plus the specified zero-padding around it. The filters will sum over all input channels. So the total dimensionality of the output of this layer will be 32 x _N_ x _N_ (since there are 32 filters).
+This convolutional layer will produce 32 x _N_ x _N_ outputs, where _N_ is the number of filter applications required to cover the entire width (equivalently, height) of the image plus zero-padding with the given stride. The filters will sum over all 3 input channels. 
 
 The parameters with default values may be omitted from the configuration file.
 
