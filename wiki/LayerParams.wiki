@@ -137,10 +137,10 @@ pow=0.75
 }}}
 
 || *Parameter* || *Meaning* ||
-|| channels=32 || indicates that this layer takes 32-channel input because that's what the *maxpool* layer produces. The number of "channels" here just serves to define the shape of the input and has no actual bearing on the output (unlike in convolutional layers, which sum over channels). ||
-|| sizeX=11 || the _N_ variable in the above formula, this defines the size of the local regions used for response normalization. Squares of (*sizeX*)^2^ are used to normalize each pixel. The squares are centered at the pixel. ||
-|| scale=0.0000125 || the _alpha_ variable in the above formula, this weights the response normalization term. Setting this to zero makes this layer's output equal to its input -- i.e., you get no response normalization.||
-|| pow=0.75 || the _beta_ variable in the above formula. Setting this to zero likewise makes this layer's output equal to its input. ||
+|| `channels=32` || indicates that this layer takes 32-channel input because that's what the *maxpool* layer produces. The number of "channels" here just serves to define the shape of the input and has no actual bearing on the output (unlike in convolutional layers, which sum over channels). ||
+|| `sizeX=11` || the _N_ variable in the above formula, this defines the size of the local regions used for response normalization. Squares of (*sizeX*)^2^ are used to normalize each pixel. The squares are centered at the pixel. ||
+|| `scale=0.0000125` || the _alpha_ variable in the above formula, this weights the response normalization term. Setting this to zero makes this layer's output equal to its input -- i.e., you get no response normalization.||
+|| `pow=0.75` || the _beta_ variable in the above formula. Setting this to zero likewise makes this layer's output equal to its input. ||
 
 ===Local contrast normalization layer===
 
@@ -164,7 +164,7 @@ pow=0.5
 
 The meanings of all of these parameters are the same as in the response normalization layer described above.
 
-=== Sparse convolution layer ===
+=== Block sparse convolution layer ===
 
 Now let's define a convolutional layer in which each filter only looks at _some_ of the input channels.
 
@@ -189,6 +189,39 @@ The primary novelty here is the *groups=4* parameter. Together with the *filters
 The following diagram depicts the kind of operation that this layer will perform (note however that the diagram depicts two filters per group rather than 32).
 
 http://cuda-convnet.googlecode.com/svn/wiki/images/conv-diagram.png
+
+=== Random sparse convolution layer ===
+
+A random sparse convolution layer is similar to the block sparse convolution layer described above, but here each group of filters connects to a _random_ subset of channels in the layer below.
+
+Here's how this kind of layer is specified:
+
+{{{
+[conv32-3]
+type=conv
+inputs=conv32-2
+groups=4
+channels=128
+filters=32
+padding=2
+stride=2
+filterSize=5
+neuron=relu
+initW=0.0001
+partialSum=1
+randSparse=true
+filterChannels=64
+}}}
+
+Notice that this layer has 128-channel input, because the layer just above has 128 (4 groups of 32) filters. This layer will also produce 128-channel output.
+
+There are two new parameters here:
+
+|| *Parameter* || *Default value* || *Meaning* ||
+||`randSparse=true` ||`false`|| defines this as a random sparse convolution layer. When this parameter is given, the `groups` parameter must be greater than 1 (otherwise the connectivity will not be sparse). ||
+||`filterChannels=64` ||`channels/groups`||an optional parameter indicating how many input channels each filter should look at. Here we've specified 64, which means that each input channel will be connected to exactly two groups of filters. Omitting this parameter will cause each input channel to be connected to exactly one (randomly-chosen) group.||
+
+Random sparse convolutional layers are only about 1% slower computationally than block sparse convolutional layers (in terms of computations / second), which themselves are as fast as non-sparse convolutional layers. So there's no performance reason to avoid them.
 
 ===Fully-connected layer with multiple inputs; softmax layer===
 
@@ -273,10 +306,17 @@ epsB=0.00002
 wc=0
 }}}
 
-And the *conv32-2* layer:
+And the *conv32-2* and *conv32-3* layers:
 
 {{{
 [conv32-2]
+epsW=0.001
+epsB=0.002
+momW=0.9
+momB=0.9
+wc=0
+
+[conv32-3]
 epsW=0.001
 epsB=0.002
 momW=0.9
