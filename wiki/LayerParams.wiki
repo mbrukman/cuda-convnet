@@ -16,7 +16,7 @@ I'll do this by example. In this example I'll cover all the layer types that thi
 
 ===Data layer===
 
-Let's make a new file called `layers.cfg`, which will define the architecture of our neural net. The first thing we'll add to it is a data layer:
+Let's make a new file called [http://code.google.com/p/cuda-convnet/source/browse/trunk/example-layers/layers-example.cfg layers-example.cfg], which will define the architecture of our neural net. The first thing we'll add to it is a data layer:
 
 {{{
 [data]
@@ -296,13 +296,13 @@ That's it! The convolutional net's architecture is defined.
 
 == Layer parameter file ==
 
-There's one problem though -- we haven't specified any learning parameters (learning rates, etc.). This is done via another file, which we'll call `layer-params.cfg`. The idea is that you'll use one file to define the net's architecture, which stays fixed for the duration of training, and another file to define learning parameters, which you can change while the net is training.
+There's one problem though -- we haven't specified any learning parameters (learning rates, etc.). This is done via another file, which we'll call [http://code.google.com/p/cuda-convnet/source/browse/trunk/example-layers/layer-params-example.cfg layer-params-example.cfg]. The idea is that you'll use one file to define the net's architecture, which stays fixed for the duration of training, and another file to define learning parameters, which you can change while the net is training.
 
-So let's do that. I'll now go through the contents of the `layer-params.cfg` file that corresponds to the net defined above in `layers.cfg`.
+So let's do that. I'll now go through the contents of the [http://code.google.com/p/cuda-convnet/source/browse/trunk/example-layers/layer-params-example.cfg layer-params-example.cfg] file that corresponds to the net defined above in [http://code.google.com/p/cuda-convnet/source/browse/trunk/example-layers/layers-example.cfg layers-example.cfg].
 
-Not all layer types have learning parameters. But the ones mentioned below do.
+Not all layer types require learning parameters. Layers without weights (for example pooling layers) have none. The layers mentioned below are the only ones that require learning parameters.
 
-===Convolutional layer parameters===
+===Convolutional layer===
 
 {{{
 [conv32]
@@ -331,7 +331,7 @@ where `weight_grads[i]` is the average gradient over minibatch `i`. The update r
 
 Now that that's out of the way, there isn't much left to describe.
 
-===Locally-connected layer with unshared weights parameters==
+===Locally-connected layer with unshared weights==
 
 This type of layer takes the same types of parameters as a convolutional layer.
 {{{
@@ -343,7 +343,7 @@ momB=0.9
 wc=0
 }}}
 
-===Fully-connected layer parameters===
+===Fully-connected layer===
 
 We add learning parameter definitions for the *fc1024* layer too:
 {{{
@@ -385,7 +385,7 @@ wc=0,0
 
 Here there is one twist: since the *fc10* layer takes two inputs, it has two weight matrices. So just like with the *initW* parameter, we have to provide *fc10* with a list of learning rates, momenta, and weight decays. We do this by writing them as a comma-delimited list of values.
 
-===Logistic regression cost layer parameters===
+===Logistic regression cost layer===
 
 Finally, the *logprob* layer takes one parameter:
 {{{
