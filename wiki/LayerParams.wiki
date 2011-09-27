@@ -78,7 +78,7 @@ The parameters with default values may be omitted from the configuration file.
 ====Performance notes====
   * The computation will be most efficient when `filters` is divisible by 32.
 
-==Locally-connected layer with unshared weights==
+===Locally-connected layer with unshared weights===
 
 This kind of layer is just like a convolutional layer without any weight-sharing. That is to say, a different set of filters is applied at every location in the image. Aside from that, it behaves exactly as a convolutional layer.
 
