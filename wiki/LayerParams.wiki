@@ -217,7 +217,7 @@ The following diagram depicts the kind of operation that this layer will perform
 
 http://cuda-convnet.googlecode.com/svn/wiki/images/conv-diagram.png
 
-Block sparsity may be used in convolutional layers as well as in locally-connected, unshared layers.
+*Block sparsity may be used in convolutional layers as well as in locally-connected, unshared layers.*
 
 ====Performance notes====
   * Block sparse convolutional layers are just as efficient computationally as non-sparse convolutional layers.
@@ -254,7 +254,7 @@ There are two new parameters here:
 ||`randSparse=true` ||`false`|| defines this as a random sparse convolution layer. When this parameter is true, the `groups` parameter must be greater than 1 (otherwise the connectivity will not be sparse). ||
 ||`filterChannels=64` ||`channels/groups`||an optional parameter indicating how many input channels each filter should look at. Here we've specified 64, which means that each group will be connected to 64 randomly-chosen input channels, and each input channel will be connected to exactly two groups. Omitting this parameter will cause each input channel to be connected to exactly one (randomly-chosen) group.||
 
-For now, random sparsity may only be used in convolutional layers. In the future it will be implemented for locally-connected, unshared layers as well.
+*Random sparsity may be used in convolutional layers as well as in locally-connected, unshared layers.*
 
 ====Performance notes====
   * Random sparse convolutional layers are only about 1% less efficient computationally than block sparse convolutional layers, which themselves are as efficient as non-sparse convolutional layers. So there's no performance reason to avoid them. 
