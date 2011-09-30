@@ -251,7 +251,7 @@ Notice that this layer has 128-channel input, because the layer just above has 1
 There are two new parameters here:
 
 || *Parameter* || *Default value* || *Meaning* ||
-||`randSparse=true` ||`false`|| defines this as a random sparse convolution layer. When this parameter is true, the `groups` parameter must be greater than 1 (otherwise the connectivity will not be sparse). ||
+||`randSparse=true` ||`false`|| indicates that random sparsity should be used in this layer. When this parameter is true, the `groups` parameter must be greater than 1 (otherwise the connectivity will not be sparse). ||
 ||`filterChannels=64` ||`channels/groups`||an optional parameter indicating how many input channels each filter should look at. Here we've specified 64, which means that each group will be connected to 64 randomly-chosen input channels, and each input channel will be connected to exactly two groups. Omitting this parameter will cause each input channel to be connected to exactly one (randomly-chosen) group.||
 
 *Random sparsity may be used in convolutional layers as well as in locally-connected, unshared layers.*
