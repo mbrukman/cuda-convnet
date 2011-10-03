@@ -1,7 +1,7 @@
 #summary How to look inside the checkpoints saved by the net.
 
 <h1>Table of Contents</h1>
-<wiki:toc max_depth="3" />
+<wiki:toc max_depth="2" />
 
 = Introduction =
 
