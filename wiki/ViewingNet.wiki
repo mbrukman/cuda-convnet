@@ -83,7 +83,7 @@ To see the predictions that the net makes on test data, run the script like this
 python shownet.py -f /storage2/tmp/ConvNet__2011-08-24_17.56.48 --show-preds=probs
 }}}
 
-`--show-preds=probs` tells the net the name of the softmax layer whose predictions we wish to view.
+`--show-preds=probs` tells the script the name of the softmax layer whose predictions we wish to view.
 
 You should see output that looks like this:
 
