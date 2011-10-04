@@ -161,4 +161,4 @@ After training is done, you can kill the net and re-run it with the *--test-only
 
 =Looking inside the net=
 
-Now that you know how to train the net, you can [ViewingNet read] about how to plot the cost function value and look at the filters that your net has learned.
+Now that you know how to train the net, you can [ViewingNet read] about how to plot the cost function, look at the filters that your net has learned, and examine the kinds of errors that it makes.
