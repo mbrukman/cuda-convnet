@@ -43,7 +43,7 @@ You can read about the meanings of these options [Options here].
 
 You see that you need to provide a data path, a save (checkpointing) path, some parameters to do with which chunks to train on and which chunks to test on, and the layer definition files described [LayerParams here].
 
-So let's do an example. The data for this example will be the CIFAR-10 dataset, which you can download [http://www.cs.toronto.edu/~kriz/cifar-10-py-colmajor.tar.gz here]. If you're not familiar with the CIFAR-10, you can read about it [http://www.cs.toronto.edu/~kriz/cifar.html here]. We'll use one of the example layer configuration files provided in the [http://code.google.com/p/cuda-convnet/source/browse/trunk/example-layers/layers-19pct.cfg example-layers] subdirectory.
+So let's do an example. The data for this example will be the CIFAR-10 dataset, which you can download [http://www.cs.toronto.edu/~kriz/cifar-10-py-colmajor.tar.gz here]. If you're not familiar with the CIFAR-10, you can read about it [http://www.cs.toronto.edu/~kriz/cifar.html here]. We'll use one of the example layer configuration files provided in the [http://code.google.com/p/cuda-convnet/source/browse/trunk/example-layers/ example-layers] subdirectory.
 
 Try this line, replacing the data and save paths with ones that make sense on your system:
 {{{
