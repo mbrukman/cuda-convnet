@@ -150,7 +150,7 @@ Most image classification results can be improved by training on slight translat
 This code ships with a data provider that's capable of training on translations of the CIFAR-10, and it isn't hard to adapt it to other datasets. Given the CIFAR-10, though, here's how you can train on random 24x24 patches of the original 32x32 images:
 
 {{{
-python convnet.py --data-path=/storage2/tiny/cifar-10-batches-py-colmajor/ --save-path=/storage2/tmp --test-range=6 --train-range=1-5 --layer-def=./example-layers/layers-example.cfg --layer-params=./example-layers/layer-params-example.cfg --data-provider=cifar-cropped --crop-border=4 --test-freq=13
+python convnet.py --data-path=/storage2/tiny/cifar-10-batches-py-colmajor/ --save-path=/storage2/tmp --test-range=6 --train-range=1-5 -layer-def=./example-layers/layers-19pct.cfg --layer-params=./example-layers/layer-params-19pct.cfg --data-provider=cifar-cropped --crop-border=4 --test-freq=13
 }}}
 
 This will cause the net to train on random 24x24 patches and test on the center 24x24 patch.
