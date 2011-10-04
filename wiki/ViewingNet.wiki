@@ -57,7 +57,7 @@ http://cuda-convnet.googlecode.com/svn/wiki/images/filters-separated.png
 Here the 3 channels of each filter are plotted side-by-side in grayscale.
 
 ===Viewing learned filters in fully-connected layers===
-There are two meta-parameters that the `-l` parameter takes, which are only useful for viewing filters in fully-connected layers. Again I will demonstrate their use by example.
+There are two meta-parameters that the `--show-filters` parameter takes, which are only useful for viewing filters in fully-connected layers. Again I will demonstrate their use by example.
   
 Running the script like this:
 
