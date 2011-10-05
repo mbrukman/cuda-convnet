@@ -89,7 +89,7 @@ You should see output that looks like this:
 
 http://cuda-convnet.googlecode.com/svn/wiki/images/test-preds.png
 
-This shows 8 random images from the test set, their true labels, and the 4 labels considered most probable by the model. You can see that in this case the model only got one of the images wrong.
+This shows 8 random images from the test set, their true labels, and the 4 labels considered most probable by the model. The true label's probability is shown in red, if it is among the top 4. You can see that in this case the model only got one of the images wrong.
 
 To show _only_ the mis-classified images, run the script like this:
 
