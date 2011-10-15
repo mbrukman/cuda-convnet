@@ -43,7 +43,7 @@ You can read about the meanings of these options [Options here].
 
 You see that you need to provide a data path, a save (checkpointing) path, some parameters to do with which chunks to train on and which chunks to test on, and the layer definition files described [LayerParams here].
 
-So let's do an example. The data for this example will be the CIFAR-10 dataset, which you can download [http://www.cs.toronto.edu/~kriz/cifar-10-py-colmajor.tar.gz here]. If you're not familiar with the CIFAR-10, you can read about it [http://www.cs.toronto.edu/~kriz/cifar.html here]. We'll use one of the example layer configuration files provided in the [http://code.google.com/p/cuda-convnet/source/browse/trunk/example-layers/ example-layers] subdirectory.
+The data for this example will be the CIFAR-10 dataset, which you can download [http://www.cs.toronto.edu/~kriz/cifar-10-py-colmajor.tar.gz here]. If you're not familiar with the CIFAR-10, you can read about it [http://www.cs.toronto.edu/~kriz/cifar.html here]. We'll use one of the example layer configuration files provided in the [http://code.google.com/p/cuda-convnet/source/browse/trunk/example-layers/ example-layers] subdirectory.
 
 Try this line, replacing the data and save paths with ones that make sense on your system:
 {{{
@@ -135,7 +135,7 @@ Every time the net prints a test output, it also saves a checkpoint to the path 
 
 Included with the test output are measures of the magnitudes of the net's weights and weight increments (in square brackets). Specifically, the net is printing the average absolute value of each weight matrix and each weight matrix increment. This output is useful for spotting learning rates that are too low (or too high), causing weights to stagnate (or blow up).
 
-If you want to change the learning parameters you specified, you can just kill the net with Ctrl-C (or kill -9, etc.), change the learning parameters in `layer-params.cfg`, and then restart the net like this:
+If you want to change the learning parameters you specified, you can just kill the net with Ctrl-C (or kill -9, etc.), change the learning parameters in `./example-layers/layer-params-19pct.cfg`, and then restart the net like this:
 
 {{{
 python convnet.py -f /storage2/tmp/ConvNet__2011-06-29_22.19.39
