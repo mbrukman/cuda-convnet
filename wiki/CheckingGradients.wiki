@@ -61,6 +61,8 @@ The model verifies the gradients of each of the weight matrices in the net. In t
 
 <wiki:gadget url="http://mathml-gadget.googlecode.com/svn/trunk/mathml-gadget.xml" border="0" up_content="||x_1 - x_2|| / ||x_1||" height="60"/>
 
+But keep in mind that even if a few tests fail, that does not mean that the gradient computation is incorrect. I heuristically and arbitrarily chose a relative error of 2*10^-2 as the threshold between "pass" and "fail". Anything on the order of 10^-2 almost certainly means the gradient was computed correctly.
+
 In the file [http://code.google.com/p/cuda-convnet/source/browse/trunk/include/util.cuh util.cuh], there are these two lines:
 {{{
 #define GC_SUPPRESS_PASSES     true
