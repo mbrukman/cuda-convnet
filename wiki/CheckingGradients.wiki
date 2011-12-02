@@ -1,5 +1,7 @@
 #summary How to verify that the gradients computed by the net are correct.
 
+*Note: the only reason to read this section is if you suspect a bug in the code.*
+
 = Testing the gradients =
 
 This code is capable of using a finite-difference calculation to numerically test the gradients that it computes for training. It can only do this on small models, because numerically computing a gradient for each weight is highly computationally-intensive.
