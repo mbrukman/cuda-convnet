@@ -72,6 +72,7 @@ The first one controls whether anything should be printed for gradients that pas
 But please note that in general, numerical gradient testing is a bit of a black art. Nonlinearities in the network, especially in deep networks, make it difficult to accurately estimate the gradient with finite differences. A relative error greater than 2% does not _necessarily_ mean that the analytic gradient was computed incorrectly. I heuristically and arbitrarily chose a relative error of 2% as the threshold between "pass" and "fail". Anything around 10% almost certainly means the gradient was computed correctly.
 
 Each layer type in [http://code.google.com/p/cuda-convnet/source/browse/trunk/src/layer.cu layer.cu] defines a `checkGradients` method, in which it specifies the _epsilon_ that should be used in the equation 
-ttp://cuda-convnet.googlecode.com/svn/wiki/images/finite-diff.gif
+
+http://cuda-convnet.googlecode.com/svn/wiki/images/finite-diff.gif
 
 which is used to numerically compute the gradients. My experience has been that if your gradients are computed correctly, it's possible to find a value of _epsilon_ to make the numerical computation match the analytic one to a high degree of accuracy. If your gradients are computed incorrectly, this is impossible.
