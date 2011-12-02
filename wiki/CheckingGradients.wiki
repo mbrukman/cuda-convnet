@@ -59,9 +59,7 @@ ALL 7 TESTS PASSED
 
 The model verifies the gradients of each of the weight matrices in the net. In this case there are 7 of them. Had any of the gradient tests failed, the model would have printed out the relative error between the results of the analytic computation and the numerical one. The relative error between two vectors is
 
-<wiki:gadget url="http://mathml-gadget.googlecode.com/svn/trunk/mathml-gadget.xml" border="0" up_content="||x_1 - x_2|| / ||x_1||" height="60"/>
-
-But keep in mind that even if a few tests fail, that does not mean that the gradient computation is incorrect. I heuristically and arbitrarily chose a relative error of 2*10^-2 as the threshold between "pass" and "fail". Anything on the order of 10^-2 almost certainly means the gradient was computed correctly.
+http://cuda-convnet.googlecode.com/svn/wiki/images/rel-err.gif
 
 In the file [http://code.google.com/p/cuda-convnet/source/browse/trunk/include/util.cuh util.cuh], there are these two lines:
 {{{
@@ -71,9 +69,9 @@ In the file [http://code.google.com/p/cuda-convnet/source/browse/trunk/include/u
 
 The first one controls whether anything should be printed for gradients that pass. The second defines what a pass is. You can see that at present, any relative error smaller than 0.02 (2%) is considered a pass.
 
-But please note that in general, numerical gradient testing is a bit of a black art. Nonlinearities in the network, especially in deep networks, make it difficult to accurately estimate the gradient with finite differences. A relative error greater than 2% does not _necessarily_ mean that the analytic gradient was computed incorrectly. In fact a mere 2% mismatch is a very good result.
+But please note that in general, numerical gradient testing is a bit of a black art. Nonlinearities in the network, especially in deep networks, make it difficult to accurately estimate the gradient with finite differences. A relative error greater than 2% does not _necessarily_ mean that the analytic gradient was computed incorrectly. I heuristically and arbitrarily chose a relative error of 2% as the threshold between "pass" and "fail". Anything around 10% almost certainly means the gradient was computed correctly.
 
 Each layer type in [http://code.google.com/p/cuda-convnet/source/browse/trunk/src/layer.cu layer.cu] defines a `checkGradients` method, in which it specifies the _epsilon_ that should be used in the equation 
-<wiki:gadget url="http://mathml-gadget.googlecode.com/svn/trunk/mathml-gadget.xml" border="0" up_content="f'(x) ~= (f(x + \epsilon) - f(x)) / \epsilon" height="60"/>
+ttp://cuda-convnet.googlecode.com/svn/wiki/images/finite-diff.gif
 
 which is used to numerically compute the gradients. My experience has been that if your gradients are computed correctly, it's possible to find a value of _epsilon_ to make the numerical computation match the analytic one to a high degree of accuracy. If your gradients are computed incorrectly, this is impossible.
