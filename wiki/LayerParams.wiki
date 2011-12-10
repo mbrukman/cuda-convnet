@@ -395,7 +395,7 @@ groups=1,1
 sharedBiases=true
 }}}
 
-This convolutional layer takes the two layers *conv4b* and *conv5* as input. Since there are two sets of weights in this layer, you must specify two values for most of the parameters which define the operation that those weights perform on their corresponding input. Some of the parameters remain unary, for example the *initB* parameter, since there is still only one bias vector for all the outputs.
+This convolutional layer takes the two layers *conv4b* and *conv5* as input. Since there are two sets of weights in this layer, you must specify two values for most of the parameters which define the operation that those weights perform on their respective inputs. Some of the parameters remain unary, for example the *initB* parameter, since there is still only one bias vector for all the outputs.
 
 As mentioned above, you must choose sets of parameters that lead to convolutions which produce equivalently-sized output vectors.
 
@@ -468,6 +468,8 @@ weightSource=,conv6a,conv6a
 }}}
 
 This says that the first weight matrix of *conv6a* will be new, but the remaining two will be equivalent to the first.
+
+Note that in all cases, biases are never shared between layers. Each layer has its own bias vector.
 
 = Layer parameter file  - slightly more advanced features =
 ==Weight layers with multiple inputs==
