@@ -213,11 +213,11 @@ type=softmax
 inputs=fc10
 }}}
 
-Here we're really defining two layers -- *fc10* is a fully-connected layer with 10 outputs (because our dataset has 10 classes), and *probs* is a softmax that takes *fc10* as input and produces 10 values which can be interpreted as probabilities as its output.
+Here we're really defining two layers -- *fc10* is a fully-connected layer with 10 outputs (because our dataset has 10 classes), and *probs* is a softmax that takes *fc10* as input and produces 10 values which can be interpreted as probabilities. This type of layer is useful for classification tasks.
 
 ==Logistic regression cost layer==
 
-A net must define an objective function to optimize. This is the (multinomial) [http://en.wikipedia.org/wiki/Multinomial_logistic_regression logistic regression] objective. It's specified like this:
+A net must define an objective function to optimize. Here we're defining a (multinomial) [http://en.wikipedia.org/wiki/Multinomial_logistic_regression logistic regression] objective. It's specified like this:
 
 {{{
 [logprob]
@@ -227,8 +227,54 @@ inputs=labels,probs
 
 The *cost.logreg* objective takes two inputs -- true labels and predicted probabilities. We defined the *labels* layer early on, and the *probs* layer just above.
 
-=Layer definition file - slightly more advanced features=
+= Layer parameter file - basic features =
 
+In this file we can specify learning parameters that we may want to change during the course of training (learning rates, etc.). You can find examples of this kind of file [http://code.google.com/p/cuda-convnet/source/browse/trunk/example-layers/ here].
+
+The idea is that you'll use one file to define the net's architecture, which stays fixed for the duration of training, and another file to define learning parameters, which you can change while the net is training.
+
+I'll now go through the learning parameters that the above-defined layers take. Generally, only layers with weights require learning parameters.
+
+==Layers with weights==
+
+Here's how to specify learning parameters for layers with weights (convolutional layers, locally-connected layers, and fully-connected layers).
+
+{{{
+[conv32]
+epsW=0.001
+epsB=0.002
+momW=0.9
+momB=0.9
+wc=0
+}}}
+
+This specifies the learning parameters for the layer *conv32*. Here's what the parameters mean:
+|| *Parameter* || *Meaning* ||
+||epsW=0.001 ||the weight learning rate. ||
+||epsB=0.002 ||the bias learning rate. ||
+||momW=0.9||the weight momentum. ||
+||momB=0.9||the bias momentum. ||
+||wc=0 || the L2 weight decay (applied to the weights but not the biases).||
+
+Given these values, the update rule for the weights is:
+{{{
+weight_inc[i] := momW * weight_inc[i-1] - wc * epsW * weights[i-1] + epsW * weight_grads[i]
+weights[i] := weights[i-1] + weight_inc[i]
+}}}
+
+where `weight_grads[i]` is the average gradient over minibatch `i`. The update rule for biases is the same except that there is no bias weight decay.
+
+==Logistic regression cost layer==
+
+Cost layers, such as the *logprob* layer defined above, take one parameter:
+{{{
+[logprob]
+coeff=1
+}}}
+
+... a scalar coefficient of the objective function. This provides an easy way to tweak the "global" learning rate of the network. Note, however, that tweaking this parameter is not equivalent to tweaking the *epsW* parameter of every layer in the net if you use weight decay. That's because tweaking *coeff* will leave the effective weight decay coefficient (`epsW*wc`) unchanged. But tweaking *epsW* will of course cause a change in `epsW*wc`.
+
+= Layer definition file  - slightly more advanced features =
 == Block sparse convolution layer ==
 
 This is a convolutional layer in which each filter only looks at _some_ of the input channels.
@@ -298,52 +344,44 @@ There are two new parameters here:
   * Random sparse convolutional layers are only about 1% less efficient computationally than block sparse convolutional layers, which themselves are as efficient as non-sparse convolutional layers. So there's no performance reason to avoid them. 
   * The computation will be most efficient when `filterChannels` is divisible by 16 and `filters` is divisible by 32.
 
-= Layer parameter file =
+==Layers with multiple inputs==
 
-In this file we can specify learning parameters that we may want to change during the course of training (learning rates, etc.). You can find examples of this kind of file [http://code.google.com/p/cuda-convnet/source/browse/trunk/example-layers/ here].
+All of the layers with weights (convolutional, locally-connected, and fully-connected) can take multiple layers as input. When there are multiple input layers, a separate set of weights (filters, if you like) is used for each input. Each input/weight pair produces some output, and the final output of the layer is the summation of all those outputs. This implies that all input/weight pairs must produce output of equivalent dimensions.
 
-The idea is that you'll use one file to define the net's architecture, which stays fixed for the duration of training, and another file to define learning parameters, which you can change while the net is training.
-
-I'll now go through the learning parameters that the above-defined layers take. Generally, only layers with weights require learning parameters.
-
-==Layers with weights==
-
-Here's how to specify learning parameters for layers with weights (convolutional layers, locally-connected layers, and fully-connected layers).
-
+For example, you can write a convolutional layer with two input layers like this: 
 {{{
-[conv32]
-epsW=0.001
-epsB=0.002
-momW=0.9
-momB=0.9
-wc=0
+[conv5b]
+type=conv
+inputs=conv4b,conv5
+filters=64,64
+padding=2,2
+stride=1,1
+filterSize=5,5
+channels=64,64
+initW=0.01,0.01
+initB=1
+partialSum=13
+groups=1,1
+sharedBiases=true
 }}}
 
-This specifies the learning parameters for the layer *conv32*. Here's what the parameters mean:
-|| *Parameter* || *Meaning* ||
-||epsW=0.001 ||the weight learning rate. ||
-||epsB=0.002 ||the bias learning rate. ||
-||momW=0.9||the weight momentum. ||
-||momB=0.9||the bias momentum. ||
-||wc=0 || the L2 weight decay (applied to the weights but not the biases).||
+This convolutional layer takes the two layers *conv4b* and *conv5* as input. Since there are two sets of weights in this layer, you must specify two values for most of the parameters which define the operation that those weights perform on their corresponding input. Some of the parameters remain unary, for example the initB parameter, since there is still only one bias vector for all the outputs.
 
-Given these values, the update rule for the weights is:
+As mentioned above, you must choose sets of parameters that lead to convolutions which produce equivalently-sized output vectors.
+
+A locally-connected, unshared layer with multiple inputs can be specified in exactly the same way, replacing *type=conv* with *type=local*.
+
+A fully-connected layer with multiple inputs can be specified like this:
+
 {{{
-weight_inc[i] := momW * weight_inc[i-1] - wc * epsW * weights[i-1] + epsW * weight_grads[i]
-weights[i] := weights[i-1] + weight_inc[i]
+[fc1000]
+type=fc
+outputs=1000
+inputs=pool3,probs
+initW=0.001,0.1
 }}}
 
-where `weight_grads[i]` is the average gradient over minibatch `i`. The update rule for biases is the same except that there is no bias weight decay.
-
-==Logistic regression cost layer==
-
-Cost layers, such as the *logprob* layer defined above, take one parameter:
-{{{
-[logprob]
-coeff=1
-}}}
-
-... a scalar coefficient of the objective function. This provides an easy way to tweak the "global" learning rate of the network. Note, however, that tweaking this parameter is not equivalent to tweaking the *epsW* parameter of every layer in the net if you use weight decay. That's because tweaking *coeff* will leave the effective weight decay coefficient (`epsW*wc`) unchanged. But tweaking *epsW* will of course cause a change in `epsW*wc`.
+In a fully-connected layer, you don't have to do anything to make the number of outputs of the two computations equivalent. The number of outputs is defined by the *outputs* parameter.
 
 = Training the net =
 
