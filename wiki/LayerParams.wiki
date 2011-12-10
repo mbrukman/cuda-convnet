@@ -471,7 +471,7 @@ This says that the first weight matrix of *conv6a* will be new, but the remainin
 
 = Layer parameter file  - slightly more advanced features =
 ==Weight layers with multiple inputs==
-Layers with weights (convolutional, locally-connected, and fully-connected) which also take multiple inputs must specify a learning rate, weight momentum, and weight decay coefficient for each of its weight matrices.
+Layers with weights (convolutional, locally-connected, and fully-connected) which also take multiple inputs must specify a learning rate, weight momentum, and weight decay coefficient for each of their weight matrices.
 
 For example, the parameter file definition for the layer *conv5b* (defined above) is this:
 
