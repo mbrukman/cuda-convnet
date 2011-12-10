@@ -402,6 +402,18 @@ weightSource=conv6
 
 This says that the layer *conv6a* will use the same weight matrix as *conv6*. Of course this requires that the weight matrix of *conv6* have the same shape as the weight matrix that *conv6a* would have had without sharing. Note also that the momentum and weight decay parameters given for *conv6a* in the layer parameter file will be ignored. Only layers which own their weight matrix apply momentum and weight decay. 
 
+Now suppose *conv6* has multiple weight matrices (as it would if it took multiple inputs). If you want *conv6a* to share its weight matrix with the *third* weight matrix of *conv6*, you can do it like this:
+
+{{{
+[conv6a]
+type=conv
+inputs=conv6
+...
+weightSource=conv6[2]
+}}}
+
+The bracketed index after the layer name selects a weight matrix from *conv6*. Indices start at 0. If an index is not given, 0 is implied.
+
 = Training the net =
 
 See TrainingNet for details about how to actually cause training to happen.
