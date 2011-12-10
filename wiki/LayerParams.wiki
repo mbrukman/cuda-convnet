@@ -400,7 +400,7 @@ inputs=conv6
 weightSource=conv6
 }}}
 
-This says that the layer *conv6a* will use the same weight matrix as *conv6*
+This says that the layer *conv6a* will use the same weight matrix as *conv6*. Of course this requires that the weight matrix of *conv6* have the same shape as the weight matrix that *conv6a* would have had without sharing. Note also that the momentum and weight decay parameters given for *conv6a* in the layer parameter file will be ignored. Only layers which own their weight matrix apply momentum and weight decay. 
 
 = Training the net =
 
