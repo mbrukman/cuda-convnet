@@ -47,8 +47,8 @@ filterSize=9
 neuron=logistic
 initW=0.00001
 initB=0.5
-partialSum=1
 sharedBiases=true
+partialSum=1
 }}}
 
 Again, the bracketed *conv32* is the name we're choosing to give to this layer.
