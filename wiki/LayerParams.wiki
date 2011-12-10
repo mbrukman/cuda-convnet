@@ -63,7 +63,7 @@ Here's what the other parameters mean:
 ||`padding=4` ||`0`|| instructs the net to implicitly pad the images with a 4-pixel border of zeros (this does not cause it to create a copy of the data or use any extra memory). Set to 0 if you don't want padding.||
 ||`stride=1` ||`1`||indicates that the distance between successive filter applications should be 1 pixel. ||
 ||`filterSize=9` ||`--`||says that this layer will use filters of size 9x9 pixels (with 3 channels). ||
-||`neuron=logistic` ||`ident`|| defines the neuron activation function to be applied to the output of the convolution. If omitted, no function is applied. See NeuronTypes for supported types.||
+||`neuron=logistic` ||`ident`|| defines the neuron activation function to be applied to the output of the convolution. If omitted, no function is applied. See NeuronTypes for supported types. *All layers except data and cost layers can take a neuron parameter.*||
 ||`initW=0.00001` ||`--`|| instructs the net to initialize the weights in this layer from a normal distribution with mean zero and standard deviation 0.00001.||
 ||`initB=0` ||`0`|| instructs the net to initialize the biases in this layer to zero.||
 ||`sharedBiases=true` ||`true`|| indicates that the biases of every filter in this layer should be shared amongst all applications of that filter (which is how convnets are usually trained). Setting this to false will untie the biases, yielding a separate bias for every location at which the filter is applied. ||
@@ -130,6 +130,7 @@ sizeX=4
 stride=2
 outputsX=0
 channels=32
+neuron=relu
 }}}
 
 A few new parameters here:
@@ -365,7 +366,7 @@ groups=1,1
 sharedBiases=true
 }}}
 
-This convolutional layer takes the two layers *conv4b* and *conv5* as input. Since there are two sets of weights in this layer, you must specify two values for most of the parameters which define the operation that those weights perform on their corresponding input. Some of the parameters remain unary, for example the initB parameter, since there is still only one bias vector for all the outputs.
+This convolutional layer takes the two layers *conv4b* and *conv5* as input. Since there are two sets of weights in this layer, you must specify two values for most of the parameters which define the operation that those weights perform on their corresponding input. Some of the parameters remain unary, for example the *initB* parameter, since there is still only one bias vector for all the outputs.
 
 As mentioned above, you must choose sets of parameters that lead to convolutions which produce equivalently-sized output vectors.
 
@@ -382,6 +383,24 @@ initW=0.001,0.1
 }}}
 
 In a fully-connected layer, you don't have to do anything to make the number of outputs of the two computations equivalent. The number of outputs is defined by the *outputs* parameter.
+
+==Weight sharing between layers==
+
+Layers may share their weights with other layers of the same kind. One of the things this allows you to do is to write recurrent networks. For example, a layer may take as input the output of another layer which uses *the same weights* -- so in effect the layer is taking its own output (in a previous "time step") as input.
+
+All layers with weights (convolutional, locally-connected, and fully-connected) can share weights. To specify that a layer should use the weight matrix from another layer, add the *weightSource* parameter to the layer's definition file.
+
+Here's an example:
+
+{{{
+[conv6a]
+type=conv
+inputs=conv6
+...
+weightSource=conv6
+}}}
+
+This says that the layer *conv6a* will use the same weight matrix as *conv6*
 
 = Training the net =
 
