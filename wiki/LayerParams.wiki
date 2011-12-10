@@ -1,7 +1,7 @@
 #summary How to specify a neural net architecture.
 
 <h1>Table of Contents</h1>
-<wiki:toc max_depth="3" />
+<wiki:toc max_depth="2" />
 
 = Introduction =
 
