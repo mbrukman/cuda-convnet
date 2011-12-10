@@ -46,6 +46,7 @@ stride=1
 filterSize=9
 neuron=logistic
 initW=0.00001
+initB=0
 partialSum=1
 sharedBiases=true
 }}}
