@@ -159,6 +159,42 @@ Notice that the only difference between this run line and the one above is that 
 
 After training is done, you can kill the net and re-run it with the *--test-only=1* and *--multiview-test=1* arguments to compute the test error as averaged over 9 patches of the original images (4 corner patches, 4 side midpoints, and center patch). This will produce better results than testing on the center patch alone.
 
+= Operations on saved nets =
+
+== Convert convolutional layers to unshared, locally-connected layers==
+
+You may be curious what would happen if you simply untied all of the weights in a convolutional layer. This is equivalent to converting a [LayerParams#Convolution_layer convolutional] layer to an [LayerParams#Locally-connected_layer_with_unshared_weights unshared, locally-connected layer]. The net would have many more parameters, as now a different filter would be applied at each location in the input image. But maybe things will get better?
+
+You can do this like this:
+
+{{{
+python convnet.py -f /storage2/tmp/ConvNet__2011-06-29_22.19.39 --conv-to-local=conv3
+}}}
+
+where *conv3* is the name of some convolutional layer in your net. You can specify multiple layers too, with a comma-delimited list of layer names.
+
+Note that this operation cannot be reversed, except by loading a checkpoint saved before you did this.
+
+== Decouple weight matrices between layers ==
+
+If you defined a layer which [LayerParams#Weight_sharing_between_layers takes its weight matrix from another layer], you may decouple the weight matrices like this:
+
+{{{
+python convnet.py -f /storage2/tmp/ConvNet__2011-06-29_22.19.39 --conv-to-local=conv4
+}}}
+
+where *conv4* is the name of some convolutional layer in your net which took a weight matrix from another layer. If *conv4* takes [LayerParams#Layers_with_multiple_inputs multiple inputs] and you want to decouple a particular weight matrix rather than all of them, you can do this:
+
+{{{
+python convnet.py -f /storage2/tmp/ConvNet__2011-06-29_22.19.39 --conv-to-local=conv4[3]
+}}}
+
+This will decouple the *fourth* weight matrix of *conv4*. Indexing starts at 0.
+
+You can also simultaneously decouple weight matrices in multiple layers, by specifying a comma-delimited list of layer names.
+
+*Note*: once you've decoupled the weight matrices of two layers, they are now two separate, independent entities. This means that they take up twice as much memory. It also means that the *epsW*, *momW*, and *wc* parameters that you specified in the layer parameter file for the layer that you just unshared now come into effect.
+
 =Looking inside the net=
 
 Now that you know how to train the net, you can [ViewingNet read] about how to plot the cost function, look at the filters that your net has learned, and examine the kinds of errors that it makes.
