@@ -163,7 +163,7 @@ After training is done, you can kill the net and re-run it with the *--test-only
 
 = Operations on saved nets =
 
-== Convert convolutional layers to unshared, locally-connected layers==
+== Converting convolutional layers to unshared, locally-connected layers==
 
 You may be curious what would happen if you simply untied all of the weights in a convolutional layer. This is equivalent to converting a [LayerParams#Convolution_layer convolutional] layer to an [LayerParams#Locally-connected_layer_with_unshared_weights unshared, locally-connected layer]. The net would have many more parameters, as now a different filter would be applied at each location in the input image. But maybe things will get better?
 
@@ -177,7 +177,7 @@ where *conv3* is the name of some convolutional layer in your net. You can speci
 
 Note that this operation cannot be reversed, except by loading a checkpoint saved before you did this.
 
-== Decouple weight matrices between layers ==
+== Decoupling weight matrices between layers ==
 
 If you defined a layer which [LayerParams#Weight_sharing_between_layers takes its weight matrix from another layer], you may decouple the weight matrices like this:
 
