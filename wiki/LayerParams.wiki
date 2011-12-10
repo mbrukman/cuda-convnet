@@ -446,7 +446,7 @@ weightSource=conv6[2]
 
 The bracketed index after the layer name selects a weight matrix from *conv6*. Indices start at 0. If an index is not given, 0 is implied.
 
-Now suppose *conv6a* itself takes three inputs. If you want *conv6a* to take its first and second weight matrix from other layers, you can do it like this:
+Now suppose *conv6a* itself takes three inputs. If you want *conv6a* to take its first and third weight matrix from other layers, you can do it like this:
 
 {{{
 [conv6a]
