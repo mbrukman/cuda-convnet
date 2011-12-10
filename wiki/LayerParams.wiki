@@ -3,7 +3,7 @@
 <h1>Dec 9, 2011 note: this document is in the process of being updated</h1>
 
 <h1>Table of Contents</h1>
-<wiki:toc max_depth="4" />
+<wiki:toc max_depth="3" />
 
 = Introduction =
 
