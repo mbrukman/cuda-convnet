@@ -2,7 +2,7 @@
 
 = Neuron types =
 
-Some of the [LayerParams layer types] take a `neuron=x` parameter, which defines the output nonlinearity of neurons in the layer. 
+Most of the [LayerParams layer types] take a `neuron=x` parameter, which defines the output nonlinearity of neurons in the layer. 
 
 These are the supported neuron types:
 
