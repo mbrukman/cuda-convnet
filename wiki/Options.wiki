@@ -45,22 +45,22 @@ The angle brackets following the argument names tell you what kind of value each
 
 First the optional arguments:
 || *Argument* || *Meaning* ||
-|| --check-grads || [CheckingGradients Check the gradients] ||
-|| --conv-to-local || Convert the specified layers from convolutional to unshared, locally-connected. See TrainingNet for details. ||
-|| --crop-border || When using a data provider that crops images (for example if you want to train on translations of the CIFAR-10), this specifies the size of the cropped region in pixels. The `cifar-cropped` data provider does this. ||
-|| --epochs || How many epochs to train for. An epoch is one pass through the training data. ||
-|| -f || Load checkpoint from given path. All other arguments become optional when this is given. ||
-|| --gpu || Set GPU index to run on (default is to grab fastest GPU available). ||
-|| --logreg-name || The name of the logistic regression cost objective. To be used in conjunction with the *--crop-border* and *--multiview-test* argument. || 
-|| --max-filesize || Maximum amount of disk space occupied by all checkpoints. Set to 0 to only store last checkpoint. ||
-|| --mini || Minibatch size. The minibatch size is the number of training cases over which the gradient is averaged to produce a weight update. *For best performance this value should be a multiple of 128.* In particular, this code is in no way designed for on-line learning (i.e. minibatch size of 1). So while a minibatch size of 1 will work, processing 1 image may in general take almost as much time as processing a minibatch of 128 images. ||
-|| --multiview-test|| When using a data provider that crops images, this indicates that the test error computation should be averaged over several regions of the image rather than just the center region. To be used in conjunction with the *--crop-border* and *--logreg-name* arguments. Note that this will greatly increase the time it takes to compute the test error. So it's best to leave this off until you're done training, at which point you can compute the averaged test error once using this option in conjunction with the *--test-only* option. ||
-|| --num-gpus || Ignore this. This code does not support training one model on multiple GPUs. ||
-|| --test-freq || The test error computation / checkpoint saving frequency, in units of training batches. Every *this many* training batches,  the net will compute the test error and save a checkpoint.||
-|| --test-one || If multiple testing batches are given, each test output will be computed on only one of the batches. The net will cycle through them in sequence. ||
-|| --test-only || Compute the test error and quit. To be used in combination with the *-f* option. ||
-|| --unshare-weights || Remove the coupling of weight matrices between layers. See TrainingNet for details. ||
-|| --zip-save || Compress checkpoint files. This makes checkpointing slower and may have almost no effect on the file size. So the default is off. ||
+|| `--check-grads` || [CheckingGradients Check the gradients] ||
+|| `--conv-to-local` || Convert the specified layers from convolutional to unshared, locally-connected. See TrainingNet for details. ||
+|| `--crop-border` || When using a data provider that crops images (for example if you want to train on translations of the CIFAR-10), this specifies the size of the cropped region in pixels. The `cifar-cropped` data provider does this. ||
+|| `--epochs` || How many epochs to train for. An epoch is one pass through the training data. ||
+|| `-f` || Load checkpoint from given path. All other arguments become optional when this is given. ||
+|| `--gpu` || Set GPU index to run on (default is to grab fastest GPU available). ||
+|| `--logreg-name` || The name of the logistic regression cost objective. To be used in conjunction with the *--crop-border* and *--multiview-test* argument. || 
+|| `--max-filesize` || Maximum amount of disk space occupied by all checkpoints. Set to 0 to only store last checkpoint. ||
+|| `--mini` || Minibatch size. The minibatch size is the number of training cases over which the gradient is averaged to produce a weight update. *For best performance this value should be a multiple of 128.* In particular, this code is in no way designed for on-line learning (i.e. minibatch size of 1). So while a minibatch size of 1 will work, processing 1 image may in general take almost as much time as processing a minibatch of 128 images. ||
+|| `--multiview-test` || When using a data provider that crops images, this indicates that the test error computation should be averaged over several regions of the image rather than just the center region. To be used in conjunction with the *--crop-border* and *--logreg-name* arguments. Note that this will greatly increase the time it takes to compute the test error. So it's best to leave this off until you're done training, at which point you can compute the averaged test error once using this option in conjunction with the *--test-only* option. ||
+|| `--num-gpus` || Ignore this. This code does not support training one model on multiple GPUs. ||
+|| `--test-freq` || The test error computation / checkpoint saving frequency, in units of training batches. Every *this many* training batches,  the net will compute the test error and save a checkpoint.||
+|| `--test-one` || If multiple testing batches are given, each test output will be computed on only one of the batches. The net will cycle through them in sequence. ||
+|| `--test-only` || Compute the test error and quit. To be used in combination with the *-f* option. ||
+|| `--unshare-weights` || Remove the coupling of weight matrices between layers. See TrainingNet for details. ||
+|| `--zip-save` || Compress checkpoint files. This makes checkpointing slower and may have almost no effect on the file size. So the default is off. ||
 
 Now the mandatory ones:
 
