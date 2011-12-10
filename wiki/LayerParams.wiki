@@ -400,7 +400,9 @@ inputs=conv6
 weightSource=conv6
 }}}
 
-This says that the layer *conv6a* will use the same weight matrix as *conv6*. Of course this requires that the weight matrix of *conv6* have the same shape as the weight matrix that *conv6a* would have had without sharing. Note also that the momentum and weight decay parameters given for *conv6a* in the layer parameter file will be ignored. Only layers which own their weight matrix apply momentum and weight decay. 
+This says that the layer *conv6a* will use the same weight matrix as *conv6*. Of course this requires that the weight matrix of *conv6* have the same shape as the weight matrix that *conv6a* would have had without sharing. 
+
+Note also that the momentum and weight decay parameters given for *conv6a* in the layer parameter file will be ignored. Only layers which own their weight matrix apply momentum and weight decay. Additionally, the *initW* parameter will also be ignored, for obvious reasons.
 
 Now suppose *conv6* has multiple weight matrices (as it would if it took multiple inputs). If you want *conv6a* to share its weight matrix with the *third* weight matrix of *conv6*, you can do it like this:
 
@@ -413,6 +415,30 @@ weightSource=conv6[2]
 }}}
 
 The bracketed index after the layer name selects a weight matrix from *conv6*. Indices start at 0. If an index is not given, 0 is implied.
+
+Now suppose *conv6a* itself takes three inputs. If you want *conv6a* to take its first and second weight matrix from other layers, you can do it like this:
+
+{{{
+[conv6a]
+type=conv
+inputs=conv6,conv5,conv4
+...
+weightSource=conv6,,conv4[1]
+}}}
+
+Hopefully by now it is clear what this means. The first weight matrix will be taken from *conv6`[0]`*, the second weight matrix will be owned by *conv6a* -- not taken from anywhere, and the third weight matrix will be taken from *conv4`[1]`*.
+
+One final example. Suppose you want *conv6a* to take three inputs but apply the same (newly-defined) filters to all three. In other words, you want *conv6a* to share its weights with itself, amongst its three inputs. Then you can write:
+
+{{{
+[conv6a]
+type=conv
+inputs=conv6,conv5,conv4
+...
+weightSource=,conv6a,conv6a
+}}}
+
+This says that the first weight matrix of *conv6a* will be new, but the remaining two will be equivalent to the first.
 
 = Training the net =
 
