@@ -230,7 +230,7 @@ This layer computes the function
 
 http://cuda-convnet.googlecode.com/svn/wiki/images/softmax.gif
 
-where each _x,,i,,_ is an input. It's specified like this:
+where each _x,,i,,_ is an input value. It's specified like this:
 
 {{{
 [fc10]
