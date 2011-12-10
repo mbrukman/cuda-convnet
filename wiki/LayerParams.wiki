@@ -172,6 +172,37 @@ pow=0.75
 || `scale=0.0000125` || the _alpha_ variable in the above formula, this weights the response normalization term. Setting this to zero makes this layer's output equal to its input -- i.e., you get no response normalization.||
 || `pow=0.75` || the _beta_ variable in the above formula. Setting this to zero likewise makes this layer's output equal to its input. ||
 
+==Summation layer==
+
+This kind of layer simply performs an element-wise summation of its input layers. Of course this implies that all of its input layers must have the same dimensionality. It's specified like this:
+
+==Neuron layer==
+
+This layer takes one layer as input and applies a neuron activation function to it. See NeuronTypes for available activation functions.
+
+This layer is specified like this:
+
+{{{
+[neuron1]
+type=neuron
+inputs=layer1
+neuron=logistic
+}}}
+
+Note that all layers except data layers and cost layers can take a *neuron=x* parameter, so there is often no need to explicitly define these neuron layers.
+
+Side note: this layer is admittedly misnamed. It just applies an element-wise function to its input. So don't think of neurons with weights. This layer has no weights.
+
+{{{
+[sumlayer]
+type=sum
+inputs=layer1,layer2,layer3
+}}}
+
+This layer will produce the sum of the outputs of *layer1*, *layer2*, and *layer3*.
+
+The number of outputs in this layer is of course equal to the number of outputs in any of the input layers.
+
 ==Local contrast normalization layer==
 
 This kind of layer computes the function
@@ -442,7 +473,7 @@ This says that the first weight matrix of *conv6a* will be new, but the remainin
 
 = Layer parameter file  - slightly more advanced features =
 ==Weight layers with multiple inputs==
-Layers with weights (convolutional, locally-connected, and fully-connected) which also take multiple inputs must specify multiple learning rates, weight momenta, and weight decay coefficients.
+Layers with weights (convolutional, locally-connected, and fully-connected) which also take multiple inputs must specify a learning rate, weight momentum, and weight decay coefficient for each of its weight matrices.
 
 For example, the parameter file definition for the layer *conv5b* (defined above) is this:
 
