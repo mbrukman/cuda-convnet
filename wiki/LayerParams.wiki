@@ -170,10 +170,6 @@ pow=0.75
 || `scale=0.0000125` || the _alpha_ variable in the above formula, this weights the response normalization term. Setting this to zero makes this layer's output equal to its input -- i.e., you get no response normalization.||
 || `pow=0.75` || the _beta_ variable in the above formula. Setting this to zero likewise makes this layer's output equal to its input. ||
 
-==Summation layer==
-
-This kind of layer simply performs an element-wise summation of its input layers. Of course this implies that all of its input layers must have the same dimensionality. It's specified like this:
-
 ==Neuron layer==
 
 This layer takes one layer as input and applies a neuron activation function to it. See NeuronTypes for available activation functions.
@@ -189,7 +185,11 @@ neuron=logistic
 
 Note that all layers except data layers and cost layers can take a *neuron=x* parameter, so there is often no need to explicitly define these neuron layers.
 
-Side note: this layer is admittedly misnamed. It just applies an element-wise function to its input. So don't think of neurons with weights. This layer has no weights.
+Side-note: this layer is admittedly misnamed. It just applies an element-wise function to its input. So don't think of neurons with weights. This layer has no weights.
+
+==Summation layer==
+
+This kind of layer simply performs an element-wise summation of its input layers. Of course this implies that all of its input layers must have the same dimensionality. It's specified like this:
 
 {{{
 [sumlayer]
