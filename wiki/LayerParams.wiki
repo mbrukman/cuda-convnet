@@ -193,11 +193,45 @@ pow=0.5
 
 The meanings of all of these parameters are the same as in the response normalization layer described above.
 
+==Softmax layer==
+
+This layer computes the function 
+
+http://cuda-convnet.googlecode.com/svn/wiki/images/softmax.gif
+
+where each _x,,i,,_ is an input. It's specified like this:
+
+{{{
+[fc10]
+type=fc
+outputs=10
+inputs=conv32
+initW=0.0001
+
+[probs]
+type=softmax
+inputs=fc10
+}}}
+
+Here we're really defining two layers -- *fc10* is a fully-connected layer with 10 outputs (because our dataset has 10 classes), and *probs* is a softmax that takes *fc10* as input and produces 10 values which can be interpreted as probabilities as its output.
+
+==Logistic regression cost layer==
+
+A net must define an objective function to optimize. This is the (multinomial) [http://en.wikipedia.org/wiki/Multinomial_logistic_regression logistic regression] objective. It's specified like this:
+
+{{{
+[logprob]
+type=cost.logreg
+inputs=labels,probs
+}}}
+
+The *cost.logreg* objective takes two inputs -- true labels and predicted probabilities. We defined the *labels* layer early on, and the *probs* layer just above.
+
 =Layer definition file - slightly more advanced features=
 
 == Block sparse convolution layer ==
 
-Now let's define a convolutional layer in which each filter only looks at _some_ of the input channels.
+This is a convolutional layer in which each filter only looks at _some_ of the input channels.
 
 {{{
 [conv32-2]
@@ -221,7 +255,7 @@ The following diagram depicts the kind of operation that this layer will perform
 
 http://cuda-convnet.googlecode.com/svn/wiki/images/conv-diagram.png
 
-*Block sparsity may be used in convolutional layers as well as in locally-connected, unshared layers.*
+*Block sparsity may be used in convolutional layers as well as in locally-connected, unshared layers. Simply replace type=conv with type=local to do this in locally-connected, unshared layers.*
 
 ===Performance notes===
   * Block sparse convolutional layers are just as efficient computationally as non-sparse convolutional layers.
@@ -237,7 +271,7 @@ Here's how this kind of layer is specified:
 [conv32-3]
 type=conv
 inputs=conv32-2
-groups=4
+groups=2
 channels=128
 filters=32
 padding=2
@@ -250,69 +284,31 @@ randSparse=true
 filterChannels=64
 }}}
 
-Notice that this layer has 128-channel input, because the layer just above has 128 (4 groups of 32) filters. This layer will also produce 128-channel output.
+Notice that this layer has 128-channel input, because its input layer, *conv32-2*, has 128 (4 groups of 32) filters. This layer will produce 64-channel output, since it has 2 groups of 32 filters.
 
 There are two new parameters here:
 
 || *Parameter* || *Default value* || *Meaning* ||
 ||`randSparse=true` ||`false`|| indicates that random sparsity should be used in this layer. When this parameter is true, the `groups` parameter must be greater than 1 (otherwise the connectivity will not be sparse). ||
-||`filterChannels=64` ||`channels/groups`||an optional parameter indicating how many input channels each filter should look at. Here we've specified 64, which means that each group will be connected to 64 randomly-chosen input channels, and each input channel will be connected to exactly two groups. Omitting this parameter will cause each input channel to be connected to exactly one (randomly-chosen) group.||
+||`filterChannels=64` ||`channels/groups`||an optional parameter indicating how many input channels each filter should look at. The quantity `filterChannels*groups` must be a multiple of `channels`.||
 
-*Random sparsity may be used in convolutional layers as well as in locally-connected unshared layers.* For locally-connected unshared layers, every `filters` filters at _every location_ will connect to the same random subset of input channels. So in all there will still be `groups` random subsets, just like in a convolutional layer.
+*Random sparsity may be used in convolutional layers as well as in locally-connected unshared layers.* For locally-connected unshared layers, each group of *filters* filters at _all locations_ will connect to the same random subset of input channels. So in all there will still be *groups* random subsets, just like in a convolutional layer.
 
 ===Performance notes===
   * Random sparse convolutional layers are only about 1% less efficient computationally than block sparse convolutional layers, which themselves are as efficient as non-sparse convolutional layers. So there's no performance reason to avoid them. 
   * The computation will be most efficient when `filterChannels` is divisible by 16 and `filters` is divisible by 32.
 
-==Softmax layer==
+= Layer parameter file =
 
-This layer computes the function 
+In this file we can specify learning parameters that we may want to change during the course of training (learning rates, etc.). You can find examples of this kind of file [http://code.google.com/p/cuda-convnet/source/browse/trunk/example-layers/ here].
 
-<img src="http://chart.googleapis.com/chart?cht=tx&chl=f(x_i)=\frac{e^{x_i}}{1 %2B \sum_{j} e^{x_j}}" ></img>
+The idea is that you'll use one file to define the net's architecture, which stays fixed for the duration of training, and another file to define learning parameters, which you can change while the net is training.
 
-==Fully-connected layer with multiple inputs; softmax layer==
+I'll now go through the learning parameters that the above-defined layers take. Generally, only layers with weights require learning parameters.
 
-Now let's connect this convolutional layer and the fully-connected layer defined long ago to a softmax output:
-{{{
-[fc10]
-type=fc
-outputs=10
-inputs=conv32-2,fc1024
-initW=0.0001,0.0001
-neuron=ident
+==Layers with weights==
 
-[probs]
-type=softmax
-inputs=fc10
-}}}
-
-The main point of this example is to illustrate that a fully-connected layer can take multiple inputs. Here *fc10* is taking input from *conv32-2* and *fc1024*, and produces 10 outputs. Notice that because *fc10* takes two inputs, it has two weight matrices, and therefore the *initW* parameter must be a comma-delimited list of floats. Their order corresponds to the order given to the *inputs* parameter.
-
-The *probs* definition is a softmax layer that, as you might expect, applies a softmax to the 10 outputs produced by the *fc10* layer. The reason that *fc10* produces 10 outputs is that there are 10 classes in the CIFAR-10 dataset, so *it is important to match the size of this layer to the number of classes in your dataset*.
-
-===Logistic regression cost layer===
-
-Finally, let's define an objective function for the net to optimize. You can define and simultaneously optimize multiple objectives, but we'll stick to one here. The objective is the (multinomial) [http://en.wikipedia.org/wiki/Multinomial_logistic_regression logistic regression] objective.
-
-{{{
-[logprob]
-type=cost.logreg
-inputs=labels,probs
-}}}
-
-The *cost.logreg* objective takes two inputs -- labels and predicted probabilities. We defined the *labels* layer early on, and the *probs* layer just above.
-
-That's it! The convolutional net's architecture is defined.
-
-== Layer parameter file ==
-
-There's one problem though -- we haven't specified any learning parameters (learning rates, etc.). This is done via another file, which we'll call [http://code.google.com/p/cuda-convnet/source/browse/trunk/example-layers/layer-params-example.cfg layer-params-example.cfg]. The idea is that you'll use one file to define the net's architecture, which stays fixed for the duration of training, and another file to define learning parameters, which you can change while the net is training.
-
-So let's do that. I'll now go through the contents of the [http://code.google.com/p/cuda-convnet/source/browse/trunk/example-layers/layer-params-example.cfg layer-params-example.cfg] file that corresponds to the net defined above in [http://code.google.com/p/cuda-convnet/source/browse/trunk/example-layers/layers-example.cfg layers-example.cfg].
-
-Not all layer types require learning parameters. Layers without weights (for example pooling layers) have none. The layers mentioned below are the only ones that require learning parameters.
-
-===Convolutional layer===
+Here's how to specify learning parameters for layers with weights (convolutional layers, locally-connected layers, and fully-connected layers).
 
 {{{
 [conv32]
@@ -339,65 +335,9 @@ weights[i] := weights[i-1] + weight_inc[i]
 
 where `weight_grads[i]` is the average gradient over minibatch `i`. The update rule for biases is the same except that there is no bias weight decay.
 
-Now that that's out of the way, there isn't much left to describe.
+==Logistic regression cost layer==
 
-===Locally-connected layer with unshared weights==
-
-This type of layer takes the same types of parameters as a convolutional layer.
-{{{
-[local32]
-epsW=0.001
-epsB=0.002
-momW=0.9
-momB=0.9
-wc=0
-}}}
-
-===Fully-connected layer===
-
-We add learning parameter definitions for the *fc1024* layer too:
-{{{
-[fc1024]
-momW=0.9
-momB=0.9
-epsW=0.00001
-epsB=0.00002
-wc=0
-}}}
-
-And the *conv32-2* and *conv32-3* layers:
-
-{{{
-[conv32-2]
-epsW=0.001
-epsB=0.002
-momW=0.9
-momB=0.9
-wc=0
-
-[conv32-3]
-epsW=0.001
-epsB=0.002
-momW=0.9
-momB=0.9
-wc=0
-}}}
-
-The *fc10* layer:
-{{{
-[fc10]
-epsW=0.0001,0.001
-epsB=0.002
-momW=0.5,0.9
-momB=0.9
-wc=0,0
-}}}
-
-Here there is one twist: since the *fc10* layer takes two inputs, it has two weight matrices. So just like with the *initW* parameter, we have to provide *fc10* with a list of learning rates, momenta, and weight decays. We do this by writing them as a comma-delimited list of values.
-
-===Logistic regression cost layer===
-
-Finally, the *logprob* layer takes one parameter:
+Cost layers, such as the *logprob* layer defined above, take one parameter:
 {{{
 [logprob]
 coeff=1
@@ -407,4 +347,4 @@ coeff=1
 
 = Training the net =
 
-Now the net is fully-defined and ready to train. See TrainingNet for details about how to actually cause training to happen. *But note that due to the size of the net that we just defined, it will not run on anything short of a 3GB GTX 580*. The [http://code.google.com/p/cuda-convnet/source/browse/#svn%2Ftrunk%2Fexample-layers example-layers] directory has sample layer configuration files of more modest size, which also produce better results.
+See TrainingNet for details about how to actually cause training to happen.
