@@ -440,6 +440,21 @@ weightSource=,conv6a,conv6a
 
 This says that the first weight matrix of *conv6a* will be new, but the remaining two will be equivalent to the first.
 
+= Layer parameter file  - slightly more advanced features =
+==Weight layers with multiple inputs==
+Layers with weights (convolutional, locally-connected, and fully-connected) which also take multiple inputs must specify multiple learning rates, weight momenta, and weight decay coefficients.
+
+For example, the parameter file definition for the layer *conv5b* (defined above) is this:
+
+{{{
+[conv5b]
+epsW=0.001,0.001
+epsB=2
+momW=0.9,0.9
+momB=0.9
+wc=0.001,0.001
+}}}
+
 = Training the net =
 
 See TrainingNet for details about how to actually cause training to happen.
