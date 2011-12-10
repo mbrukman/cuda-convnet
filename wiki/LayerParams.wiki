@@ -65,9 +65,9 @@ Here's what the other parameters mean:
 ||`initW=0.00001` ||`--`|| instructs the net to initialize the weights in this layer from a normal distribution with mean zero and standard deviation 0.00001.||
 ||`initB=0` ||`0`|| instructs the net to initialize the biases in this layer to zero.||
 ||`sharedBiases=true` ||`true`|| indicates that the biases of every filter in this layer should be shared amongst all applications of that filter (which is how convnets are usually trained). Setting this to false will untie the biases, yielding a separate bias for every location at which the filter is applied. ||
-||`partialSum=1` ||`--`|| this is a parameter that affects the performance of the weight gradient computation. It's a bit hard to predict what value will result in the best performance (it's problem-specific), but it's worth trying a few. Valid values are ones that divide the total number of outputs in this convolutional layer. This parameter also has an impact on memory consumption. The amount of extra memory used will be: `(number of weights in this layer)x(number of outputs this layer produces) / partialSum.` My belief is that since one of the defining features of convolutional nets is their small number of weights, this shouldn't be a big deal. ||
+||`partialSum=1` ||`--`|| this is a parameter that affects the performance of the weight gradient computation. It's a bit hard to predict what value will result in the best performance (it's problem-specific), but it's worth trying a few. Valid values are ones that divide the total number of output values in this convolutional layer. This parameter also has an impact on memory consumption. The amount of extra memory used will be: `(number of weights in this layer)x(number of outputs this layer produces) / partialSum.` My belief is that since one of the defining features of convolutional nets is their small number of weights, this shouldn't be a big deal. ||
 
-This convolutional layer will produce 32 x _N_ x _N_ outputs, where _N_ is the number of filter applications required to cover the entire width (equivalently, height) of the image plus zero-padding with the given stride. As mentioned above, each filter in this layer has 3x9x9 weights.
+This convolutional layer will produce 32 x _N_ x _N_ output values, where _N_ is the number of filter applications required to cover the entire width (equivalently, height) of the image plus zero-padding with the given stride. As mentioned above, each filter in this layer has 3x9x9 weights.
 
 The parameters with default values may be omitted from the configuration file.
 
@@ -138,7 +138,7 @@ A few new parameters here:
 ||`start=0` ||`0`||tells the net where in the input image to start the pooling (in x,y coordinates). In principle, you can start anywhere you want. Setting this to a positive number will cause the net to discard some pixels at the top and at the left of the image. Setting this to a negative number will cause it to include pixels that don't exist (which is fine). *start=0* is the usual setting. ||
 ||`sizeX=4` ||`--`||defines the size of the pooling region in the x (equivalently, y) dimension. Squares of size (*sizeX*)^2^ get reduced to one value by this layer. There are no restrictions on the value of this parameter. It's fine for a pooling square to fall off the boundary of the image.||
 ||`stride=2` ||`--`||defines the stride size between successive pooling squares. Setting this parameter smaller than *sizeX* produces _overlapping_ pools. Setting it equal to *sizeX* gives the usual, non-overlapping pools. Values greater than *sizeX* are not allowed. ||
-||`outputsX=0` ||`0`||allows you to control how many outputs in the x (equivalently, y) dimension this operation will produce. This parameter is analogous to the *start* parameter, in that it allows you to discard some portion of the image by setting it to a value small enough to leave part of the image uncovered. Setting it to zero instructs the net to produce as many outputs as is necessary to ensure that the whole image is covered. ||
+||`outputsX=0` ||`0`||allows you to control how many output values in the x (equivalently, y) dimension this operation will produce. This parameter is analogous to the *start* parameter, in that it allows you to discard some portion of the image by setting it to a value small enough to leave part of the image uncovered. Setting it to zero instructs the net to produce as many outputs as is necessary to ensure that the whole image is covered. ||
 
 Since the pooling performed by this layer is per-channel, the number of output channels is equivalent to the number of input channels. But the size of the image in the x,y dimensions gets reduced.
 
@@ -199,7 +199,7 @@ inputs=layer1,layer2,layer3
 
 This layer will produce the sum of the outputs of *layer1*, *layer2*, and *layer3*.
 
-The number of outputs in this layer is of course equal to the number of outputs in any of the input layers.
+The number of output values in this layer is of course equal to the number of output values in any of the input layers.
 
 ==Local contrast normalization layer==
 
@@ -243,7 +243,7 @@ type=softmax
 inputs=fc10
 }}}
 
-Here we're really defining two layers -- *fc10* is a fully-connected layer with 10 outputs (because our dataset has 10 classes), and *probs* is a softmax that takes *fc10* as input and produces 10 values which can be interpreted as probabilities. This type of layer is useful for classification tasks.
+Here we're really defining two layers -- *fc10* is a fully-connected layer with 10 output values (because our dataset has 10 classes), and *probs* is a softmax that takes *fc10* as input and produces 10 values which can be interpreted as probabilities. This type of layer is useful for classification tasks.
 
 ==Logistic regression cost layer==
 
@@ -411,7 +411,7 @@ inputs=pool3,probs
 initW=0.001,0.1
 }}}
 
-In a fully-connected layer, you don't have to do anything to make the number of outputs of the two computations equivalent. The number of outputs is defined by the *outputs* parameter.
+In a fully-connected layer, you don't have to do anything to make the number of output values in the two computations equivalent. The number of output values is defined by the *outputs* parameter.
 
 ==Weight sharing between layers==
 
