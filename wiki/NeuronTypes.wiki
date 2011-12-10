@@ -6,7 +6,7 @@ Most of the [LayerParams layer types] take a `neuron=x` parameter, which defines
 
 These are the supported neuron types:
 
-|| *Parameter* ||Neuron name || *Function* ||
+|| *Parameter* || *Name* || *Function* ||
 || `neuron=logistic`||logistic || http://cuda-convnet.googlecode.com/svn/wiki/images/logistic.gif||
 ||`neuron=tanh[a,b]` ||hyperbolic tangent || http://cuda-convnet.googlecode.com/svn/wiki/images/tanh.gif||
 || `neuron=relu`||rectified linear || http://cuda-convnet.googlecode.com/svn/wiki/images/relu.gif||
