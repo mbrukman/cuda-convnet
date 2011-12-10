@@ -56,24 +56,26 @@ http://cuda-convnet.googlecode.com/svn/wiki/images/filters-separated.png
 
 Here the 3 channels of each filter are plotted side-by-side in grayscale.
 
+By default, the script shows you the first weight matrix in the layer you've specified. If your layer takes multiple inputs and you'd like to select a particular weight matrix, you can do so with the `--input-idx` parameter:
+
+{{{
+python shownet.py -f /storage2/tmp/ConvNet__2011-08-24_16.49.31 --show-filters=conv32 --input-idx=0
+}}}
+
 ===Viewing learned filters in fully-connected layers===
-There are two meta-parameters that the `--show-filters` parameter takes, which are only useful for viewing filters in fully-connected layers. Again I will demonstrate their use by example.
+There is one extra meta-parameter that the `--show-filters` parameter takes, which is only useful for viewing filters in fully-connected layers.
   
 Running the script like this:
 
 {{{
-python shownet.py -f /storage2/tmp/ConvNet__2011-08-24_17.56.48 --show-filters=fc64 --input-idx=0 --channels=3
+python shownet.py -f /storage2/tmp/ConvNet__2011-08-24_17.56.48 --show-filters=fc64  --channels=3
 }}}
 
 produces output that looks like this:
 
 http://cuda-convnet.googlecode.com/svn/wiki/images/filters-fc.png
 
-Here the layer name fc64 given to the `--show-filters` option refers to a fully-connected layer. The two extra parameters are described below.
-
-|| *Parameter* || *Meaning* ||
-|| `--channels=3` || Specifies the number of channels that the filters have. This has to be given because a fully-connected layer looks upon its input as completely flat. It is not aware of channels or image dimensions, etc. ||
-|| `--input-idx=0` || Specifies the input index for which to plot filters. Remember that fully-connected layers can take multiple inputs, so this parameter removes that ambiguity. ||
+Here the layer name `fc64` given to the `--show-filters` option refers to a fully-connected layer. The extra parameter is `--channels=3`, which specifies the number of channels that the filters in this layer have have. This has to be given because a fully-connected layer looks upon its input as completely flat. It is not aware of channels or image dimensions, etc.
 
 ==Viewing test case predictions==
 
