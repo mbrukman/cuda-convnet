@@ -185,7 +185,7 @@ If you defined a layer which [LayerParams#Weight_sharing_between_layers takes it
 python convnet.py -f /storage2/tmp/ConvNet__2011-06-29_22.19.39 --unshare-weights=conv4
 }}}
 
-where *conv4* is the name of some convolutional layer in your net which took a weight matrix from another layer. If *conv4* takes [LayerParams#Layers_with_multiple_inputs multiple inputs] and you want to decouple a particular weight matrix rather than all of them, you can do this:
+where *conv4* is the name of some layer in your net which takes its weight matrix from another layer. If *conv4* takes [LayerParams#Layers_with_multiple_inputs multiple inputs] and you want to decouple a particular weight matrix rather than all of them, you can do this:
 
 {{{
 python convnet.py -f /storage2/tmp/ConvNet__2011-06-29_22.19.39 --unshare-weights=conv4[3]
