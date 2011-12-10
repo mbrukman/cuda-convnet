@@ -180,13 +180,13 @@ Note that this operation cannot be reversed, except by loading a checkpoint save
 If you defined a layer which [LayerParams#Weight_sharing_between_layers takes its weight matrix from another layer], you may decouple the weight matrices like this:
 
 {{{
-python convnet.py -f /storage2/tmp/ConvNet__2011-06-29_22.19.39 --conv-to-local=conv4
+python convnet.py -f /storage2/tmp/ConvNet__2011-06-29_22.19.39 --unshare-weights=conv4
 }}}
 
 where *conv4* is the name of some convolutional layer in your net which took a weight matrix from another layer. If *conv4* takes [LayerParams#Layers_with_multiple_inputs multiple inputs] and you want to decouple a particular weight matrix rather than all of them, you can do this:
 
 {{{
-python convnet.py -f /storage2/tmp/ConvNet__2011-06-29_22.19.39 --conv-to-local=conv4[3]
+python convnet.py -f /storage2/tmp/ConvNet__2011-06-29_22.19.39 --unshare-weights=conv4[3]
 }}}
 
 This will decouple the *fourth* weight matrix of *conv4*. Indexing starts at 0.
