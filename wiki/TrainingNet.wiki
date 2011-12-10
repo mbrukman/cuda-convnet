@@ -159,7 +159,7 @@ This will cause the net to train on random 24x24 patches and test on the center 
 
 Notice that the only difference between this run line and the one above is that the data provider has been changed to *cifar-cropped* and we've also added a *--crop-border=4* argument which indicates the amount of cropping.
 
-After training is done, you can kill the net and re-run it with the *--test-only=1* and *--multiview-test=1* arguments to compute the test error as averaged over 9 patches of the original images (4 corner patches, 4 side midpoints, and center patch). This will produce better results than testing on the center patch alone.
+After training is done, you can kill the net and re-run it with the *--test-only=1* and *--multiview-test=1* arguments to compute the test error as averaged over 9 patches of the original images (4 corners, 4 side midpoints, and center). This will produce better results than testing on the center patch alone.
 
 = Operations on saved nets =
 
