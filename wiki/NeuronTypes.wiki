@@ -15,5 +15,6 @@ These are the supported neuron types:
 || `neuron=abs`||absolute value || http://cuda-convnet.googlecode.com/svn/wiki/images/abs.gif||
 || `neuron=ident`||identity || http://cuda-convnet.googlecode.com/svn/wiki/images/ident.gif||
 
+_x_, _a_, and _b_ above are all scalars.
 
 Adding new types of neurons is easy. See [http://code.google.com/p/cuda-convnet/source/browse/trunk/include/neuron.cuh neuron.cuh] for reference.
