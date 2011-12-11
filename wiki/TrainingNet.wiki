@@ -195,7 +195,7 @@ This will decouple the *fourth* weight matrix of *conv4*. Indexing starts at 0.
 
 You can also simultaneously decouple weight matrices in multiple layers, by specifying a comma-delimited list of layer names.
 
-*Note*: once you've decoupled the weight matrices of two layers, they become two separate, independent entities. This means that they take up twice as much memory. It also means that the *momW* and *wc* parameters that you specified in the layer parameter file for the layer that you just unshared now start being used to when updating the newly-created weight matrix.
+*Note*: once you've decoupled the weight matrices of two layers, they become two separate, independent entities. This means that they take up twice as much memory. It also means that the *momW* and *wc* parameters that you specified in the layer parameter file for the layer that you just unshared now start being used when updating the newly-created weight matrix.
 
 =Looking inside the net=
 
