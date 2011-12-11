@@ -456,7 +456,7 @@ inputs=conv6,conv5,conv4
 weightSource=conv3,,conv5[1]
 }}}
 
-Hopefully by now it is clear what this means. The first weight matrix will be taken from *conv3`[0]`*, the second weight matrix will be owned by *conv7* -- not taken from anywhere, and the third weight matrix will be taken from *conv5`[1]`*.
+Hopefully by now it is clear what this means. The first weight matrix will be taken from *conv3`[0]`*, the second weight matrix will be owned by *conv7* -- not taken from anywhere -- and the third weight matrix will be taken from *conv5`[1]`*.
 
 One final example. Suppose you want *conv7* to take three inputs but apply the same (newly-defined) filters to all three. In other words, you want *conv7* to share its weights with itself, amongst its three inputs. Then you can write:
 
