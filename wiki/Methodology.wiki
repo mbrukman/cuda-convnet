@@ -6,9 +6,11 @@ Here I'll describe the procedure I use to obtain the quoted [http://www.cs.toron
 
 = Methodology =
 
-I'll use the 13% test error score as the example. You can download the layer definition file [http://code.google.com/p/cuda-convnet/source/browse/trunk/example-layers/layers-conv-local-13pct.cfg here] and the layer parameter file [http://code.google.com/p/cuda-convnet/source/browse/trunk/example-layers/layer-params-conv-local-13pct.cfg here]. Note that we'll be using a version of the CIFAR-10 in which all the data matrices have been transposed (because that format is convenient for this code). You can download it [http://www.cs.toronto.edu/~kriz/cifar-10-py-colmajor.tar.gz here].
+I'll use the 13% test error score as the example. You can download the layer definition file [http://code.google.com/p/cuda-convnet/source/browse/trunk/example-layers/layers-conv-local-13pct.cfg here] and the layer parameter file [http://code.google.com/p/cuda-convnet/source/browse/trunk/example-layers/layer-params-conv-local-13pct.cfg here].
 
 We will be training on random 24x24 patches extracted from the 32x32 CIFAR-10 images. You can read a bit more about that [http://code.google.com/p/cuda-convnet/wiki/TrainingNet#Training_on_image_translations here].
+
+We'll be using a version of the CIFAR-10 in which all the data matrices have been transposed (because that format is convenient for this code). You can download it [http://www.cs.toronto.edu/~kriz/cifar-10-py-colmajor.tar.gz here]. It's the same version as is used in other sections of this wiki.
 
 I use batches 1-4 for training and batch 5 for validation (early stopping). Batch 6 of course is the test set.
 
