@@ -16,7 +16,7 @@ I use batches 1-4 for training and batch 5 for validation (early stopping). Batc
 
   # Start by training the net on batches 1-4 and "testing" on batch 5. Train until the validation error stops improving. Since I've run this net before, I know that this happens after roughly 100 epochs. So we start the net with the parameters `--train-range=1-4`, `--test-range=5`, and `--epochs=100`. Like so: 
 {{{
-python convnet.py --data-path=/storage2/tiny/cifar-10-batches-py-colmajor/ --save-path=/storage2/tmp --test-range=5 --train-range=1-4 --layer-def=./example-layers/layers-conv-local-12pct.cfg --layer-params=./example-layers/layer-params-conv-local-12pct.cfg --data-provider=cifar-cropped --test-freq=13 --crop-border=4 --epochs=100
+python convnet.py --data-path=/storage2/tiny/cifar-10-batches-py-colmajor/ --save-path=/storage2/tmp --test-range=5 --train-range=1-4 --layer-def=./example-layers/layers-conv-local-13pct.cfg --layer-params=./example-layers/layer-params-conv-local-13pct.cfg --data-provider=cifar-cropped --test-freq=13 --crop-border=4 --epochs=100
 }}}
   # Now note the *training error* after the above run has finished. In this case, it is roughly 0.4 [http://en.wikipedia.org/wiki/Nat_(information) nats]:
 {{{
