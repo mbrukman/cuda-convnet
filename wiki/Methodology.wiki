@@ -31,11 +31,11 @@ python convnet.py -f /storage2/tmp/ConvNet__2011-12-17_18.13.52 --train-range=1-
 }}} 
   # Now we reduce all learning rates (the `epsW` parameters) in the [http://code.google.com/p/cuda-convnet/source/browse/trunk/example-layers/layer-params-conv-local-13pct.cfg layer parameter file] by a factor of 10, and train for another 10 epochs:
 {{{
-python convnet.py -f /storage2/tmp/ConvNet__2011-12-17_18.13.52 --train-range=1-5 --epochs=150
+python convnet.py -f /storage2/tmp/ConvNet__2011-12-17_18.13.52 --epochs=150
 }}} 
   # Reduce all learning rates in the layer parameter file by *another* factor of 10, and train for *another* 10 epochs:
 {{{
-python convnet.py -f /storage2/tmp/ConvNet__2011-12-17_18.13.52 --train-range=1-5 --epochs=160
+python convnet.py -f /storage2/tmp/ConvNet__2011-12-17_18.13.52 --epochs=160
 }}} 
   # Finally, substitute the real test set, and test on it using the procedure described [TrainingNet#Training_on_image_translations here]:
 {{{
