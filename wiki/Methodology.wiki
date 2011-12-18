@@ -47,4 +47,4 @@ logprob:  0.423908, 0.126000
 Notes: 
   * During step 3, You will see test error printouts that are very low -- this is because the net is testing on batch 5, on which it is also training. But it is testing on only the *center patches*, while it is training on all patches.
   * The test error will of course fluctuate somewhat from run to run, so 13% is a conservative estimate.
-  * The total training time in this case is 1.95 seconds x 4 batches x 140 epochs + 1.95 seconds x 5 batches x 20 epochs = 21.45 minutes.
+  * The total training time in this case is 1.95 seconds x 4 batches x 140 epochs + 1.95 seconds x 5 batches x 20 epochs = *21.45 minutes*.
