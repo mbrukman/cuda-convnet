@@ -2,7 +2,7 @@
 
 = Introduction =
 
-Here I'll describe the procedure I use to obtain the quoted [http://www.cs.toronto.edu/~kriz/cifar.html CIFAR-10] scores. Skip this section if you're just interested in the convolutional net code, not the details of how the CIFAR-10 scores were obtained.
+Here I'll describe the procedure I used to obtain the [http://www.cs.toronto.edu/~kriz/cifar.html CIFAR-10] scores mentioned on the front page. Skip this section if you're just interested in the convolutional net code, not the details of how the CIFAR-10 scores were obtained.
 
 = Methodology =
 
