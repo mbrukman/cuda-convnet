@@ -20,10 +20,10 @@ python convnet.py --data-path=/storage2/tiny/cifar-10-batches-py-colmajor/ --sav
 }}}
   # Now note the *training error* after the above run has finished. In this case, it is roughly 0.4 [http://en.wikipedia.org/wiki/Nat_(information) nats]:
 {{{
-100.2... logprob:  0.418657, 0.145800 (1.935 sec)
-100.3... logprob:  0.405222, 0.141100 (1.937 sec)
-100.4... logprob:  0.419132, 0.145400 (1.944 sec)
-101.1... logprob:  0.394249, 0.137100 (1.934 sec)
+100.2... logprob:  0.418657, 0.145800 (1.857 sec)
+100.3... logprob:  0.405222, 0.141100 (1.862 sec)
+100.4... logprob:  0.419132, 0.145400 (1.857 sec)
+101.1... logprob:  0.394249, 0.137100 (1.855 sec)
 }}} 
   # Now we'll resume training, but this time on all 5 batches of the CIFAR-10 training set. We will stop training when the *training error on batch 5* (which used to be our validation set) reaches 0.4 nats. Because I have done this before, I know this takes roughly 40 more epochs. So we run the net like this: 
 {{{
@@ -50,4 +50,4 @@ logprob:  0.423908, 0.126000
 Notes: 
   * During step 3, You will see test error printouts that are very low -- this is because the net is testing on batch 5, on which it is also training. But it is testing on only the *center patches*, while it is training on all patches.
   * The test error will of course fluctuate somewhat from run to run, so 13% is a conservative estimate.
-  * The total training time in this case is 1.95 seconds x 4 batches x 100 epochs + 1.95 seconds x 5 batches x 60 epochs = *22.75 minutes*.
+  * The total training time in this case is 1.86 seconds x 4 batches x 100 epochs + 1.86 seconds x 5 batches x 60 epochs = *21.7 minutes*.
