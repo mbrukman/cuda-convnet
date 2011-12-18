@@ -246,7 +246,7 @@ channels=3
 The non-obvious parameters are:
 
 || *Parameter* || *Default value* || *Meaning* ||
-||`filterSize=5` ||`--`||the width of the Gaussian blur filter to apply to the image. This must be one of 3, 5, 7, or 9.||
+||`filterSize=5` ||`--`||the width (in pixels) of the Gaussian blur filter to apply to the image. This must be one of 3, 5, 7, or 9.||
 ||`stdev=1` ||`--`||the standard deviation of the Gaussian. This can be any positive float.||
 
 The number of output values in this layer is equal to the number of input values.
