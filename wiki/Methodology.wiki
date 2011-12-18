@@ -11,9 +11,9 @@ I'll use the 13% test error score as the example. You can download the layer def
 
 We will be training on random 24x24 patches extracted from the 32x32 CIFAR-10 images. You can read a bit more about that [http://code.google.com/p/cuda-convnet/wiki/TrainingNet#Training_on_image_translations here].
 
-I use batches 1-4 for training, batch 5 for validation (early stopping). Batch 6 of course is test.
+I use batches 1-4 for training and batch 5 for validation (early stopping). Batch 6 of course is the test set.
 
-  # Start by training the net on batches 1-4, testing on batch 5. Train until the validation error stops improving. Since I've run this net before, I know that this happens after roughly 100 epochs. So we start the net with the parameters `--train-range=1-4`, `--test-range=5`, and `--epochs=100`. Like so: 
+  # Start by training the net on batches 1-4 and "testing" on batch 5. Train until the validation error stops improving. Since I've run this net before, I know that this happens after roughly 100 epochs. So we start the net with the parameters `--train-range=1-4`, `--test-range=5`, and `--epochs=100`. Like so: 
 {{{
 python convnet.py --data-path=/storage2/tiny/cifar-10-batches-py-colmajor/ --save-path=/storage2/tmp --test-range=5 --train-range=1-4 --layer-def=./example-layers/layers-conv-local-12pct.cfg --layer-params=./example-layers/layer-params-conv-local-12pct.cfg --data-provider=cifar-cropped --test-freq=13 --crop-border=4 --epochs=100
 }}}
