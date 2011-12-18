@@ -212,17 +212,49 @@ Side-note: this layer is admittedly misnamed. It just applies an element-wise fu
 
 ==Summation layer==
 
-This kind of layer simply performs an element-wise summation of its input layers. Of course this implies that all of its input layers must have the same dimensionality. It's specified like this:
+This kind of layer simply performs an elementwise weighted sum of its input layers. Of course this implies that all of its input layers must have the same dimensionality. It's specified like this:
 
 {{{
 [sumlayer]
 type=sum
 inputs=layer1,layer2,layer3
+coeffs=0.5,-1,1.2
 }}}
 
-This layer will produce the sum of the outputs of *layer1*, *layer2*, and *layer3*.
+This layer will produce the weighted sum 0.5 x *layer1* - *layer2* + 1.2 x *layer3*.
+
+|| *Parameter* || *Default value* || *Meaning* ||
+||`coeffs=0.5,-1,1.2` ||`1,...`||the coefficients of summation for the specified inputs.||
 
 The number of output values in this layer is of course equal to the number of output values in any of the input layers.
+
+==Gaussian blur layer==
+
+This kind of layer is useful if you're interested in multi-scale learning. Many vision systems learn (or simply apply) features at multiple scales to their benefit. To do that, it's good to be able to subsample the input images in a way that doesn't introduce a lot of aliasing. Blurring them achieves that. 
+
+So here's how you specify a Gaussian blur layer:
+
+[myblur]
+type=blur
+inputs=data
+filterSize=5
+stdev=2
+channels=3
+
+The non-obvious parameters are:
+
+|| *Parameter* || *Default value* || *Meaning* ||
+||`filterSize=5` ||`--`||the width of the Gaussian blur filter to apply to the image. This must be one of 3, 5, 7, or 9.||
+||`stdev=1` ||`--`||the standard deviation of the Gaussian. This can be any positive float.||
+
+The number of output values in this layer is equal to the number of input values.
+
+The layer defined above will convolve its input layer *data* with the following 1-D filter (both horizontally and vertically, of course):
+{{{ 
+[0.05448869,  0.24420136,  0.40261996,  0.24420136,  0.05448869]
+}}}
+
+Note that no matter what parameters you specify, the sum of all elements in the filter will always be 1. Intuitively, wider Gaussians (i.e. bigger standard deviations) require an increase in the `filterSize` parameter.
 
 ==Softmax layer==
 
