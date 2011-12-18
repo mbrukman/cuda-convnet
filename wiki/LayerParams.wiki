@@ -230,16 +230,18 @@ The number of output values in this layer is of course equal to the number of ou
 
 ==Gaussian blur layer==
 
-This kind of layer is useful if you're interested in multi-scale learning. Many vision systems learn (or simply apply) features at multiple scales to their benefit. To do that, it's good to be able to subsample the input images in a way that doesn't introduce a lot of aliasing. Blurring them achieves that. 
+This kind of layer is useful if you're interested in multi-scale learning. Many vision systems learn (or simply apply) features at multiple scales. To do that, it's good to be able to subsample the input images in a way that doesn't introduce a lot of aliasing. Blurring them achieves that. 
 
-So here's how you specify a Gaussian blur layer:
+So here's how you specify a [http://en.wikipedia.org/wiki/Gaussian_blur Gaussian blur] layer:
 
+{{{
 [myblur]
 type=blur
 inputs=data
 filterSize=5
 stdev=2
 channels=3
+}}}
 
 The non-obvious parameters are:
 
@@ -255,6 +257,22 @@ The layer defined above will convolve its input layer *data* with the following 
 }}}
 
 Note that no matter what parameters you specify, the sum of all elements in the filter will always be 1. Intuitively, wider Gaussians (i.e. bigger standard deviations) require an increase in the `filterSize` parameter.
+
+==Bed of nails layer==
+
+This layer applies a [http://en.wikipedia.org/wiki/Shah_function Dirac comb] to the input image. Use this layer to subsample a Gaussian-blurred image.
+
+It's specified like this:
+
+{{{
+[mynails]
+type=nailbed
+inputs=myblur
+stride=2
+channels=3
+}}}
+
+The only new parameter here is `stride`, which indicates the spacing (in pixels) between samples. With a stride of 2, every other pixel is skipped, so the output image will be roughly 4 times smaller in area.
 
 ==Softmax layer==
 
