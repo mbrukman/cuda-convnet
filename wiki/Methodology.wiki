@@ -10,9 +10,9 @@ I'll use the 13% test error score as the example. You can download the layer def
 
 We will be training on random 24x24 patches extracted from the 32x32 CIFAR-10 images. You can read a bit more about that [http://code.google.com/p/cuda-convnet/wiki/TrainingNet#Training_on_image_translations here].
 
-We'll be using a version of the CIFAR-10 in which all the data matrices have been transposed (because that format is convenient for this code). You can download it [http://www.cs.toronto.edu/~kriz/cifar-10-py-colmajor.tar.gz here]. It's the same version as is used in other sections of this wiki.
+We'll be using a version of the CIFAR-10 in which all the data matrices have been transposed (because that format is convenient for this code). You can download it [http://www.cs.toronto.edu/~kriz/cifar-10-py-colmajor.tar.gz here]. It's the same version as is used in [Data other sections] of this wiki.
 
-I use batches 1-4 for training and batch 5 for validation (early stopping). Batch 6 of course is the test set.
+We'll use batches 1-4 for training and batch 5 for validation (early stopping). Batch 6 of course is the test set.
 
   # Start by training the net on batches 1-4 and "testing" on batch 5. Train until the validation error stops improving. Since I've run this net before, I know that this happens after roughly 100 epochs. So we start the net with the parameters `--train-range=1-4`, `--test-range=5`, and `--epochs=100`. Like so: 
 {{{
@@ -48,6 +48,6 @@ logprob:  0.423908, 0.126000
 }}}
 
 Notes: 
-  * During step 3, You will see test error printouts that are very low -- this is because the net is testing on batch 5, on which it is also training. But it is testing on only the *center patches*, while it is training on all patches.
-  * The test error will of course fluctuate somewhat from run to run, so 13% is a conservative estimate.
+  * During step 3, you will see test error printouts that are very low -- this is because the net is testing on batch 5, on which it is also training. But it is testing on only the *center patches*, while it is training on all patches.
+  * The test error will of course fluctuate slightly from run to run, so 13% is a conservative estimate.
   * The total training time in this case is 1.86 seconds x 4 batches x 100 epochs + 1.86 seconds x 5 batches x 60 epochs = *21.7 minutes*.
