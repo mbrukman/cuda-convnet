@@ -40,12 +40,16 @@ So, if your batch size isn't too big, it will correspond to the amount of data c
 = Internal data layout =
 Here you have some freedom. The internals of the files are left up to you; you just have to write a data provider (a python class) to parse the files and return the data in a format that the model will understand. See [http://code.google.com/p/cuda-convnet/source/browse/trunk/convdata.py convdata.py] for some examples.
 
-Assuming you're going to use the logistic regression objective built into the code rather than write your own, there are a few constraints on what the data provider's `get_next_batch` function must return. Keeping in mind the example of `CIFARDataProvider` in [http://code.google.com/p/cuda-convnet/source/browse/trunk/convdata.py convdata.py], you can see that the `get_next_batch` function returns the data matrix and the labels vector. These are the constraints:
+Keeping in mind the example of `CIFARDataProvider` in [http://code.google.com/p/cuda-convnet/source/browse/trunk/convdata.py convdata.py], you can see that the data provider defines a `get_next_batch` function which returns a data matrix and a labels vector. There are a few other constraints on the data provider:
+  * The data provider must define a function `get_data_dims(self, idx=0)`, which returns the data dimensionality of each matrix returned by `get_next_batch`.
   * The data matrix must be C-ordered (this is the default for numpy arrays), with dimensions `(data dimensionality)x(number of cases)`. If your images have channels (for example, the 3 color channels in the CIFAR-10), then all the values for channel `n` must precede all the values for channel `n + 1`.
-  * The labels vector must have dimensionality `1x(number of cases)`.
-  * The labels must start at 0 and range until the number of classes minus one.
-  * Both the data matrix and the labels vector must consist of *single-precision floats*.
-  * The data provider must define a function `get_num_classes` which simply returns the number of classes in your dataset. The `CIFARDataProvider` inherits this function from `LabeledDataProvider` defined in [http://code.google.com/p/cuda-convnet/source/browse/trunk/data.py data.py].
+  * The data matrix must consist of *single-precision floats*.
+
+Assuming you're going to use the logistic regression objective built into the code rather than write your own, there are a few additional constraints on the data provider:
+  * The labels vector (returned by `get_next_batch`) must have dimensionality `1x(number of cases)`.
+  * The elements of the labels vector must range from 0 until the number of classes minus one.
+  * The labels vector must consist of *single-precision floats*.
+  * The data provider must define a function `get_num_classes(self)` which simply returns the number of classes in your dataset. The `CIFARDataProvider` inherits this function from `LabeledDataProvider` defined in [http://code.google.com/p/cuda-convnet/source/browse/trunk/data.py data.py].
 
 Aside from that, there isn't much to trip over.
 
