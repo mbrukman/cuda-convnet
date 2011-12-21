@@ -210,24 +210,6 @@ Note that all layers except data layers and cost layers can take a *neuron=x* pa
 
 Side-note: this layer is admittedly misnamed. It just applies an element-wise function to its input. So don't think of neurons with weights. This layer has no weights.
 
-==Summation layer==
-
-This kind of layer simply performs an elementwise weighted sum of its input layers. Of course this implies that all of its input layers must have the same dimensionality. It's specified like this:
-
-{{{
-[sumlayer]
-type=sum
-inputs=layer1,layer2,layer3
-coeffs=0.5,-1,1.2
-}}}
-
-This layer will produce the weighted sum 0.5 x *layer1* - *layer2* + 1.2 x *layer3*.
-
-|| *Parameter* || *Default value* || *Meaning* ||
-||`coeffs=0.5,-1,1.2` ||`1,...`||the coefficients of summation for the specified inputs.||
-
-The number of output values in this layer is of course equal to the number of output values in any of the input layers.
-
 ==Gaussian blur layer==
 
 This kind of layer is useful if you're interested in multi-scale learning. Many vision systems learn (or simply apply) features at multiple scales. To do that, it's good to be able to subsample the input images in a way that doesn't introduce a lot of aliasing. Blurring them achieves that. 
@@ -273,6 +255,38 @@ channels=3
 }}}
 
 The only new parameter here is `stride`, which indicates the spacing (in pixels) between samples. With a stride of 2, every other pixel is skipped, so the output image will be roughly 4 times smaller in area.
+
+==Elementwise sum layer==
+
+This kind of layer simply performs an elementwise weighted sum of its input layers. Of course this implies that all of its input layers must have the same dimensionality. It's specified like this:
+
+{{{
+[sumlayer]
+type=sum
+inputs=layer1,layer2,layer3
+coeffs=0.5,-1,1.2
+}}}
+
+This layer will produce the weighted sum 0.5 x *layer1* - *layer2* + 1.2 x *layer3*.
+
+|| *Parameter* || *Default value* || *Meaning* ||
+||`coeffs=0.5,-1,1.2` ||`1,...`||the coefficients of summation for the specified inputs.||
+
+The number of output values in this layer is of course equal to the number of output values in any of the input layers.
+
+==Elementwise max layer==
+
+This kind of layer performs an elementwise max of its input layers.
+
+It is specified like this:
+
+{{{
+[maxlayer]
+type=eltmax
+inputs=layer1,layer2,layer3
+}}}
+
+This will produce an output matrix in which every element at position (_i_,_j_) is the max of the (_i_,_j_)th elements of *layer1*, *layer2*, and *layer3*.
 
 ==Softmax layer==
 
