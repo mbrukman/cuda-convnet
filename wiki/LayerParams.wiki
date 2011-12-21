@@ -262,7 +262,7 @@ This kind of layer simply performs an elementwise weighted sum of its input laye
 
 {{{
 [sumlayer]
-type=sum
+type=eltsum
 inputs=layer1,layer2,layer3
 coeffs=0.5,-1,1.2
 }}}
