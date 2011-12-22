@@ -322,6 +322,23 @@ inputs=labels,probs
 
 The *cost.logreg* objective takes two inputs -- true labels and predicted probabilities. We defined the *labels* layer early on, and the *probs* layer just above.
 
+==Sum-of-squares cost layer==
+
+This objective minimizes the squared L2 norm of the layer below. One use for it is to train autoencoders. For example, you can minimize reconstruction error like this:
+
+{{{
+[diff]
+inputs=recon,data
+type=eltsum
+coeffs=1,-1
+
+[sqdiff]
+type=cost.sum2
+inputs=diff
+}}}
+
+This defines two layers -- the first subtracts the "data" from the "reconstruction" and the second is the sum-of-squares cost layer which minimizes the sum of the squares of its input.
+
 = Layer parameter file - basic features =
 
 In this file we can specify learning parameters that we may want to change during the course of training (learning rates, etc.). You can find examples of this kind of file [http://code.google.com/p/cuda-convnet/source/browse/trunk/example-layers/ here].
