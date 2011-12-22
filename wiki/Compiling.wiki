@@ -39,7 +39,7 @@ sh build.sh
 If all goes well, in a few minutes the compilation will finish successfully. [mailto:akrizhevsky@gmail.com Email me] in case of trouble.
 
 = On Windows =
-It's possible, but perhaps not easy, to compile and use this code on Windows. I have no means of testing it myself, but Oriol Vinyals has kindly provided [asdf this Visual Studio 10 project] with which he was able to compile and run the code.
+It's possible, but perhaps not easy, to compile and use this code on Windows. I have no means of testing it myself, but Oriol Vinyals has kindly provided [http://code.google.com/p/cuda-convnet/downloads/detail?name=cuda-convnet-vs-proj.zip this Visual Studio 10 project] with which he was able to compile and run the code.
 
 He notes that you will have to
   * Point Visual Studio to the location of your MKL install.
