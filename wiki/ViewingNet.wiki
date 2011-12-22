@@ -29,6 +29,14 @@ http://cuda-convnet.googlecode.com/svn/wiki/images/cost-function.png
 
 which plots the training and test error over time.
 
+If your objective returns multiple values (for example the `cost.logreg` objective returns the logprob as well as the classification error), you can plot a particular value like this:
+
+{{{
+python shownet.py -f /storage2/tmp/ConvNet__2011-08-24_16.49.31 --show-cost=logprob --cost-idx=1
+}}}
+
+This will plot the second value returned by the objective.
+
 ==Viewing learned filters==
 To view the filters that the net learned, call the script like this:
   
