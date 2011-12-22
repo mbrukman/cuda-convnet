@@ -13,7 +13,9 @@ These are the supported neuron types:
 || `neuron=brelu[a]`||bounded rectified linear || http://cuda-convnet.googlecode.com/svn/wiki/images/brelu.gif||
 || `neuron=softrelu`||soft rectified linear || http://cuda-convnet.googlecode.com/svn/wiki/images/softrelu.gif||
 || `neuron=abs`||absolute value || http://cuda-convnet.googlecode.com/svn/wiki/images/abs.gif||
-|| `neuron=ident`||identity || http://cuda-convnet.googlecode.com/svn/wiki/images/ident.gif||
+|| `neuron=square`||square || http://cuda-convnet.googlecode.com/svn/wiki/images/square.gif||
+|| `neuron=sqrt`||square root || http://cuda-convnet.googlecode.com/svn/wiki/images/sqrt.gif||
+|| `neuron=linear[a,b]`||linear || http://cuda-convnet.googlecode.com/svn/wiki/images/linear.gif||
 
 _x_, _a_, and _b_ above are all scalars.
 
