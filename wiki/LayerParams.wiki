@@ -376,9 +376,9 @@ weights[i] := weights[i-1] + weight_inc[i]
 
 where `weight_grads[i]` is the average gradient over minibatch `i`. The update rule for biases is the same except that there is no bias weight decay.
 
-==Logistic regression cost layer==
+==Cost layers==
 
-Cost layers, such as the *logprob* layer defined above, take one parameter:
+Cost layers, such as the *logprob* and *sqdiff* layers defined above, take one parameter:
 {{{
 [logprob]
 coeff=1
