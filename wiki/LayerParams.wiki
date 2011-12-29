@@ -585,6 +585,7 @@ But the above example should make clear the constraints on the weight-creating f
     # The layer name (in this case it would be *conv8*).
     # A list of shapes for the weight matrices in that layer. This list tells you the dimensions of the weight matrices that your function must return.
   * It must return a python list of `numpy.ndarray` objects.
+  * The length of this list must be equal to the number of input layers that your layer takes.
   * Each `numpy.ndarray` object in the list must consist of single-precision floats.
 
 A typical use case for this might be to have the `makew` function load a weight matrix from some other model and return it. Note that you can easily load weight matrices stored as Matlab objects with the [http://docs.scipy.org/doc/scipy/reference/generated/scipy.io.loadmat.html scipy.io.loadmat] function.
@@ -595,6 +596,8 @@ You might be wondering what dimensions (shapes) the weight matrices that your fu
 ||[LayerParams#Fully-connected_layer Fully-connected]||`input size`||`output size`|| ||
 ||[LayerParams#Convolution_layer Convolutional]||`filterSize`^2^ x `filterChannels`||`filters`|| `filterChannels` is the number of channels each filter is connected to. This is equal to the number of channels in the input unless you're using [LayerParams#Block_sparse_convolution_layer sparsity].||
 ||[LayerParams#Locally-connected_layer_with_unshared_weights Locally-connected]||`outputsX`^2^ x `filterSize`^2^ x `filterChannels`||`filters`|| This layer produces output of shape `filters` x `outputsX` x `outputsX`. So `outputsX` is the number of filters in the _x_ direction in this layer.||
+
+At present, the function you define *must* return a weight matrix for every input that your layer takes. This means that it's impossible to define a layer in which one weight matrix is shared from another layer while another weight matrix is returned by a custom initialization file. In the future this should be possible.
 
 = Layer parameter file  - slightly more advanced features =
 ==Weight layers with multiple inputs==
