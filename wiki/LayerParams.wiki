@@ -553,6 +553,47 @@ This says that the first weight matrix of *conv7* will be new, but the remaining
 
 Note that in all cases, biases are never shared between layers. Each layer has its own bias vector.
 
+== Initializing weights from an outside source ==
+
+By default, the net initializes the weights randomly from a normal distribution with standard deviation given by the `initW` parameter. You may want to initialize weights from a different distribution, or perhaps from another model, or from wherever. To do this, add the `initFunc` parameter to your weight layer, like so:
+
+{{{
+[conv8]
+type=conv
+inputs=conv6,conv5
+...
+initFunc=winitfile.makew
+}}}
+
+This says that the weight matrices in this layer will come from a function named `makew` in a python file named `winitfile.py`, located in the same directory as the code. So now you have to write a python function which will return the weight matrices for this layer.
+
+Here is a valid `winitfile.py` file for this case:
+{{{
+import numpy as n
+import numpy.random as nr
+
+def makew(name, shapes):
+    return [n.array(0.01 * nr.randn(rows, cols), dtype=n.single) for (rows, cols) in shapes]
+}}}
+
+This doesn't do anything useful, really -- it just initializes the weights from a normal distribution as the code does anyway. 
+
+But the above example should make clear the constraints on the weight-creating function.
+  * It must take two parameters:
+    # The layer name (in this case it would be *conv8*).
+    # A list of shapes for the weight matrices in that layer. This list tells you the dimensions of the weight matrices that your function must return.
+  * It must return a python list of `numpy.ndarray` objects.
+  * Each `numpy.ndarray` object in the list must consist of single-precision floats.
+
+A typical use case for this might be to have the `makew` function load a weight matrix from some other model and return it. Note that you can easily load weight matrices stored as Matlab objects with the [http://docs.scipy.org/doc/scipy/reference/generated/scipy.io.loadmat.html scipy.io.loadmat] function.
+
+You might be wondering what dimensions (shapes) the weight matrices that your function returns should have. The following table lists this:
+
+|| *Layer type* || *Matrix rows* || *Matrix columns* || *Notes* ||
+||[LayerParams#Fully-connected_layer Fully-connected]||`input size`||`output size`|| ||
+||[LayerParams#Convolution_layer Convolutional]||`filterSize`^2^ x `filterChannels`||`filters`|| `filterChannels` is the number of channels each filter is connected to. This is equal to the number of channels in the input unless you're using [LayerParams#Block_sparse_convolution_layer sparsity].||
+||[LayerParams#Locally-connected_layer_with_unshared_weights Locally-connected]||`outputsX`^2^ x `filterSize`^2^ x `filterChannels`||`filters`|| This layer produces output of shape `filters` x `outputsX` x `outputsX`. So `outputsX` is the number of filters in the _x_ direction in this layer.||
+
 = Layer parameter file  - slightly more advanced features =
 ==Weight layers with multiple inputs==
 Layers with weights (convolutional, locally-connected, and fully-connected) which also take multiple inputs must specify a learning rate, weight momentum, and weight decay coefficient for each of their weight matrices.
