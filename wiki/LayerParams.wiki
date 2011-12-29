@@ -376,6 +376,8 @@ weights[i] := weights[i-1] + weight_inc[i]
 
 where `weight_grads[i]` is the average gradient over minibatch `i`. The update rule for biases is the same except that there is no bias weight decay.
 
+If you want to not learn the weights in a particular layer (perhaps because you've [LayerParams#Initializing_weights_from_an_outside_source initialized them in some awesome way]), you can set its `epsW` and `epsB` parameters to 0, and then that layer won't be learned. The net will run faster as a result.
+
 ==Cost layers==
 
 Cost layers, such as the *logprob* and *sqdiff* layers defined above, take one parameter:
@@ -565,7 +567,7 @@ inputs=conv6,conv5
 initFunc=winitfile.makew
 }}}
 
-This says that the weight matrices in this layer will come from a function named `makew` in a python file named `winitfile.py`, located in the same directory as the code. So now you have to write a python function which will return the weight matrices for this layer.
+This says that the weight matrices in this layer will come from a function named `makew` in a python file named `winitfile.py`, located in the same directory as the main code. So now you have to write a python function which will return the weight matrices for this layer.
 
 Here is a valid `winitfile.py` file for this case:
 {{{
