@@ -1,0 +1,19 @@
+#summary Change log.
+
+= Change log =
+
+  * *Dec 28, 2011*
+    * Added ability to [LayerParams#Initializing_weights_from_an_outside_source initialize weights from an outside source]. Thanks to Oriol Vinyals for the suggestion.
+    * Layers with zero learning rate no longer waste time computing the gradient.
+  * *Dec 22, 2011*
+    * Added elementwise max layer, to allow (for example) pooling over scale.
+    * Added square, square root neuron activation functions.
+    * Added sum-of-squares objective.
+  * *Dec 17, 2011*
+    * Added Gaussian blur and "bed of nails" subsampling layers.
+  * *Dec 9, 2011*
+    * All layers with weights (and some others) can now take multiple layers as input.
+    * Added the "sum" layer type, which simply performs an elementwise sum of all its input layers.
+    * Added support for weight sharing between different layers of the same type. One of the things this allows you to do is to write recurrent networks. Thanks to Ilya Sutskever for the suggestion.
+    * Decoupled neuron activation functions from the few layers that supported them. Now you can add a "neuron" layer anywhere in the net, which applies some elementwise function to its input.
+    * Most layers now take a neuron=x parameter, which applies some neuron activation function to their outputs.
