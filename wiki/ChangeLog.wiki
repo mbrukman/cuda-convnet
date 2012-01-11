@@ -1,5 +1,7 @@
 #summary Summary of recent changes to the code.
 
+  * *Jan 11 28, 2012*
+    * Added [LayerParams#Image_resizing_layer image resizing with bilinear filtering] layer.
   * *Dec 28, 2011*
     * Added ability to [LayerParams#Initializing_weights_from_an_outside_source initialize weights from an outside source]. Thanks to Oriol Vinyals for the suggestion.
     * Layers with zero learning rate no longer waste time computing the gradient.
