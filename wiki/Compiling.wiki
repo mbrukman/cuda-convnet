@@ -1,5 +1,7 @@
 #summary How to compile the code.
 
+*Note*: A Fermi-generation GPU (GTX 4xx, GTX 5xx, or Tesla equivalent) is required to run this code.
+
 = On Linux =
 
 == Required libraries ==
