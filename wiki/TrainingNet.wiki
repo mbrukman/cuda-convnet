@@ -1,5 +1,9 @@
 #summary How to train a neural net with this code.
 
+<font color="red">*Important:*</font> The convolution routines in this code are optimized _only_ for minibatch sizes which are divisible by 128. Other minibatch sizes will work, but I made no attempt to make them work fast.
+
+The minibatch size is controlled by the `--mini` parameter (see below). Its default value is 128, which is optimal from the point of view of the convolution routines. So my suggestion is to leave it at its default.
+
 <h1>Table of Contents</h1>
 <wiki:toc max_depth="3" />
 
