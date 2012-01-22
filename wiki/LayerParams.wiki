@@ -414,7 +414,7 @@ When *center* is true, 50 will be subtracted from the final value of L`*`. Other
 
 = Layer parameter file - basic features =
 
-In this file we can specify learning parameters that we may want to change during the course of training (learning rates, etc.). You can find examples of this kind of file [http://code.google.com/p/cuda-convnet/source/browse/trunk/example-layers/ here].
+In this file you can specify learning parameters that you may want to change during the course of training (learning rates, etc.). You can find examples of this kind of file [http://code.google.com/p/cuda-convnet/source/browse/trunk/example-layers/ here].
 
 The idea is that you'll use one file to define the net's architecture, which stays fixed for the duration of training, and another file to define learning parameters, which you can change while the net is training.
 
