@@ -210,70 +210,6 @@ Note that all layers except data layers and cost layers can take a *neuron=x* pa
 
 Side-note: this layer is admittedly misnamed. It just applies an element-wise function to its input. So don't think of neurons with weights. This layer has no weights.
 
-==Gaussian blur layer==
-
-This kind of layer is useful if you're interested in multi-scale learning. Many vision systems learn (or simply apply) features at multiple scales. To do that, it's good to be able to subsample the input images in a way that doesn't introduce a lot of aliasing. Blurring them achieves that. 
-
-So here's how you specify a [http://en.wikipedia.org/wiki/Gaussian_blur Gaussian blur] layer:
-
-{{{
-[myblur]
-type=blur
-inputs=data
-filterSize=5
-stdev=2
-channels=3
-}}}
-
-The non-obvious parameters are:
-
-|| *Parameter* || *Default value* || *Meaning* ||
-||`filterSize=5` ||`--`||the width (in pixels) of the Gaussian blur filter to apply to the image. This must be one of 3, 5, 7, or 9.||
-||`stdev=1` ||`--`||the standard deviation of the Gaussian. This can be any positive float.||
-
-The number of output values in this layer is equal to the number of input values.
-
-The layer defined above will convolve its input layer *data* with the following 1-D filter (both horizontally and vertically, of course):
-{{{ 
-[0.05448869,  0.24420136,  0.40261996,  0.24420136,  0.05448869]
-}}}
-
-Note that no matter what parameters you specify, the sum of all elements in the filter will always be 1. Intuitively, wider Gaussians (i.e. bigger standard deviations) require an increase in the `filterSize` parameter.
-
-==Bed of nails layer==
-
-This layer applies a [http://en.wikipedia.org/wiki/Shah_function Dirac comb] to the input image. Use this layer to subsample a Gaussian-blurred image.
-
-It's specified like this:
-
-{{{
-[mynails]
-type=nailbed
-inputs=myblur
-stride=2
-channels=3
-}}}
-
-The only new parameter here is `stride`, which indicates the spacing (in pixels) between samples. With a stride of 2, every other pixel is skipped, so the output image will be roughly 4 times smaller in area.
-
-==Image resizing layer==
-
-Gaussian blur + bed-of-nails subsampling can reduce your image size by an integer factor, but you might also want to resize your images by a smaller amount. This layer implements image resizing with [http://en.wikipedia.org/wiki/Bilinear_filtering bilinear filtering]. It can cleanly (i.e. without aliasing) resize images by a factors roughly within the range 0.5-2.
-
-It's specified like this:
-
-{{{
-[resiz]
-type=resize
-inputs=data
-scale=1.3
-channels=3
-}}}
-
-This will scale the input images _down_ by a factor of 1.3. So if your input consisted of 32x32 images, the output of this layer will have dimensions 24x24 (it rounds down from 32/1.3 = 24.6).
-
-*Note*: This layer cannot propagate gradient. So it should only be placed over layers that do not need to compute the gradient (e.g. the data layer).
-
 ==Elementwise sum layer==
 
 This kind of layer simply performs an elementwise weighted sum of its input layers. Of course this implies that all of its input layers must have the same dimensionality. It's specified like this:
@@ -356,6 +292,125 @@ inputs=diff
 }}}
 
 This defines two layers -- the first subtracts the "data" from the "reconstruction" and the second is the sum-of-squares cost layer which minimizes the sum of the squares of its input.
+
+=Layer definition file - data manipulation layers =
+
+Data manipulation layers pre-process the data in some way. Normal use cases do not involve propagating gradient through them, and some of them do not support gradient propagation.
+
+==Gaussian blur layer==
+
+This kind of layer is useful if you're interested in multi-scale learning. Many vision systems learn (or simply apply) features at multiple scales. To do that, it's good to be able to subsample the input images in a way that doesn't introduce a lot of aliasing. Blurring them achieves that. 
+
+So here's how you specify a [http://en.wikipedia.org/wiki/Gaussian_blur Gaussian blur] layer:
+
+{{{
+[myblur]
+type=blur
+inputs=data
+filterSize=5
+stdev=2
+channels=3
+}}}
+
+The non-obvious parameters are:
+
+|| *Parameter* || *Default value* || *Meaning* ||
+||`filterSize=5` ||`--`||the width (in pixels) of the Gaussian blur filter to apply to the image. This must be one of 3, 5, 7, or 9.||
+||`stdev=1` ||`--`||the standard deviation of the Gaussian. This can be any positive float.||
+
+The number of output values in this layer is equal to the number of input values.
+
+The layer defined above will convolve its input layer *data* with the following 1-D filter (both horizontally and vertically, of course):
+{{{ 
+[0.05448869,  0.24420136,  0.40261996,  0.24420136,  0.05448869]
+}}}
+
+Note that no matter what parameters you specify, the sum of all elements in the filter will always be 1. Intuitively, wider Gaussians (i.e. bigger standard deviations) require an increase in the `filterSize` parameter.
+
+==Bed of nails layer==
+
+This layer applies a [http://en.wikipedia.org/wiki/Shah_function Dirac comb] to the input image. Use this layer to subsample a Gaussian-blurred image.
+
+It's specified like this:
+
+{{{
+[mynails]
+type=nailbed
+inputs=myblur
+stride=2
+channels=3
+}}}
+
+The only new parameter here is `stride`, which indicates the spacing (in pixels) between samples. With a stride of 2, every other pixel is skipped, so the output image will be roughly 4 times smaller in area.
+
+==Image resizing layer==
+
+Gaussian blur + bed-of-nails subsampling can reduce your image size by an integer factor, but you might also want to resize your images by a smaller amount. This layer implements image resizing with [http://en.wikipedia.org/wiki/Bilinear_filtering bilinear filtering]. It can cleanly (i.e. without aliasing) resize images by a factors roughly within the range 0.5-2.
+
+It's specified like this:
+
+{{{
+[resiz]
+type=resize
+inputs=data
+scale=1.3
+channels=3
+}}}
+
+This will scale the input images _down_ by a factor of 1.3. So if your input consisted of 32x32 images, the output of this layer will have dimensions 24x24 (it rounds down from 32/1.3 = 24.6).
+
+*Note*: This layer cannot propagate gradient. So it should only be placed over layers that do not need to compute the gradient (e.g. the data layer).
+
+== Color space manipulation layers ==
+
+These layers convert between color spaces. Note that they cannot propagate gradient, and as such must not be placed over any layers with weights if you expect to learn those weights.
+
+== RGB to YUV layer ==
+
+This layer converts RGB-coded images to YUV-coded images.
+
+Specifically, it applies the following linear transformation to the color channels of the input:
+
+http://cuda-convnet.googlecode.com/svn/wiki/images/rgb_to_yuv.png
+
+This layer is specified like this:
+
+{{{
+[yuv]
+type=rgb2yuv
+inputs=data
+}}}
+
+== RGB to L*a*b* layer ==
+
+This layer converts RGB-coded images to L*a*b*-coded images. 
+
+Specifically, it applies the two transformations described on these Wikipedia pages:
+  # http://en.wikipedia.org/wiki/CIE_1931_color_space#Construction_of_the_CIE_XYZ_color_space_from_the_Wright.E2.80.93Guild_data
+  # http://en.wikipedia.org/wiki/Lab_color_space#The_forward_transformation
+
+I'll reproduce the transformation here. Assuming the input images are in the range 0-1:
+
+http://cuda-convnet.googlecode.com/svn/wiki/images/rgb_to_xyz.gif
+
+http://cuda-convnet.googlecode.com/svn/wiki/images/xyz_to_lab.gif
+
+where
+
+http://cuda-convnet.googlecode.com/svn/wiki/images/f_lab.png
+
+*Note that an underlying assumption in this layer is that its input is in the range 0-1.*
+
+This layer is specified like this:
+
+{{{
+[lab]
+type=rgb2lab
+inputs=data
+center=true
+}}}
+
+When *center* is true, 50 will be subtracted from the final value of L*. Otherwise, L* will be left as given by the formulas above. (Note that the range of L* in the above formulas is 0-100, while the range of a* and b* is centered at 0).
 
 = Layer parameter file - basic features =
 
