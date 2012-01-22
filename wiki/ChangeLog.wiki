@@ -1,5 +1,7 @@
 #summary Summary of recent changes to the code.
 
+  * *Jan 22, 2012*
+    * Added some [LayerParams#Color_space_manipulation_layers color space manipulation layers].
   * *Jan 11, 2012*
     * Added [LayerParams#Image_resizing_layer image resizing with bilinear filtering] layer.
   * *Dec 28, 2011*
