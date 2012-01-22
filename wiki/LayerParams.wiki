@@ -381,15 +381,15 @@ type=rgb2yuv
 inputs=data
 }}}
 
-=== RGB to L*a*b* layer ===
+=== RGB to L`*`a`*`b`*` layer ===
 
-This layer converts RGB-coded images to L*a*b*-coded images. 
+This layer converts RGB-coded images to L`*`a`*`b`*`-coded images. 
 
 Specifically, it applies the two transformations described on these Wikipedia pages:
   # http://en.wikipedia.org/wiki/CIE_1931_color_space#Construction_of_the_CIE_XYZ_color_space_from_the_Wright.E2.80.93Guild_data
   # http://en.wikipedia.org/wiki/Lab_color_space#The_forward_transformation
 
-I'll reproduce the transformation here. Assuming the input images are in the range 0-1:
+I'll reproduce the transformation here. Assuming the input RGB values  are in the range 0-1:
 
 http://cuda-convnet.googlecode.com/svn/wiki/images/rgb_to_xyz.gif
 
@@ -399,7 +399,7 @@ where
 
 http://cuda-convnet.googlecode.com/svn/wiki/images/f_lab.png
 
-*Note that an underlying assumption in this layer is that its input is in the range 0-1.*
+*Note that an underlying assumption in this layer is that its input is in the range 0-1. This assumption is violated by the default CIFAR-10 data provider, which produces zero-mean data.*
 
 This layer is specified like this:
 
@@ -410,7 +410,7 @@ inputs=data
 center=true
 }}}
 
-When *center* is true, 50 will be subtracted from the final value of L*. Otherwise, L* will be left as given by the formulas above. (Note that the range of L* in the above formulas is 0-100, while the range of a* and b* is centered at 0).
+When *center* is true, 50 will be subtracted from the final value of L`*`. Otherwise, L`*` will be left as given by the formulas above. (Note that the range of L`*` in the above formulas is 0-100, while the range of a* and b* is centered at 0).
 
 = Layer parameter file - basic features =
 
