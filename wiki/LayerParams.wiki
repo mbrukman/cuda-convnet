@@ -365,7 +365,7 @@ This will scale the input images _down_ by a factor of 1.3. So if your input con
 
 These layers convert between color spaces. Note that they cannot propagate gradient, and as such must not be placed over any layers with weights if you expect to learn those weights.
 
-== RGB to YUV layer ==
+=== RGB to YUV layer ===
 
 This layer converts RGB-coded images to YUV-coded images.
 
@@ -381,7 +381,7 @@ type=rgb2yuv
 inputs=data
 }}}
 
-== RGB to L*a*b* layer ==
+=== RGB to L*a*b* layer ===
 
 This layer converts RGB-coded images to L*a*b*-coded images. 
 
