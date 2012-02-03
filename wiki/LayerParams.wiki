@@ -647,21 +647,21 @@ Here is a valid `winitfile.py` file for this case:
 import numpy as n
 import numpy.random as nr
 
-def makew(name, shapes, params=None):
+def makew(name, idx, shape, params=None):
     stdev, mean = float(params[0]), float(params[1])
-    return [n.array(mean + stdev * nr.randn(rows, cols), dtype=n.single) for (rows, cols) in shapes]
+    rows, cols = shape
+    return n.array(mean + stdev * nr.randn(rows, cols), dtype=n.single)
 }}}
 
 This doesn't do anything useful, really -- it just initializes the weights from a normal distribution with mean 3 and standard deviation 0.5.
 
 But the above example should make clear the constraints on the weight-creating function.
-  * It must take three parameters:
-    # The layer name (in this case it would be *conv8*).
-    # A list of shapes for the weight matrices in that layer. Specifically, this is a list of (row, column) two-tuples. This list tells you the dimensions of the weight matrices that your function must return.
-    # A keyword parameter named `params`, which will receive a list of string parameters that you can specify in the `initWFunc` definition (as we did above).
-  * It must return a python list of `numpy.ndarray` objects.
-  * The length of this list must be equal to the number of input layers that your layer takes.
-  * Each `numpy.ndarray` object in the list must consist of single-precision floats.
+  * It must take four parameters:
+    # `name`: the layer name (in this example it would be *conv8*).
+    # `idx`: the weight matrix index within that layer. In this example it would be 0 when called to initialize the *conv6*-connected weight matrix and 1 when called to initialize the *conv5*-connected weight matrix.
+    # `shape`: a 2-tuple of (rows, columns) indicating the dimensions of the required weight matrix.
+    # `params`: a keyword parameter which receives a list of string parameters that you can specify in the `initWFunc` definition (as we did above).
+  * It must return a `numpy.ndarray` object consisting of single-precision floats.
 
 A typical use case for this might be to have the `makew` function load a weight matrix from some other model and return it. Note that you can easily load weight matrices stored as Matlab objects with the [http://docs.scipy.org/doc/scipy/reference/generated/scipy.io.loadmat.html scipy.io.loadmat] function.
 
