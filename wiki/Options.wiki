@@ -13,6 +13,7 @@ You should get the following output, briefly describing the command-line argumen
 convnet.py usage:
     Option                             Description                                          Default 
     [--check-grads <0/1>           ] - Check gradients and quit?                            [0]     
+    [--conserve-mem <0/1>          ] - Conserve GPU memory (slower)?                        [0]
     [--conv-to-local <string,...>  ] - Convert given conv layers to unshared local          []      
     [--crop-border <int>           ] - Cropped DP: crop border size                         [4]     
     [--epochs <int>                ] - Number of epochs                                     [50000] 
@@ -46,6 +47,7 @@ The angle brackets following the argument names tell you what kind of value each
 First the optional arguments:
 || *Argument* || *Meaning* ||
 || `--check-grads` || [CheckingGradients Check the gradients] ||
+|| `--conserve-mem` || Conserve GPU memory by deleting activity and gradient matrices when they're not needed. This will slow down the net but it will allow you to run larger nets.||
 || `--conv-to-local` || Convert the specified layers from convolutional to unshared, locally-connected. See [TrainingNet#Convert_convolutional_layers_to_unshared,_locally-connected_laye TrainingNet] for details. ||
 || `--crop-border` || When using a data provider that crops images (for example if you want to train on translations of the CIFAR-10), this specifies the size of the cropped region in pixels. The `cifar-cropped` data provider does this. ||
 || `--epochs` || How many epochs to train for. An epoch is one pass through the training data. ||
