@@ -703,9 +703,7 @@ def makeb(name, shape, params=None):
     return n.array(0.01 * nr.randn(shape[0], shape[1]), dtype=n.single)
 }}}
 
-There are two differences between the interface for the `makew` function and the `makeb` function:
-  # The `makeb` function takes a single shape two-tuple, rather than a list. The tuple tells you the shape (rows, columns) of the bias vector that you must return.
-  # The `makeb` function returns just one vector (`numpy.ndarray` object) rather than a list, since each layer has a single bias vector.
+The only difference between the interfaces for the `makew` function and the `makeb` function is that the `makeb` function takes no `idx` parameter since each layer only has one bias vector.
 
 The table below lists the shapes of the bias vectors for the various weight layers:
 
