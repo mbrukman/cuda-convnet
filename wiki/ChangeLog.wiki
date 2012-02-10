@@ -1,5 +1,8 @@
 #summary Summary of recent changes to the code.
 
+  * *Feb 8, 2012*
+    * Most layer types now should work well with minibatch size 64 or 32.
+    * Fixed --conserve-mem option so it can be combined with -f (i.e. its value can be changed after a net has been saved).
   * *Feb 3, 2012*
     * Convolution with minibatch sizes 32 or 64 should now be about twice as fast (though it's still most optimized for minibatch sizes divisible by 128).
     * Added [Options --conserve-mem] parameter.
