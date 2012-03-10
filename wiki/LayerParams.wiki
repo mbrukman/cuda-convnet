@@ -143,13 +143,13 @@ A few new parameters here:
 
 Since the pooling performed by this layer is per-channel, the number of output channels is equivalent to the number of input channels. But the size of the image in the x,y dimensions gets reduced.
 
-==Local response normalization layer==
+==Local response normalization layer (same map)==
 
 This kind of layer computes the function
 
 http://cuda-convnet.googlecode.com/svn/wiki/images/rnorm.gif
 
-for _x,,j,,_ in a local neighborhood of _x,,i,,_ of size _N_ x _N_. The output dimensionality of this layer is always equal to the input dimensionality. 
+for _x,,j,,_ in a local neighborhood of _x,,i,,_ of size _N_ x _N_ (in the same map or channel). The output dimensionality of this layer is always equal to the input dimensionality. 
 
 This type of layer turns out to be useful when using neurons with unbounded activations (e.g. rectified linear neurons), because it permits the detection of high-frequency features with a big neuron response, while damping responses that are uniformly large in a local neighborhood. It is a type of regularizer that encourages "competition" for big activities among nearby groups of neurons. 
 
@@ -160,7 +160,7 @@ Here's how this layer is specified:
 type=rnorm
 inputs=maxpool
 channels=32
-sizeX=5
+size=5
 scale=0.0000125
 pow=0.75
 }}}
@@ -170,6 +170,30 @@ pow=0.75
 || `sizeX=5` || the _N_ variable in the above formula, this defines the size of the local regions used for response normalization. Squares of (*sizeX*)^2^ are used to normalize each pixel. The squares are centered at the pixel. ||
 || `scale=0.0000125` || the _alpha_ variable in the above formula, this weights the response normalization term. Setting this to zero makes this layer's output equal to its input -- i.e., you get no response normalization.||
 || `pow=0.75` || the _beta_ variable in the above formula. Setting this to zero likewise makes this layer's output equal to its input. ||
+
+==Local response normalization layer (across maps)==
+
+This layer is just like the one described above, but units are divided only by the activities of other units *in the same position but in different maps (channels)*. 
+
+It's specified like this:
+
+{{{
+[rnorm1]
+type=rnorm
+inputs=maxpool
+channels=32
+size=5
+scale=0.0000125
+pow=0.75
+crossMap=true
+}}}
+
+The only new parameter here is *crossMap*, which indicates that the normalization is to be performed across different maps. The *size* parameter indicates how many nearby maps to use for normalization. For example, if your layer has 32 maps, a unit in the 7th map will be normalized by units in the 5th through 9th maps when *size* is set to 5.
+
+Specifically, the function that this layer computes is:
+
+http://cuda-convnet.googlecode.com/svn/wiki/images/rnorm-crossmap.gif
+
 
 ==Local contrast normalization layer==
 
