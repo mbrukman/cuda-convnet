@@ -167,7 +167,7 @@ pow=0.75
 
 || *Parameter* || *Meaning* ||
 || `channels=32` || indicates that this layer takes 32-channel input because that's what the *maxpool* layer produces. The number of "channels" here just serves to define the shape of the input and has no actual bearing on the output (unlike in convolutional layers, which sum over channels). ||
-|| `sizeX=5` || the _N_ variable in the above formula, this defines the size of the local regions used for response normalization. Squares of (*sizeX*)^2^ are used to normalize each pixel. The squares are centered at the pixel. ||
+|| `size=5` || the _N_ variable in the above formula, this defines the size of the local regions used for response normalization. Squares of (*size*)^2^ are used to normalize each pixel. The squares are centered at the pixel. ||
 || `scale=0.0000125` || the _alpha_ variable in the above formula, this weights the response normalization term. Setting this to zero makes this layer's output equal to its input -- i.e., you get no response normalization.||
 || `pow=0.75` || the _beta_ variable in the above formula. Setting this to zero likewise makes this layer's output equal to its input. ||
 
@@ -178,22 +178,20 @@ This layer is just like the one described above, but units are divided only by t
 It's specified like this:
 
 {{{
-[rnorm1]
-type=rnorm
+[rnorm2]
+type=cmrnorm
 inputs=maxpool
 channels=32
 size=5
 scale=0.0000125
 pow=0.75
-crossMap=true
 }}}
 
-The only new parameter here is *crossMap*, which indicates that the normalization is to be performed across different maps. The *size* parameter indicates how many nearby maps to use for normalization. For example, if your layer has 32 maps, a unit in the 7th map will be normalized by units in the 5th through 9th maps when *size* is set to 5.
+The *size* parameter indicates how many nearby maps to use for normalization. For example, if your layer has 32 maps, a unit in the 7th map will be normalized by units in the 5th through 9th maps when *size* is set to 5.
 
 Specifically, the function that this layer computes is:
 
 http://cuda-convnet.googlecode.com/svn/wiki/images/rnorm-crossmap.gif
-
 
 ==Local contrast normalization layer==
 
