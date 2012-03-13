@@ -1,5 +1,8 @@
 #summary Summary of recent changes to the code.
 
+  * *Mar 13, 2012*
+    * Added [LayerParams#Local_response_normalization_layer_(across_maps) response-normalization across maps] layer.
+    * Started modifying the code to support rectangular (i.e. non-square) images. The convolution code now supports rectangular images, but the remaining code does not yet. So the whole package still requires square images.
   * *Feb 8, 2012*
     * Most layer types now should work well with minibatch size 64 or 32.
     * Fixed --conserve-mem option so it can be combined with -f (i.e. its value can be changed after a net has been saved).
