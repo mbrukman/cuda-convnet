@@ -193,13 +193,15 @@ Specifically, the function that this layer computes is:
 
 http://cuda-convnet.googlecode.com/svn/wiki/images/rnorm-crossmap.gif
 
+Here _F_ is the number of maps.
+
 ==Local contrast normalization layer==
 
 This kind of layer computes the function
 
 http://cuda-convnet.googlecode.com/svn/wiki/images/cnorm.gif
 
-for _x,,j,,_ in a local neighborhood of _x,,i,,_ of size _N_ x _N_. _m,,i,,_ here is the mean of all _x,,j,,_ in the _N_ x _N_ neighborhood around _x,,i,,_. This layer is very similar computationally to response normalization -- the difference being that the denominator here computes the variance of activities in each neighborhood, rather than just the sum of squares.
+http://cuda-convnet.googlecode.com/svn/wiki/images/m_fxy.gif here is the mean of all http://cuda-convnet.googlecode.com/svn/wiki/images/m_fxy.gif in the 2D neighbourhood defined by the above summation bounds. This layer is very similar computationally to response normalization -- the difference being that the denominator here computes the variance of activities in each neighborhood, rather than just the sum of squares (correlation).
 
 Here's how this layer is specified:
 
