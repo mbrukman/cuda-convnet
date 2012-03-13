@@ -201,7 +201,7 @@ This kind of layer computes the function
 
 http://cuda-convnet.googlecode.com/svn/wiki/images/cnorm.gif
 
-http://cuda-convnet.googlecode.com/svn/wiki/images/m_fxy.gif here is the mean of all http://cuda-convnet.googlecode.com/svn/wiki/images/m_fxy.gif in the 2D neighbourhood defined by the above summation bounds. This layer is very similar computationally to response normalization -- the difference being that the denominator here computes the variance of activities in each neighborhood, rather than just the sum of squares (correlation).
+http://cuda-convnet.googlecode.com/svn/wiki/images/m_fxy.gif here is the mean of all http://cuda-convnet.googlecode.com/svn/wiki/images/u_fxy.gif in the 2D neighbourhood defined by the above summation bounds. This layer is very similar computationally to response normalization -- the difference being that the denominator here computes the variance of activities in each neighborhood, rather than just the sum of squares (correlation).
 
 Here's how this layer is specified:
 
