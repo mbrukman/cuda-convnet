@@ -149,7 +149,7 @@ This kind of layer computes the function
 
 http://cuda-convnet.googlecode.com/svn/wiki/images/rnorm.gif
 
-for _x,,j,,_ in a local neighborhood of _x,,i,,_ of size _N_ x _N_ (in the same map or channel). The output dimensionality of this layer is always equal to the input dimensionality. 
+where http://cuda-convnet.googlecode.com/svn/wiki/images/u_fxy.gif is the activity of a unit in map _f_ at position _x,y_ prior to normalization, _S_ is the image size, and _N_ is the size of the region to use for normalization. The output dimensionality of this layer is always equal to the input dimensionality. 
 
 This type of layer turns out to be useful when using neurons with unbounded activations (e.g. rectified linear neurons), because it permits the detection of high-frequency features with a big neuron response, while damping responses that are uniformly large in a local neighborhood. It is a type of regularizer that encourages "competition" for big activities among nearby groups of neurons. 
 
