@@ -161,15 +161,12 @@ type=rnorm
 inputs=maxpool
 channels=32
 size=5
-scale=0.0000125
-pow=0.75
 }}}
 
 || *Parameter* || *Meaning* ||
 || `channels=32` || indicates that this layer takes 32-channel input because that's what the *maxpool* layer produces. The number of "channels" here just serves to define the shape of the input and has no actual bearing on the output (unlike in convolutional layers, which sum over channels). ||
 || `size=5` || the _N_ variable in the above formula, this defines the size of the local regions used for response normalization. Squares of (*size*)^2^ are used to normalize each pixel. The squares are centered at the pixel. ||
-|| `scale=0.0000125` || the _alpha_ variable in the above formula, this weights the response normalization term. Setting this to zero makes this layer's output equal to its input -- i.e., you get no response normalization.||
-|| `pow=0.75` || the _beta_ variable in the above formula. Setting this to zero likewise makes this layer's output equal to its input. ||
+
 
 ==Local response normalization layer (across maps)==
 
@@ -483,15 +480,15 @@ coeff=1
 
 ... a scalar coefficient of the objective function. This provides an easy way to tweak the "global" learning rate of the network. Note, however, that tweaking this parameter is not equivalent to tweaking the *epsW* parameter of every layer in the net if you use weight decay. That's because tweaking *coeff* will leave the effective weight decay coefficient (`epsW*wc`) unchanged. But tweaking *epsW* will of course cause a change in `epsW*wc`.
 
-==Local response normalization layers (across maps)==
-This type of layer takes two parameters:
+==Local response/contrast normalization layers==
+The *rnorm*, *cnorm*, and *cmrnorm* layer types two parameters:
 
 {{{
 scale=0.0000125
 pow=0.75
 }}}
 
-These are the _alpha_ and _beta_, respectively, in the equation described in [LayerParams#Local_response_normalization_layer_(across_maps)].
+These are the _alpha_ and _beta_, respectively, in the equations in [LayerParams#Local_response_normalization_layer_(same_map)] and the two section following it.
 
 = Layer definition file  - slightly more advanced features =
 == Block sparse convolution layer ==
