@@ -167,6 +167,7 @@ size=5
 || `channels=32` || indicates that this layer takes 32-channel input because that's what the *maxpool* layer produces. The number of "channels" here just serves to define the shape of the input and has no actual bearing on the output (unlike in convolutional layers, which sum over channels). ||
 || `size=5` || the _N_ variable in the above formula, this defines the size of the local regions used for response normalization. Squares of (*size*)^2^ are used to normalize each pixel. The squares are centered at the pixel. ||
 
+The _alpha_ and _beta_ variables are specified in the [LayerParams#Local_response/contrast_normalization_layers layer parameter file], so that you can change them during training.
 
 ==Local response normalization layer (across maps)==
 
