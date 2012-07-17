@@ -1,5 +1,7 @@
 #summary Summary of recent changes to the code.
 
+  * *Jul 17, 2012*
+    * Fixed bug in contrast normalization backpropagation code which caused wrong gradients to be computed near image borders. (Thanks Hannes Schulz).
   * *Mar 13, 2012*
     * Added [LayerParams#Local_response_normalization_layer_(across_maps) response-normalization across maps] layer.
     * Started modifying the code to support rectangular (i.e. non-square) images. The convolution code now supports rectangular images, but the remaining code does not yet. So the whole package still requires square images.
