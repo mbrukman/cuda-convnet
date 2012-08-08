@@ -1,6 +1,6 @@
 #summary How to compile the code.
 
-<font color="red">*Note*:</font> A Fermi-generation GPU (GTX 4xx, GTX 5xx, or Tesla equivalent) is required to run this code. Older GPUs won't work. Newer (Kepler) GPUs might work, but I haven't yet gotten hold of one to test.
+<font color="red">*Note*:</font> A Fermi-generation GPU (GTX 4xx, GTX 5xx, or Tesla equivalent) is required to run this code. Older GPUs won't work. Newer (Kepler) GPUs also will work, but as the GTX 680 is a terrible, terrible GPU for non-gaming purposes, I would not recommend that you use it. (It will be slow). 
 
 = On Linux =
 
