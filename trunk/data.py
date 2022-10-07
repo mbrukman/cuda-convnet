@@ -103,7 +103,7 @@ class DataProvider:
     
     @classmethod
     def get_instance(cls, data_dir, batch_range=None, init_epoch=1, init_batchnum=None, type="default", dp_params={}, test=False):
-        # why the fuck can't i reference DataProvider in the original definition?
+        # why can't i reference DataProvider in the original definition?
         #cls.dp_classes['default'] = DataProvider
         type = type or DataProvider.get_batch_meta(data_dir)['dp_type'] # allow data to decide data provider
         if type.startswith("dummy-"):
