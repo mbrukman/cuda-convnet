@@ -25,7 +25,7 @@ dataIdx=1
 # By the way, this is a comment.
 }}}
 
-The things in square brackets are user-friendly layer names, and they can be whatever you want them to be. Here we're really defining two layers: one we're calling *data* and the other we're calling *labels*. 
+The things in square brackets are user-friendly layer names, and they can be whatever you want them to be. Here we're really defining two layers: one we're calling *data* and the other we're calling *labels*.
 
 The *type=data* line indicates that this is a data layer.
 
@@ -149,9 +149,9 @@ This kind of layer computes the function
 
 http://cuda-convnet.googlecode.com/svn/wiki/images/rnorm.gif
 
-where http://cuda-convnet.googlecode.com/svn/wiki/images/u_fxy.gif is the activity of a unit in map _f_ at position _x,y_ prior to normalization, _S_ is the image size, and _N_ is the size of the region to use for normalization. The output dimensionality of this layer is always equal to the input dimensionality. 
+where http://cuda-convnet.googlecode.com/svn/wiki/images/u_fxy.gif is the activity of a unit in map _f_ at position _x,y_ prior to normalization, _S_ is the image size, and _N_ is the size of the region to use for normalization. The output dimensionality of this layer is always equal to the input dimensionality.
 
-This type of layer turns out to be useful when using neurons with unbounded activations (e.g. rectified linear neurons), because it permits the detection of high-frequency features with a big neuron response, while damping responses that are uniformly large in a local neighborhood. It is a type of regularizer that encourages "competition" for big activities among nearby groups of neurons. 
+This type of layer turns out to be useful when using neurons with unbounded activations (e.g. rectified linear neurons), because it permits the detection of high-frequency features with a big neuron response, while damping responses that are uniformly large in a local neighborhood. It is a type of regularizer that encourages "competition" for big activities among nearby groups of neurons.
 
 Here's how this layer is specified:
 
@@ -171,7 +171,7 @@ The _alpha_ and _beta_ variables are specified in the [LayerParams#Local_respons
 
 ==Local response normalization layer (across maps)==
 
-This layer is just like the one described above, but units are divided only by the activities of other units *in the same position but in different maps (channels)*. 
+This layer is just like the one described above, but units are divided only by the activities of other units *in the same position but in different maps (channels)*.
 
 It's specified like this:
 
@@ -264,7 +264,7 @@ This will produce an output matrix in which every element at position (_i_,_j_) 
 
 ==Softmax layer==
 
-This layer computes the function 
+This layer computes the function
 
 http://cuda-convnet.googlecode.com/svn/wiki/images/softmax.gif
 
@@ -319,7 +319,7 @@ Data manipulation layers pre-process the data in some way. Normal use cases do n
 
 ==Gaussian blur layer==
 
-This kind of layer is useful if you're interested in multi-scale learning. Many vision systems learn (or simply apply) features at multiple scales. To do that, it's good to be able to subsample the input images in a way that doesn't introduce a lot of aliasing. Blurring them achieves that. 
+This kind of layer is useful if you're interested in multi-scale learning. Many vision systems learn (or simply apply) features at multiple scales. To do that, it's good to be able to subsample the input images in a way that doesn't introduce a lot of aliasing. Blurring them achieves that.
 
 So here's how you specify a [http://en.wikipedia.org/wiki/Gaussian_blur Gaussian blur] layer:
 
@@ -341,7 +341,7 @@ The non-obvious parameters are:
 The number of output values in this layer is equal to the number of input values.
 
 The layer defined above will convolve its input layer *data* with the following 1-D filter (both horizontally and vertically, of course):
-{{{ 
+{{{
 [0.05448869,  0.24420136,  0.40261996,  0.24420136,  0.05448869]
 }}}
 
@@ -403,7 +403,7 @@ inputs=data
 
 === RGB to L`*`a`*`b`*` layer ===
 
-This layer converts RGB-coded images to L`*`a`*`b`*`-coded images. 
+This layer converts RGB-coded images to L`*`a`*`b`*`-coded images.
 
 Specifically, it applies the two transformations described on these Wikipedia pages:
   # http://en.wikipedia.org/wiki/CIE_1931_color_space#Construction_of_the_CIE_XYZ_color_space_from_the_Wright.E2.80.93Guild_data
@@ -558,14 +558,14 @@ There are two new parameters here:
 *Random sparsity may be used in convolutional layers as well as in locally-connected unshared layers.* For locally-connected unshared layers, each group of *filters* filters at _all locations_ will connect to the same random subset of input channels. So in all there will still be *groups* random subsets, just like in a convolutional layer.
 
 ===Performance notes===
-  * Random sparse convolutional layers are only about 1% less efficient computationally than block sparse convolutional layers, which themselves are as efficient as non-sparse convolutional layers. So there's no performance reason to avoid them. 
+  * Random sparse convolutional layers are only about 1% less efficient computationally than block sparse convolutional layers, which themselves are as efficient as non-sparse convolutional layers. So there's no performance reason to avoid them.
   * The computation will be most efficient when `filterChannels` is divisible by 16 and `filters` is divisible by 32.
 
 ==Layers with multiple inputs==
 
 All of the layers with weights (convolutional, locally-connected, and fully-connected) can take multiple layers as input. When there are multiple input layers, a separate set of weights (filters, if you like) is used for each input. Each input/weight pair produces some output, and the final output of the layer is the summation of all those outputs. This implies that all input/weight pairs must produce output of equivalent dimensions.
 
-For example, you can write a convolutional layer with two input layers like this: 
+For example, you can write a convolutional layer with two input layers like this:
 {{{
 [conv5b]
 type=conv
@@ -616,7 +616,7 @@ inputs=conv5
 weightSource=conv6
 }}}
 
-This says that the layer *conv7* will use the same weight matrix as *conv6*. Of course this requires that the weight matrix of *conv6* have the same shape as the weight matrix that *conv7* would have had without sharing. 
+This says that the layer *conv7* will use the same weight matrix as *conv6*. Of course this requires that the weight matrix of *conv6* have the same shape as the weight matrix that *conv7* would have had without sharing.
 
 Note also that the momentum and weight decay parameters given for *conv7* in the layer parameter file will be ignored. Only layers which own their weight matrix apply momentum and weight decay. Additionally, the *initW* parameter will also be ignored, for obvious reasons.
 

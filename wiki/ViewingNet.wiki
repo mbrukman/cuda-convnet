@@ -39,11 +39,11 @@ This will plot the classification error rather than the log probability of the d
 
 ==Viewing learned filters==
 To view the filters that the net learned, call the script like this:
-  
+
 {{{
 python shownet.py -f /storage2/tmp/ConvNet__2011-08-24_16.49.31 --show-filters=conv32
 }}}
-  
+
 This will cause the script to draw the filters in the layer named `conv32`. You should see output that looks something like this:
 
 http://cuda-convnet.googlecode.com/svn/wiki/images/filters.png
@@ -72,7 +72,7 @@ python shownet.py -f /storage2/tmp/ConvNet__2011-08-24_16.49.31 --show-filters=c
 
 ===Viewing learned filters in fully-connected layers===
 There is one extra meta-parameter that the `--show-filters` parameter takes, which is only useful for viewing filters in fully-connected layers.
-  
+
 Running the script like this:
 
 {{{

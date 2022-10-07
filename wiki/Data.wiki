@@ -31,8 +31,8 @@ Inside the [http://code.google.com/p/cuda-convnet/source/browse/trunk/include/ut
 /*
  * Store entire data matrix on GPU if its size does not exceed this many MB.
  * Otherwise store only one minibatch at a time.
- */ 
-#define MAX_DATA_ON_GPU             200 
+ */
+#define MAX_DATA_ON_GPU             200
 }}}
 
 So, if your batch size isn't too big, it will correspond to the amount of data copied to the GPU at a time. Otherwise only one minibatch will be copied at a time, and the batch size will not have much meaning at all.

@@ -32,21 +32,21 @@ Initialized logistic regression cost 'logprob'
 Importing _ConvNet C++ module
 =========================
 Training ConvNet
-Check gradients and quit?   : 1     
+Check gradients and quit?   : 1
 Compress checkpoints?       : 0     [DEFAULT]
-Data batch range: testing   : 0-0   
-Data batch range: training  : 0-0   
-Data path                   :       
-Data provider               : dummy-cn-192 
+Data batch range: testing   : 0-0
+Data batch range: training  : 0-0
+Data path                   :
+Data provider               : dummy-cn-192
 GPU override                :       [DEFAULT]
-Layer definition file       : ./layers.gc.cfg 
-Layer parameter file        : ./layer-params.gc.cfg 
+Layer definition file       : ./layers.gc.cfg
+Layer parameter file        : ./layer-params.gc.cfg
 Load file                   :       [DEFAULT]
 Maximum save file size (MB) : 0     [DEFAULT]
 Minibatch size              : 128   [DEFAULT]
 Number of GPUs              : 1     [DEFAULT]
 Number of epochs            : 50000 [DEFAULT]
-Save path                   :       
+Save path                   :
 Test and quit?              : 0     [DEFAULT]
 Test on one batch at a time?: 1     [DEFAULT]
 Testing frequency           : 50    [DEFAULT]
@@ -73,7 +73,7 @@ The first one controls whether anything should be printed for gradients that pas
 
 But please note that in general, numerical gradient testing is a bit of a black art. Nonlinearities in the network, especially in deep networks, make it difficult to accurately estimate the gradient with finite differences. A relative error greater than 2% does not _necessarily_ mean that the analytic gradient was computed incorrectly. I heuristically and arbitrarily chose a relative error of 2% as the threshold between "pass" and "fail". Anything around 10% almost certainly means the gradient was computed correctly.
 
-Each layer type in [http://code.google.com/p/cuda-convnet/source/browse/trunk/src/layer.cu layer.cu] defines a `checkGradients` method, in which it specifies the _epsilon_ that should be used in the equation 
+Each layer type in [http://code.google.com/p/cuda-convnet/source/browse/trunk/src/layer.cu layer.cu] defines a `checkGradients` method, in which it specifies the _epsilon_ that should be used in the equation
 
 http://cuda-convnet.googlecode.com/svn/wiki/images/finite-diff.gif
 

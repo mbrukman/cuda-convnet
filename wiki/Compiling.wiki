@@ -1,6 +1,6 @@
 #summary How to compile the code.
 
-<font color="red">*Note*:</font> A Fermi-generation GPU (GTX 4xx, GTX 5xx, or Tesla equivalent) is required to run this code. Older GPUs won't work. Newer (Kepler) GPUs also will work, but as the GTX 680 is a terrible, terrible GPU for non-gaming purposes, I would not recommend that you use it. (It will be slow). 
+<font color="red">*Note*:</font> A Fermi-generation GPU (GTX 4xx, GTX 5xx, or Tesla equivalent) is required to run this code. Older GPUs won't work. Newer (Kepler) GPUs also will work, but as the GTX 680 is a terrible, terrible GPU for non-gaming purposes, I would not recommend that you use it. (It will be slow).
 
 = On Linux =
 
@@ -9,7 +9,7 @@
 Here's what I hope to be a complete list of prerequisite libraries. Please [mailto:akrizhevsky@gmail.com email me] if I'm wrong.
 
 || *Library* || *Ubuntu package name* || *Fedora package name* ||
-|| Python development libraries/headers || python-dev || python-devel || 
+|| Python development libraries/headers || python-dev || python-devel ||
 || Numpy || python-numpy || numpy ||
 || Python libmagic bindings || python-magic || python-magic ||
 || Matplotlib || python-matplotlib || python-matplotlib ||
@@ -45,7 +45,7 @@ It's possible, but perhaps not easy, to compile and use this code on Windows. I 
 
 He notes that you will have to
   * Point Visual Studio to the location of your MKL install.
-  * Compile with the `USE_MKL` preprocessor macro defined. 
+  * Compile with the `USE_MKL` preprocessor macro defined.
   * Replace the dependency on pthreads with [http://sourceware.org/pthreads-win32/ pthreads-win32].
 
 Good luck.

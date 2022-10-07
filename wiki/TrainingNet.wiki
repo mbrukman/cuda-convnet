@@ -19,30 +19,30 @@ python convnet.py
 You should get the following output:
 {{{
 convnet.py usage:
-    Option                             Description                                          Default 
-    [--check-grads <0/1>           ] - Check gradients and quit?                            [0]     
-    [--conv-to-local <string,...>  ] - Convert given conv layers to unshared local          []      
-    [--crop-border <int>           ] - Cropped DP: crop border size                         [4]     
-    [--epochs <int>                ] - Number of epochs                                     [50000] 
-    [-f <string>                   ] - Load file                                            []      
-    [--gpu <int,...>               ] - GPU override                                         []      
-    [--logreg-name <string>        ] - Cropped DP: logreg layer name (for --multiview-test) []      
-    [--max-filesize <int>          ] - Maximum save file size (MB)                          [0]     
-    [--mini <int>                  ] - Minibatch size                                       [128]   
-    [--multiview-test <0/1>        ] - Cropped DP: test on multiple patches?                [0]     
-    [--num-gpus <int>              ] - Number of GPUs                                       [1]     
-    [--test-freq <int>             ] - Testing frequency                                    [50]    
-    [--test-one <0/1>              ] - Test on one batch at a time?                         [1]     
-    [--test-only <0/1>             ] - Test and quit?                                       [0]     
-    [--unshare-weights <string,...>] - Unshare weight matrices in given layers              []      
-    [--zip-save <0/1>              ] - Compress checkpoints?                                [0]     
-     --data-path <string>            - Data path                                                    
-     --data-provider <string>        - Data provider                                                
-     --layer-def <string>            - Layer definition file                                        
-     --layer-params <string>         - Layer parameter file                                         
-     --save-path <string>            - Save path                                                    
-     --test-range <int[-int]>        - Data batch range: testing                                    
-     --train-range <int[-int]>       - Data batch range: training               
+    Option                             Description                                          Default
+    [--check-grads <0/1>           ] - Check gradients and quit?                            [0]
+    [--conv-to-local <string,...>  ] - Convert given conv layers to unshared local          []
+    [--crop-border <int>           ] - Cropped DP: crop border size                         [4]
+    [--epochs <int>                ] - Number of epochs                                     [50000]
+    [-f <string>                   ] - Load file                                            []
+    [--gpu <int,...>               ] - GPU override                                         []
+    [--logreg-name <string>        ] - Cropped DP: logreg layer name (for --multiview-test) []
+    [--max-filesize <int>          ] - Maximum save file size (MB)                          [0]
+    [--mini <int>                  ] - Minibatch size                                       [128]
+    [--multiview-test <0/1>        ] - Cropped DP: test on multiple patches?                [0]
+    [--num-gpus <int>              ] - Number of GPUs                                       [1]
+    [--test-freq <int>             ] - Testing frequency                                    [50]
+    [--test-one <0/1>              ] - Test on one batch at a time?                         [1]
+    [--test-only <0/1>             ] - Test and quit?                                       [0]
+    [--unshare-weights <string,...>] - Unshare weight matrices in given layers              []
+    [--zip-save <0/1>              ] - Compress checkpoints?                                [0]
+     --data-path <string>            - Data path
+     --data-provider <string>        - Data provider
+     --layer-def <string>            - Layer definition file
+     --layer-params <string>         - Layer parameter file
+     --save-path <string>            - Save path
+     --test-range <int[-int]>        - Data batch range: testing
+     --train-range <int[-int]>       - Data batch range: training
 }}}
 
 You can read about the meanings of these options [Options here].
@@ -82,22 +82,22 @@ Compress checkpoints?                : 0   [DEFAULT]
 Cropped DP: crop border size         : 4   [DEFAULT]
 Cropped DP: logreg layer name        :     [DEFAULT]
 Cropped DP: test on multiple patches?: 0   [DEFAULT]
-Data batch range: testing            : 6-6 
-Data batch range: training           : 1-5 
-Data path                            : /storage2/tiny/cifar-10-batches-py-colmajor/ 
-Data provider                        : cifar 
+Data batch range: testing            : 6-6
+Data batch range: training           : 1-5
+Data path                            : /storage2/tiny/cifar-10-batches-py-colmajor/
+Data provider                        : cifar
 GPU override                         :     [DEFAULT]
-Layer definition file                : ./example-layers/layers-19pct.cfg 
-Layer parameter file                 : ./example-layers/layer-params-19pct.cfg 
+Layer definition file                : ./example-layers/layers-19pct.cfg
+Layer parameter file                 : ./example-layers/layer-params-19pct.cfg
 Load file                            :     [DEFAULT]
 Maximum save file size (MB)          : 0   [DEFAULT]
 Minibatch size                       : 128 [DEFAULT]
 Number of GPUs                       : 1   [DEFAULT]
-Number of epochs                     : 300 
-Save path                            : /storage2/tmp 
+Number of epochs                     : 300
+Save path                            : /storage2/tmp
 Test and quit?                       : 0   [DEFAULT]
 Test on one batch at a time?         : 1   [DEFAULT]
-Testing frequency                    : 13  
+Testing frequency                    : 13
 }}}
 
 ... a printout of the command-line arguments with which the net was run.
@@ -118,14 +118,14 @@ Saving checkpoints to /storage2/tmp/ConvNet__2011-06-29_22.19.39
 2.5... logprob:  1.605653, 0.584900 (1.395 sec)
 3.1... logprob:  1.561900, 0.565300 (1.397 sec)
 3.2... logprob:  1.553927, 0.561000 (1.397 sec)
-3.3... logprob:  1.497355, 0.538400 
+3.3... logprob:  1.497355, 0.538400
 ======================Test output======================
-logprob:  1.538126, 0.553400 
-------------------------------------------------------- 
-Layer 'conv1' weights: 1.411148e-02 [6.725948e-05] 
-Layer 'conv2' weights: 8.830208e-03 [2.333602e-05] 
-Layer 'conv3' weights: 8.476456e-03 [2.630907e-05] 
-Layer 'fc10' weights[0]: 1.826295e-03 [1.369660e-04] 
+logprob:  1.538126, 0.553400
+-------------------------------------------------------
+Layer 'conv1' weights: 1.411148e-02 [6.725948e-05]
+Layer 'conv2' weights: 8.830208e-03 [2.333602e-05]
+Layer 'conv3' weights: 8.476456e-03 [2.630907e-05]
+Layer 'fc10' weights[0]: 1.826295e-03 [1.369660e-04]
 -------------------------------------------------------
 Saved checkpoint to /storage2/tmp/ConvNet__2011-06-29_22.19.39
 ======================================================= (1.918 sec)
@@ -149,7 +149,7 @@ python convnet.py -f /storage2/tmp/ConvNet__2011-06-29_22.19.39
 
 The net will resume from the last checkpoint. If you want to resume from an earlier checkpoint, pass a specific checkpoint file inside `/storage2/tmp/ConvNet__2011-06-29_22.19.39` to the *-f* parameter. The checkpoint files are numbered by their epoch and batch numbers.
 
-== Training on image translations == 
+== Training on image translations ==
 
 Most image classification results can be improved by training on slight translations of the original images. This is an easy way to multiply the amount of training data available, and hence combat over-fitting.
 
