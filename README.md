@@ -2,9 +2,13 @@
 
 High-performance C++/CUDA implementation of abstract convolutional neural networks.
 
-This is an export of the **cuda-convnet** project, which was previously hosted
-on [Google Code](http://code.google.com/p/cuda-convnet/), with some cleanups for
-readability.
+This is an export of the
+[**cuda-convnet**](http://code.google.com/p/cuda-convnet/) project from Google
+Code, with some cleanups for readability.
+
+It contains the implementation of the [AlexNet][alexnet] Convolutional Neural
+Network model for image recognition that was state-of-the-art at the time of its
+release.
 
 ## Contributing
 
@@ -19,10 +23,11 @@ other ML papers in [another project][reimplementing] if you would like to follow
 along.
 
 If you would like to continue the development of this project, please feel free
-to fork it.
+to fork it, or contribute to another existing fork.
 
 ## License
 
 BSD-2-Clause license; see [`LICENSE`](LICENSE) for details.
 
+[alexnet]: https://en.wikipedia.org/wiki/AlexNet
 [reimplementing]: https://github.com/mbrukman/reimplementing-ml-papers
