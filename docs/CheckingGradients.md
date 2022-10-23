@@ -1,26 +1,43 @@
-#summary How to verify that the gradients computed by the net are correct.
+# How to verify that the gradients computed by the net are correct
 
 *Note: the only reason to read this section is if you suspect a bug in the code.*
 
-= Testing the gradients =
+## Testing the gradients
 
-This code is capable of using a finite-difference calculation to numerically test the gradients that it computes for training. It can only do this on small models, because numerically computing a gradient for each weight is highly computationally-intensive.
+This code is capable of using a finite-difference calculation to numerically
+test the gradients that it computes for training. It can only do this on small
+models, because numerically computing a gradient for each weight is highly
+computationally-intensive.
 
-But here's how to do it. You should read the [LayerParams] and [TrainingNet] sections first so you're familiar with how to run the net.
+But here's how to do it. You should read the [layer params](LayerParams.md) and
+[training net](TrainingNet.md) sections first so you're familiar with how to run
+the net.
 
-*Note also that in order for the numerical gradient testing computation to produce accurate results, you will need to use bigger weight initializations than you normally would (that's the initW parameter in layers that have weights).*
+*Note also that in order for the numerical gradient testing computation to
+produce accurate results, you will need to use bigger weight initializations
+than you normally would (that's the `initW` parameter in layers that have
+weights).*
 
-Once you've checked out the code, you can find some dummy architecture definition files in the `example-layers/` subdirectory. You can verify the gradients computed for that dummy architecture with this line:
+Once you've checked out the code, you can find some dummy architecture
+definition files in the [`../example-layers`](../example-layers) subdirectory.
+You can verify the gradients computed for that dummy architecture with this
+line:
 
-{{{
-python convnet.py --layer-def=./example-layers/layers.gc.cfg --layer-params=./example-layers/layer-params.gc.cfg --data-provider=dummy-cn-192 --check-grads=1
-}}}
+```sh
+python convnet.py \
+    --layer-def=./example-layers/layers.gc.cfg \
+    --layer-params=./example-layers/layer-params.gc.cfg \
+    --data-provider=dummy-cn-192 \
+    --check-grads=1
+```
 
-Notice that we're using a dummy data provider to produce 192-dimensional input, which is interpreted by the net as 8x8 3-channel images (see the *conv32* layer in layer definition file).
+Notice that we're using a dummy data provider to produce 192-dimensional input,
+which is interpreted by the net as 8x8 3-channel images (see the `conv32` layer
+in layer definition file).
 
 You'll see output that, in my case, looks like this:
 
-{{{
+```
 Initialized data layer 'data', producing 192 outputs
 Initialized data layer 'labels', producing 1 outputs
 Initialized convolutional layer 'conv32', producing 6x6 16-channel output
@@ -57,24 +74,41 @@ Saving checkpoints to ConvNet__2011-06-30_20.38.02
 =========================
 2.1...------------------------
 ALL 7 TESTS PASSED
-}}}
+```
 
-The model verifies the gradients of each of the weight matrices in the net. In this case there are 7 of them. Had any of the gradient tests failed, the model would have printed out the relative error between the results of the analytic computation and the numerical one. The relative error between two vectors is
+The model verifies the gradients of each of the weight matrices in the net. In
+this case there are 7 of them. Had any of the gradient tests failed, the model
+would have printed out the relative error between the results of the analytic
+computation and the numerical one. The relative error between two vectors is
 
-http://cuda-convnet.googlecode.com/svn/wiki/images/rel-err.gif
+![relative error](images/rel-err.gif)
 
-In the file [http://code.google.com/p/cuda-convnet/source/browse/trunk/include/util.cuh util.cuh], there are these two lines:
-{{{
+In the file [`util.cuh`](../include/util.cuh), there are these two lines:
+
+```
 #define GC_SUPPRESS_PASSES     true
 #define GC_REL_ERR_THRESH      0.02
-}}}
+```
 
-The first one controls whether anything should be printed for gradients that pass. The second defines what a pass is. You can see that at present, any relative error smaller than 0.02 (2%) is considered a pass.
+The first one controls whether anything should be printed for gradients that
+pass. The second defines what a pass is. You can see that at present, any
+relative error smaller than 0.02 (2%) is considered a pass.
 
-But please note that in general, numerical gradient testing is a bit of a black art. Nonlinearities in the network, especially in deep networks, make it difficult to accurately estimate the gradient with finite differences. A relative error greater than 2% does not _necessarily_ mean that the analytic gradient was computed incorrectly. I heuristically and arbitrarily chose a relative error of 2% as the threshold between "pass" and "fail". Anything around 10% almost certainly means the gradient was computed correctly.
+But please note that in general, numerical gradient testing is a bit of a black
+art. Nonlinearities in the network, especially in deep networks, make it
+difficult to accurately estimate the gradient with finite differences. A
+relative error greater than 2% does not _necessarily_ mean that the analytic
+gradient was computed incorrectly. I heuristically and arbitrarily chose a
+relative error of 2% as the threshold between "pass" and "fail". Anything around
+10% almost certainly means the gradient was computed correctly.
 
-Each layer type in [http://code.google.com/p/cuda-convnet/source/browse/trunk/src/layer.cu layer.cu] defines a `checkGradients` method, in which it specifies the _epsilon_ that should be used in the equation
+Each layer type in [`layer.cu`](../src/layer.cu) defines a `checkGradients`
+method, in which it specifies the _epsilon_ that should be used in the equation
 
-http://cuda-convnet.googlecode.com/svn/wiki/images/finite-diff.gif
+![finite difference](images/finite-diff.gif)
 
-which is used to numerically compute the gradients. My experience has been that if your gradients are computed correctly, it's possible to find a value of _epsilon_ to make the numerical computation match the analytic one to a high degree of accuracy. If your gradients are computed incorrectly, this is impossible.
+which is used to numerically compute the gradients. My experience has been that
+if your gradients are computed correctly, it's possible to find a value of
+_epsilon_ to make the numerical computation match the analytic one to a high
+degree of accuracy. If your gradients are computed incorrectly, this is
+impossible.
