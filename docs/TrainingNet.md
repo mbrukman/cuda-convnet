@@ -186,7 +186,8 @@ increment. This output is useful for spotting learning rates that are too low
 
 If you want to change the learning parameters you specified, you can just kill
 the net with Ctrl-C (or kill -9, etc.), change the learning parameters in
-`./example-layers/layer-params-19pct.cfg`, and then restart the net like this:
+[`../example-layers/layer-params-19pct.cfg`](../example-layers/layer-params-19pct.cfg),
+and then restart the net like this:
 
 ```sh
 python convnet.py -f /storage2/tmp/ConvNet__2011-06-29_22.19.39

@@ -30,9 +30,9 @@ drwxr-xr-x 34 spoon spoon     4096 2011-06-29 21:40 ..
 
 Ideally, your test/validation data should be in a separate file from the other files. Here batch 6 is the test set.
 
-Inside the [`util.cuh`](../include/util.cuh util.cuh) file, there's this line:
+Inside the [`util.cuh`](../include/util.cuh) file, there's this line:
 
-```
+```c
 /*
  * Store entire data matrix on GPU if its size does not exceed this many MB.
  * Otherwise store only one minibatch at a time.
@@ -91,7 +91,7 @@ This code ships with three data providers. You can find them all in
   This is useful if you want to train on translations of the CIFAR-10 images.
   See [training net](TrainingNet.md#Training_on_image_translations) for details.
 * `DummyConvNetDataProvider` is used to generate dummy data for gradient-testing
-  computations. See CheckingGradients for details.
+  computations. See [checking gradients](CheckingGradients.md) for details.
 
 Once you've written a new data provider to parse your data, you can register it
 at the bottom of the [`convnet.py`](../convnet.py) file with the
