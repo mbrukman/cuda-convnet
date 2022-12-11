@@ -81,11 +81,13 @@ this case there are 7 of them. Had any of the gradient tests failed, the model
 would have printed out the relative error between the results of the analytic
 computation and the numerical one. The relative error between two vectors is
 
-![relative error](images/rel-err.gif)
+$$ \frac{\lVert x_1 - x_2 \rVert}
+        {\lVert x_1       \rVert}
+$$
 
 In the file [`util.cuh`](../include/util.cuh), there are these two lines:
 
-```
+```c
 #define GC_SUPPRESS_PASSES     true
 #define GC_REL_ERR_THRESH      0.02
 ```
@@ -105,7 +107,7 @@ relative error of 2% as the threshold between "pass" and "fail". Anything around
 Each layer type in [`layer.cu`](../src/layer.cu) defines a `checkGradients`
 method, in which it specifies the _epsilon_ that should be used in the equation
 
-![finite difference](images/finite-diff.gif)
+$$ f'(x) = \frac{f(x + \varepsilon) - f(x)}{\varepsilon} $$
 
 which is used to numerically compute the gradients. My experience has been that
 if your gradients are computed correctly, it's possible to find a value of
