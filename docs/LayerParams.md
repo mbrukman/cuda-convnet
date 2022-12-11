@@ -71,7 +71,7 @@ Here's what the other parameters mean:
 | `padding=4` | `0` | instructs the net to implicitly pad the images with a 4-pixel border of zeros (this does not cause it to create a copy of the data or use any extra memory). Set to 0 if you don't want padding.|
 | `stride=1` | `1` | indicates that the distance between successive filter applications should be 1 pixel. |
 | `filterSize=9` | `--` | says that this layer will use filters of size 9x9 pixels (with 3 channels). |
-| `neuron=logistic` | `ident` | defines the neuron activation function to be applied to the output of the convolution. If omitted, no function is applied. See NeuronTypes for supported types. *All layers except data and cost layers can take a neuron parameter.*|
+| `neuron=logistic` | `ident` | defines the neuron activation function to be applied to the output of the convolution. If omitted, no function is applied. See [neuron types](NeuronTypes.md) for supported types. *All layers except data and cost layers can take a neuron parameter.*|
 | `initW=0.00001` | `0.01` | instructs the net to initialize the weights in this layer from a normal distribution with mean zero and standard deviation 0.00001.|
 | `initB=0.5` | `0` | instructs the net to initialize the biases in this layer to 0.5.|
 | `sharedBiases=true` | `true` | indicates that the biases of every filter in this layer should be shared amongst all applications of that filter (which is how convnets are usually trained). Setting this to false will untie the biases, yielding a separate bias for every location at which the filter is applied. |
@@ -256,7 +256,7 @@ normalization layer described above.
 ### Neuron layer
 
 This layer takes one layer as input and applies a neuron activation function to
-it. See NeuronTypes for available activation functions.
+it. See [neuron types](NeuronTypes.md) for available activation functions.
 
 This layer is specified like this:
 
